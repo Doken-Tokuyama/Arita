@@ -27,7 +27,7 @@ Pins:
 1. Arity 1; Int only.
 2. **None** si `b == 0` **o** overflow (`MIN / -1`).
 3. Some(quot) otherwise (Rust trunc toward zero).
-4. Whitelist. Safe-only. E0216 sigue para operador `/` lit0.
+4. Whitelist. Safe-only. E0216 still applies for operator `/` lit0.
 
 ### 2. OUT v0
 

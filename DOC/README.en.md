@@ -76,10 +76,10 @@ ARITA is a general-purpose language **designed to be written by AIs** that **com
 
 The [ADR/](ADR/) folder holds architecture decision records (ADR), one per decision. Some starting points:
 
-- [ADR/001-emit-rust-mvp.md](ADR/001-emit-rust-mvp.md) — why Rust is emitted
-- [ADR/002-isla-logica-propia.md](ADR/002-isla-logica-propia.md) — own logic engine
-- [ADR/022-safe-only.md](ADR/022-safe-only.md) — ARITA is safe Rust only
-- [ADR/225-semantics-v0.1.md](ADR/225-semantics-v0.1.md) — normative semantics map
+- [ADR/001-emit-rust-mvp.md](ADR/001-emit-rust-mvp.en.md) — why Rust is emitted
+- [ADR/002-isla-logica-propia.md](ADR/002-isla-logica-propia.en.md) — own logic engine
+- [ADR/022-safe-only.md](ADR/022-safe-only.en.md) — ARITA is safe Rust only
+- [ADR/225-semantics-v0.1.md](ADR/225-semantics-v0.1.en.md) — normative semantics map
 
 ## Examples
 

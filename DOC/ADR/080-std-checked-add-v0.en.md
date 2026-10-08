@@ -40,7 +40,7 @@ Pins: arity 1; Int only; whitelist; match/if-let Option; safe-only. Complements 
 
 ## Checklist
 
-- [x] Pins Option + oráculos
+- [x] Option pins + oracles
 - [x] GO DOC + IMPL
 - [x] Landed + measure Lex **187/187** (STABLE_VERIFY)
 

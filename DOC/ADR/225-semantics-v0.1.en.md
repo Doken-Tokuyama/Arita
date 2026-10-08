@@ -154,7 +154,7 @@ Every R* rule must bind to ≥1 of:
 ## 11. Checklist
 
 - [x] R0–R8 map draft + evidence  
-- [x] ACK <person> vía RFC rev. 2  
+- [x] ACK <person> via RFC rev. 2  
 - [x] IndexGet / Insert / Mutex addenda (ADR-227/228/229)  
 - [ ] Docs signatures (THREAT_MODEL + ROADMAP tick)  
 - [ ] ADR-230 evidence chain  

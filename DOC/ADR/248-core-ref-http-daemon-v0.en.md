@@ -41,7 +41,7 @@ Only ADR-245 HTTP + ADR-246 policy + ADR-247 client/scenarios + already-CLOSED a
 | `core02-ref-echo` | POST echo roundtrip |
 | `core02-ref-body-cap` | oversize → Err / non-200 |
 | `core02-ref-shutdown` | no hang post-shutdown |
-| `core02-ref-evidence` | evidence JSON presente + hash estable (re-run) |
+| `core02-ref-evidence` | evidence JSON present + stable hash (re-run) |
 
 skip ≠ PASS. Aggregated Lex suite signs the agreed bar (Engineer sets N/N).
 
@@ -56,7 +56,7 @@ skip ≠ PASS. Aggregated Lex suite signs the agreed bar (Engineer sets N/N).
 - Lex measure green bar (§2 table)
 - Evidence artifact in tree/local CI
 - ADR-233 / ROADMAP: Core 0.2 **CLOSED**
-- **Sin** unpark HOLD globales
+- **Sin** unpark global HOLDs
 
 ## 5. Post-0.2 (not this CUT)
 
