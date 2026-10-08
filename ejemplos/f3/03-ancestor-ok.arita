@@ -1,0 +1,11 @@
+module ancestor_ok
+
+spec Genealogy { }
+
+fact parent(alice, bob)
+fact parent(bob, charlie)
+
+rule ancestor(X, Y) :- parent(X, Y)
+rule ancestor(X, Z) :- parent(X, Y), ancestor(Y, Z)
+
+query ancestor(alice, charlie)

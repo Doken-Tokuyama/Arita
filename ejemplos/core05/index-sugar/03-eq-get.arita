@@ -1,0 +1,22 @@
+// ADR-261 — v[i] ≡ v.get(i)
+module core05_index_sugar_eq_get
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(7)
+  let a: Option<Int> = v[0]
+  let b: Option<Int> = v.get(0)
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if x == y {
+        print("eq")
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-188 std-div-ceil — 7.div_ceil(3) → 3
+module std_div_ceil
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.div_ceil(3))
+}

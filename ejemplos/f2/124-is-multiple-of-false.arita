@@ -1,0 +1,7 @@
+// ADR-117 std-is-multiple-of-false
+module std_is_multiple_of_false
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.is_multiple_of(3))
+}

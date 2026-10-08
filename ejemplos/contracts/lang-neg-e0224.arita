@@ -1,0 +1,13 @@
+// LANG-CONTRACT (ADR-019) — expect_reject E0224 (break outside while)
+module lang_neg_e0224
+
+fn main() -> Io<()> {
+  if true {
+    break
+  }
+  print("unreachable")
+}
+
+contract bad_c {
+  expect_reject "E0224"
+}

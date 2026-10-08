@@ -1,0 +1,7 @@
+// ADR-192 std-next-multiple-of — 7.next_multiple_of(3) → 9
+module std_next_multiple_of
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.next_multiple_of(3))
+}

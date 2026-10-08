@@ -1,0 +1,9 @@
+// ADR-282 neg — clave de tipo incorrecto m[1] = 2 sobre Map<Text, Int> → E0203 type mismatch (≡ gemelo put)
+// oracle: neg-core09-map-assign-type
+module core09_map_assign_type
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m[1] = 2
+  print(m.len())
+}

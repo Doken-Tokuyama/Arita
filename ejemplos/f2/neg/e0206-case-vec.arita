@@ -1,0 +1,8 @@
+// ADR-065 neg — Vec.to_uppercase → E0206
+module e0206_case_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.to_uppercase())
+}

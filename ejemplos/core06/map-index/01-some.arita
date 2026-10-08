@@ -1,0 +1,13 @@
+// ADR-266 — m[k] hit → Some (≡ get)
+module core06_map_index_some
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", 7)
+  let o: Option<Int> = m["a"]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

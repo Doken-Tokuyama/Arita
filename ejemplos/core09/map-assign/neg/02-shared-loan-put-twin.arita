@@ -1,0 +1,10 @@
+// ADR-282 neg — gemelo put de 02-shared-loan.arita (idéntico salvo la línea de assign) → E0202
+// oracle: neg-core09-map-assign-shared-loan (gemelo put)
+module core09_map_assign_shared_loan_twin
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  let r: Map<Text, Int> = borrow m
+  m.put("a", 1)
+  print(r.len())
+}

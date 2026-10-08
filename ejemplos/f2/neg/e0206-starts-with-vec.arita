@@ -1,0 +1,8 @@
+// ADR-196 (was ADR-061): Vec.starts_with(Int) → E0203 (arg must be Vec; recv OK)
+module e0206_starts_with_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.starts_with(1))
+}

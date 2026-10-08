@@ -1,0 +1,10 @@
+// ADR-047 result-02 — Err path fixed stdout
+module result_err
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Err("fail")
+  match r {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

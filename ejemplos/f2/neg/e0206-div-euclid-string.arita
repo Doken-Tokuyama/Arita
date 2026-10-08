@@ -1,0 +1,7 @@
+// ADR-110 neg — String.div_euclid → E0206
+module e0206_div_euclid_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.div_euclid(2))
+}

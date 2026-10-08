@@ -1,0 +1,12 @@
+// CUT CORE-0.3-ERROR-PROP-20260920 — neg-core03-err-unwrap
+// Err swallow theater (E0272) — compose must map Err, not ignore. NOT PASS.
+module core03_neg_err_unwrap
+
+async fn main() -> Io<()> {
+  let url: Text = HttpClient.url(19931, "/")
+  let r: Result<HttpResponse, IoError> = HttpClient.get(url)
+  match r {
+    Ok(resp) => { print(resp.status()) }
+    Err(_) => { print(0) }
+  }
+}

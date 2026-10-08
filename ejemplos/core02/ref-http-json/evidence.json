@@ -1,0 +1,33 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.2-REF-HTTP-DAEMON-20260920",
+  "adr": "248",
+  "ref": "arita-ref-http-json",
+  "level": "tested",
+  "source_path": "ejemplos/core02/ref-http-json/arita-ref-http-json.arita",
+  "source_sha256": "6b97f7d7fa6cc146a5526b7ff6703f8ce7435f25003bbae84fb6a3607221f237",
+  "scenarios": [
+    "core02-ref-health",
+    "core02-ref-echo",
+    "core02-ref-body-cap",
+    "core02-ref-shutdown",
+    "core02-ref-evidence"
+  ],
+  "apis": [
+    "HttpServer",
+    "ServicePolicy",
+    "HttpClient"
+  ],
+  "blocker_e0006": "cleared",
+  "spawn_pattern": "spawn(run_server()) with async fn run_server() -> Io<()>  # empty params MVP",
+  "codegen_smoke_build": {
+    "arita-ref-http-json": "ok",
+    "scen-health": "ok",
+    "scen-echo": "ok",
+    "scen-body-cap": "ok",
+    "scen-shutdown": "ok",
+    "ref-server-port0": "ok"
+  },
+  "measure_pass": false,
+  "notes": "Lex 2026-09-20 Codegen: no run_server(srv) in tree; all arita build green; NOT CLOSED"
+}

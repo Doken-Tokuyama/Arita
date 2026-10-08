@@ -1,0 +1,11 @@
+// ADR-273 / CORE-0.7-CLI-ARGV-H2-20260926 — required json_get_int None → fail determinista
+module core07_io_h2_json_miss
+
+fn main() -> Io<()> {
+  let doc: Text = "{\"x\": 1}"
+  let o: Option<Int> = host.json_get_int(doc, "n")
+  match o {
+    Some(n) => { print(n) }
+    None => { print("missing_n") }
+  }
+}

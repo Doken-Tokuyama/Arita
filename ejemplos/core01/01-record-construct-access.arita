@@ -1,0 +1,13 @@
+// ADR-233 / CUT CORE-0.1-RECORD-20260919 — positive construct + field get
+module record_pos
+
+record Point {
+  x: Int,
+  y: Int
+}
+
+fn main() -> Io<()> {
+  let p: Point = Point { x: 3, y: 7 }
+  print(p.x)
+  print(p.y)
+}

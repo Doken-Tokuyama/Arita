@@ -1,0 +1,7 @@
+// ADR-188 std-div-floor — (-7).div_floor(3) → -3
+module std_div_floor
+
+fn main() -> Io<()> {
+  let a: Int = -7
+  print(a.div_floor(3))
+}

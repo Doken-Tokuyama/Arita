@@ -1,0 +1,12 @@
+// ADR-260 — lit i < 0 → E0311
+module core05_insert_neg_lit
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.insert(-1, 0)
+  match r {
+    Ok(u) => { print("bad") }
+    Err(e) => { print(e) }
+  }
+}

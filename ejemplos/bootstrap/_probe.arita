@@ -1,0 +1,16 @@
+module fib_probe
+fn fib6() -> Int {
+  let mut a: Int = 0
+  let mut b: Int = 1
+  let mut i: Int = 0
+  while i < 6 {
+    let t: Int = a + b
+    a = b
+    b = t
+    i = i + 1
+  }
+  a
+}
+fn main() -> Io<()> {
+  print(fib6())
+}

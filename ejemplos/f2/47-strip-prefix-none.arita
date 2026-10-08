@@ -1,0 +1,12 @@
+// ADR-074 std-strip-prefix-none
+module std_strip_prefix_none
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<String> = s.strip_prefix("xyz")
+  if let Some(r) = o {
+    print(r)
+  } else {
+    print("none")
+  }
+}

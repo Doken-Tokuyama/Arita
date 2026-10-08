@@ -1,0 +1,18 @@
+// ADR-282 / CORE-0.9-MAP-ASSIGN-20260926 — m["a"]=7; m["a"]=9 → sobrescribe (valor viejo descartado); len = 1
+// oracle: core09-map-assign-overwrite
+module core09_map_assign_overwrite
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 7
+  m["a"] = 9
+  // Lectura con clave ident: m["a"] literal emite get(&"a".to_string()) (ADR-266) → clippy unnecessary_to_owned (preexistente, fuera de 282).
+  let q: Text = "a"
+  let o: Option<Int> = m[q]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+  print(m.len())
+}

@@ -1,0 +1,12 @@
+// ADR-080 std-checked-add-none
+module std_checked_add_none
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_add(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

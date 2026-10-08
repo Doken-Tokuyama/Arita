@@ -1,0 +1,12 @@
+// ADR-108 std-checked-neg-none — MIN→None
+module std_checked_neg_none
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_neg()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,12 @@
+// ADR-083 std-checked-div-none-zero
+module std_checked_div_none_zero
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.checked_div(0)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

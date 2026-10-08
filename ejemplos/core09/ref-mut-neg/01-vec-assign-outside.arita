@@ -1,0 +1,36 @@
+// ADR-285 / CORE-0.9-REF-MUT-20260926 — neg: `v[i] = x` en main Io → E0344 (ADR-285 §2 L54; ADR-281 L124)
+// Forma ref-mut (ADR-285 §1 L35–37): apply muta Map+Vec en fn → Result<Int, Int>; run compone con ?; main Io match-convierte.
+// Ofensor único: L28 `w[0] = 3` en main Io. Sin L28 → build verde.
+// oracle: neg-core09-ref-vec-assign-outside
+module core09_ref_mut_neg_vec_outside
+
+fn apply(i: Int, x: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["k"] = x
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let o: Option<Int> = v.get(i)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn run(i: Int, x: Int) -> Result<Int, Int> {
+  let a: Int = apply(i, x)?
+  Ok(a)
+}
+
+fn main() -> Io<()> {
+  let mut w: Vec<Int> = Vec::new()
+  w[0] = 3
+  match run(1, 9) {
+    Ok(a) => { print(a) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

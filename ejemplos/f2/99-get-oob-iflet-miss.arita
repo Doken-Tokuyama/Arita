@@ -1,0 +1,13 @@
+// ADR-103 pos — get OOB handled via if-let None
+module std_get_oob_iflet_miss
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let o: Option<Int> = v.get(9)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("miss")
+  }
+}

@@ -1,0 +1,11 @@
+// Expected: E0202 borrow conflict
+// Two overlapping exclusive loans on the same place (`x`).
+// Type annotations on a/b are v0 placeholders (checker tracks places, not ref types).
+module m
+
+fn main() -> Io<()> {
+  let mut x: Int = 1
+  let a: Int = &mut x
+  let b: Int = &mut x
+  print(1)
+}

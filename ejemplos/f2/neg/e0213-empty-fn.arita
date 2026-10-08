@@ -1,0 +1,9 @@
+// Expected: E0213 stub function body not allowed
+module e0213_empty_fn
+
+fn f(x: Int) -> Int {
+}
+
+fn main() -> Io<()> {
+  print("ok")
+}

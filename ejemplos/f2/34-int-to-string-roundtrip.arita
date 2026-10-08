@@ -1,0 +1,12 @@
+// ADR-067 std-int-to-string-roundtrip
+module std_int_to_string_roundtrip
+
+fn main() -> Io<()> {
+  let n: Int = 42
+  let s: String = n.to_string()
+  let r: Result<Int, String> = s.parse_int()
+  match r {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

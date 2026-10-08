@@ -1,0 +1,29 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.4-PACKAGE-MANIFEST-20260920",
+  "adr": "255",
+  "slice": 2,
+  "level": "tested",
+  "manifest_path": "ejemplos/core04/package-manifest/arita.toml",
+  "manifest_sha256": "b8225489399710507f71e1975fe4c35dd65c82e080753ab797d753200ed6168a",
+  "lib_path": "ejemplos/core04/package-manifest/lib/lib.arita",
+  "lib_sha256": "08def93e18067ad4413abdc58c0a9b74d4ba81ce1d7d8a43eb749bdf14fe7e48",
+  "bin_path": "ejemplos/core04/package-manifest/bin/main.arita",
+  "bin_sha256": "e054f4a9879ad3f3708afa6996339375a848ff1ec6bf896e3636edf94621e47f",
+  "scenarios": [
+    "core04-pkg-manifest-parse",
+    "core04-pkg-lib-bin-emit",
+    "core04-pkg-build",
+    "neg-core04-pkg-cratesio",
+    "neg-core04-pkg-bad-toml",
+    "core04-pkg-evidence"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "run_stdout": "42",
+    "neg_cratesio": "E0330",
+    "neg_bad_toml": "E0331"
+  },
+  "measure_pass": false,
+  "notes": "Lex 2026-09-20 Codegen: arita.toml workspace\u2192Cargo lib+bin; NOT CLOSED"
+}

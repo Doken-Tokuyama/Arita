@@ -1,0 +1,7 @@
+// ADR-079 neg — lit checked_pow overflow → E0283
+module e0283_pow_overflow
+
+fn main() -> Io<()> {
+  let n: Int = 2
+  print(n.pow(63))
+}

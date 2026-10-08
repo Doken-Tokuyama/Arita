@@ -1,0 +1,16 @@
+// ADR-290 §D2 / IM-4 (PROPOSED): operador compuesto no soportado `%=` => E0006 (parser; nunca E0333)
+module core10_index_mut_neg_rem
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(8)
+  v[0] %= 2
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

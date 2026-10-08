@@ -1,0 +1,35 @@
+// ADR-268 — CLI oob: lib set Err + Map miss None; stdout gp-ref-oob
+module arita_ref_gp_oob
+
+use lib::PatchSpec
+use lib::apply_oob
+use lib::peek_miss
+
+fn main() -> Io<()> {
+  let c: PatchSpec = PatchSpec { i: 99, x: 0, y: 7 }
+  let r1: Result<Int, Int> = apply_oob(c.i, c.x)
+  match r1 {
+    Ok(a) => { print(a) }
+    Err(e) => {
+      let r2: Result<Int, Int> = peek_miss(c.y)
+      match r2 {
+        Ok(b) => { print(b) }
+        Err(e2) => {
+          if e == 0 {
+            if e2 == 0 {
+              print("gp-ref-oob")
+            } else {
+              print(e2)
+            }
+          } else {
+            print(e)
+          }
+        }
+      }
+    }
+  }
+}
+
+scenario ref_gp_oob {
+  acceptance "gp-ref-oob"
+}

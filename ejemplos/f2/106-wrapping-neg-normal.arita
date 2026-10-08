@@ -1,0 +1,7 @@
+// ADR-107 std-wrapping-neg-normal
+module std_wrapping_neg_normal
+
+fn main() -> Io<()> {
+  let a: Int = 5
+  print(a.wrapping_neg())
+}

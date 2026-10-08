@@ -1,0 +1,6 @@
+// ADR-254 / CORE-0.4-MULTI-MODULE — library module (no main)
+module util
+
+fn double(x: Int) -> Int {
+  x + x
+}

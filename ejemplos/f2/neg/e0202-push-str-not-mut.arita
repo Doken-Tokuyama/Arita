@@ -1,0 +1,8 @@
+// ADR-059 neg — push_str without mut → E0202
+module e0202_push_str_not_mut
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  s.push_str("!")
+  print(0)
+}

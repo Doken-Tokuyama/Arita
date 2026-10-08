@@ -1,0 +1,8 @@
+// ADR-220 neg — String.checked_next_power_of_two → E0206
+module e0206_checked_next_pow2_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  let o: Option<Int> = s.checked_next_power_of_two()
+  print(0)
+}

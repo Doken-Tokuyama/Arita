@@ -1,0 +1,25 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.6-MAP-INDEX-20260926",
+  "adr": "266",
+  "slice": 2,
+  "some_path": "ejemplos/core06/map-index/01-some.arita",
+  "none_path": "ejemplos/core06/map-index/02-none.arita",
+  "eq_path": "ejemplos/core06/map-index/03-eq-get.arita",
+  "neg_path": "ejemplos/core06/map-index/neg/01-index-mut.arita",
+  "scenarios": [
+    "core06-map-index-some",
+    "core06-map-index-none",
+    "core06-map-index-eq-get",
+    "core06-map-emit-ban",
+    "neg-core06-map-index-mut"
+  ],
+  "codegen_smoke": {
+    "some": "7",
+    "none": "none",
+    "eq": "eq",
+    "mut": "E0314"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-266 CUT CORE-0.6-MAP-INDEX-20260926; NOT CLOSED — awaiting Measure+Orquestador"
+}

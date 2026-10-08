@@ -1,0 +1,7 @@
+// ADR-093 std-unwrap-or-option-some
+module std_unwrap_or_option_some
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(7)
+  print(o.unwrap_or(0))
+}

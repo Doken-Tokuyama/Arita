@@ -1,0 +1,7 @@
+// ADR-079 std-pow
+module std_pow
+
+fn main() -> Io<()> {
+  let n: Int = 2
+  print(n.pow(10))
+}

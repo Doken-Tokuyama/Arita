@@ -1,0 +1,7 @@
+module multi
+
+fn main() -> Io<()> {
+  print("one")
+  print("two")
+  print("three")
+}

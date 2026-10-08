@@ -1,0 +1,115 @@
+// CUT CORE-0.3-CLIENT-COMPOSE-20260920 — smoke: spawn upstream + gateway; client-in-handler; timeout ADR-244
+// Ports 19921 upstream / 19920 gateway. spawn zero-arg MVP.
+// Oracle: core03-compose-smoke-roundtrip. NOT CLOSED.
+module core03_compose_smoke
+
+async fn handle_echo(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn run_upstream() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19921)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("upstream-up")
+      let r: Result<(), IoError> = srv.serve(handle_echo)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn handle_proxy(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let url: Text = HttpClient.url(19921, "/")
+      let cres: Result<HttpResponse, IoError> = HttpClient.post_text(url, body)
+      match cres {
+        Err(e) => {
+          let out: Result<HttpResponse, IoError> = Err(e)
+          out
+        }
+        Ok(resp) => {
+          let br: Result<Text, IoError> = resp.body_text()
+          match br {
+            Err(e) => {
+              let out: Result<HttpResponse, IoError> = Err(e)
+              out
+            }
+            Ok(t) => {
+              let out_resp: HttpResponse = HttpResponse.ok_text(t)
+              let out: Result<HttpResponse, IoError> = Ok(out_resp)
+              out
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn run_gateway() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19920)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("gateway-up")
+      let r: Result<(), IoError> = srv.serve(handle_proxy)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn quick_ok() -> Io<()> {
+  print("timeout-ok")
+}
+
+async fn main() -> Io<()> {
+  let t1: Task = spawn(run_upstream())
+  delay(150)
+  let t2: Task = spawn(run_gateway())
+  delay(200)
+  let url: Text = HttpClient.url(19920, "/")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(url, "compose-ping")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  let tr: Result<(), String> = timeout(1000, quick_ok())
+  match tr {
+    Ok(_) => { print("compose-timeout-ok") }
+    Err(e) => { print(e) }
+  }
+  print("compose-smoke-done")
+}

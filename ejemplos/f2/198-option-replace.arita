@@ -1,0 +1,24 @@
+// ADR-168 std-option-replace
+module std_option_replace
+
+fn main() -> Io<()> {
+  let mut o: Option<Int> = Some(1)
+  let old: Option<Int> = o.replace(9)
+  if let Some(a) = old {
+    if let Some(b) = o {
+      if a == 1 {
+        if b == 9 {
+          print("ok")
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

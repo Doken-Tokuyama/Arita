@@ -1,0 +1,8 @@
+// ADR-126 neg — ilog10 + unwrap_or(0) → E0290
+module e0290_ilog10_unwrap_or_0
+
+fn main() -> Io<()> {
+  let a: Int = 0
+  let o: Option<Int> = a.ilog10()
+  print(o.unwrap_or(0))
+}

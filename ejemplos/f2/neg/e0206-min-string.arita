@@ -1,0 +1,7 @@
+// ADR-071 neg — String.min → E0206
+module e0206_min_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.min("a"))
+}

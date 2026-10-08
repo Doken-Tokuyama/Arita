@@ -1,0 +1,8 @@
+// ADR-125 neg — find miss + unwrap_or(0) → E0289
+module e0289_find_unwrap_or_0
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<Int> = s.find("xyz")
+  print(o.unwrap_or(0))
+}

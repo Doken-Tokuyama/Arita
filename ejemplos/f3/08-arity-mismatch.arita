@@ -1,0 +1,8 @@
+module arity_mismatch
+
+spec Graph { }
+
+fact edge(a, b)
+fact edge(a, b, c)
+
+query edge(a, b)

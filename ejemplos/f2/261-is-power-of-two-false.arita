@@ -1,0 +1,7 @@
+// ADR-218 std-is-power-of-two-false — 7.is_power_of_two() → false (also 0/-1)
+module std_is_power_of_two_false
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.is_power_of_two())
+}

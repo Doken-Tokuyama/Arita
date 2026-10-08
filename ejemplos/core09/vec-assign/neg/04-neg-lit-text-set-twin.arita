@@ -1,0 +1,17 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — neg: gemelo `v.set(-1, "x")` de 04-neg-lit-text → E0203 (ADR-265/270 no se reabre; Ingeniero 22:20 §1)
+module core09_vec_assign_neg_lit_text_set_twin
+
+fn f(n: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.set(-1, "x")
+  r?
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match f(1) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

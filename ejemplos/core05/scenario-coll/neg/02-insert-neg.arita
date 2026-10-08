@@ -1,0 +1,12 @@
+// ADR-262 — lit i < 0 insert → E0311
+module core05_scen_coll_insert_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.insert(-1, 0)
+  match r {
+    Ok(u) => { print("bad") }
+    Err(e) => { print(e) }
+  }
+}

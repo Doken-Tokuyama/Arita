@@ -1,0 +1,38 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.8-SCENARIO-ERRPROP-20260926",
+  "adr": "279",
+  "slice": 3,
+  "happy_path": "ejemplos/core08/scenario-errprop/01-happy.arita",
+  "happy_sha256": "a759c0e1171f46744611bb61a3feb76affdc3ade8bd2ff4426859b06558a9e74",
+  "err_path": "ejemplos/core08/scenario-errprop/02-err.arita",
+  "err_sha256": "459308e129bcd96a27574fa7cea3ab415140fd517bc567c05692ea71733857b4",
+  "host238_path": "ejemplos/core08/scenario-errprop/03-host238.arita",
+  "host238_sha256": "6ad2968ae0d426920d0c83577b977c1feffee39276a27a41748c64cb172fbb95",
+  "neg_outside_path": "ejemplos/core08/scenario-errprop/neg/01-outside.arita",
+  "neg_outside_sha256": "3ab8ec1340bcf19b55f68f0df5305f37d379ae0f99a393660a11bff60c8ba12d",
+  "neg_unwrap_theater_path": "ejemplos/core08/scenario-errprop/neg/02-unwrap-theater.arita",
+  "neg_unwrap_theater_sha256": "8adb3a88d556ecdd614a0dc5f6f93029a01b629ae638cb3f8252685bc42feef9",
+  "arita_toml_path": "ejemplos/core08/scenario-errprop/arita.toml",
+  "arita_toml_sha256": "7ce4908f04f11167ad894855f64937c7a5ee7243cfd283476fa78d736d59a7d0",
+  "fixture_path": "ejemplos/core08/scenario-errprop/fixture.txt",
+  "fixture_sha256": "ed21517e0b004a99d74700b4785d76c3bec4a4843ccab995167b86de42ff8090",
+  "scenarios": [
+    "core08-scen-errprop-happy",
+    "core08-scen-errprop-err",
+    "core08-scen-errprop-host238",
+    "neg-core08-scen-qmark-outside",
+    "neg-core08-scen-unwrap-theater",
+    "core08-scen-errprop-build"
+  ],
+  "codegen_smoke": {
+    "happy_stdout": "errprop-happy",
+    "err_stdout": "errprop-err\n0",
+    "host238_stdout": "errprop-host238",
+    "outside": "E0343",
+    "unwrap_theater": "E0206",
+    "emit_ban": "no unwrap/expect/panic in emit; surface unwrap invent → E0206 (≠ E0291 reopen); check-then-unwrap DOC anti-pattern"
+  },
+  "measure_pass": true,
+  "notes": "CLOSED ADR-279 SCENARIO-ERRPROP Lex Measure 770/770 accepted (764→770) · GATE-CORE08-SCENARIO-ERRPROP-20260926 · Veyra ACCEPTED exit 0 evidence 20260926T150744Z (trail: 150320Z REJECTED rustfmt-diff → cargo fmt --all → 150744Z ACCEPT). §2 6/6: happy·err·host238·neg-outside E0343·neg-unwrap-theater E0206·build. HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair/I/O-new/String.set/threads/Option?/unwrap-surface/ADR-280/E0340/E0341/E0272/E0291 intact. Sin Core 0.8 CLOSED. Next GO IMPL ADR-280 REF-ERRPROP only. skip≠PASS."
+}

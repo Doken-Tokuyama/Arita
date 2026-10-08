@@ -1,0 +1,8 @@
+// ADR-154 neg — Int.reserve → E0206
+module e0206_reserve_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  a.reserve(8)
+  print(0)
+}

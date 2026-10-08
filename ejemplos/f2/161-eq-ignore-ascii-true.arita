@@ -1,0 +1,7 @@
+// ADR-141 std-eq-ignore-ascii-true
+module std_eq_ignore_ascii_true
+
+fn main() -> Io<()> {
+  let s: String = "AbC"
+  print(s.eq_ignore_ascii_case("abc"))
+}

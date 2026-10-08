@@ -1,0 +1,25 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.6-SET-FALLIBLE-20260926",
+  "adr": "265",
+  "slice": 1,
+  "ok_path": "ejemplos/core06/set-fallible/01-ok.arita",
+  "oob_path": "ejemplos/core06/set-fallible/02-err-oob.arita",
+  "neg_path": "ejemplos/core06/set-fallible/neg/01-neg-lit.arita",
+  "index_mut_path": "ejemplos/core06/set-fallible/neg/02-index-mut-assign.arita",
+  "scenarios": [
+    "core06-set-ok",
+    "core06-set-oob",
+    "neg-core06-set-neg-lit",
+    "core06-set-emit-ban",
+    "neg-core06-index-mut-assign"
+  ],
+  "codegen_smoke": {
+    "ok_stdout": "ok",
+    "oob_stdout": "err",
+    "neg": "E0319",
+    "index_mut": "E0314"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-265 CUT CORE-0.6-SET-FALLIBLE-20260926; NOT CLOSED — awaiting Measure"
+}

@@ -1,0 +1,15 @@
+// F2.3 — while + continue: skip odd, print even 0,2,4
+module while_continue
+
+fn main() -> Io<()> {
+  let mut j: Int = 0
+  while j < 6 {
+    let rem: Int = j % 2
+    if rem == 1 {
+      j = j + 1
+      continue
+    }
+    print(j)
+    j = j + 1
+  }
+}

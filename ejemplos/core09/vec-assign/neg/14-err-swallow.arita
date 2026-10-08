@@ -1,0 +1,20 @@
+// ADR-283 §2 neg-core09-vec-assign-err-swallow (fixture de Measure) — caller `match f(…) { Ok(x) => …, Err(_) => <lit éxito> }` sobre fn→Result con v[i] = x
+// → E0272 `result error swallowed` exacto (pin ADR-283 §2 23:50; ADR-048, mismo código que neg-e0272-err-default-lit; no reopen H4).
+// El patrón Err(_) casa con el tipo del scrutinee (no E0223). Único ofensor: el brazo Err(_) => { 0 } que traga el error.
+module core09_vec_assign_neg_err_swallow
+
+fn f(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[i] = 7
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = f(0)
+  let n: Int = match r {
+    Ok(x) => { x }
+    Err(_) => { 0 }
+  }
+  print(n)
+}

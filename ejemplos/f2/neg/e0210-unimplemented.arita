@@ -1,0 +1,7 @@
+// Expected: E0210 todo/unimplemented not allowed
+module e0210_unimplemented
+
+fn main() -> Io<()> {
+  unimplemented!()
+  print("unreachable")
+}

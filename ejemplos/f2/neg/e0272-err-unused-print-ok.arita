@@ -1,0 +1,9 @@
+// ADR-048 — Err(e) unused + print("ok")
+module e0272_err_unused_print_ok
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Err("fail")
+  match r {
+    Ok(x) => { print(x) }
+    Err(e) => { print("ok") }
+  }
+}

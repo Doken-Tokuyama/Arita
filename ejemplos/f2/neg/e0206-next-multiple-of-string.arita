@@ -1,0 +1,7 @@
+// ADR-192 neg — String.next_multiple_of → E0206
+module e0206_next_multiple_of_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.next_multiple_of(2))
+}

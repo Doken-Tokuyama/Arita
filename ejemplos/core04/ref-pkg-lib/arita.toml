@@ -1,0 +1,7 @@
+# ADR-258 / CORE-0.4-REF-PKG — arita-ref-pkg-lib (closes Core 0.4)
+[package]
+name = "arita_ref_pkg_lib"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

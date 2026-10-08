@@ -1,0 +1,12 @@
+// oracle: neg-core10-let-underscore
+// cause: ADR-295 P2(a): `let _` discards a Result
+// offender: let _: Result<Int, Int> = f(1)
+// control: replace the offender by a `match f(1) {..}`
+module core10_must_use_let_underscore
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn main() -> Io<()> {
+  let _: Result<Int, Int> = f(1)
+  print("after")
+}

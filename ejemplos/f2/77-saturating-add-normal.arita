@@ -1,0 +1,7 @@
+// ADR-090 std-saturating-add-normal
+module std_saturating_add_normal
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.saturating_add(2))
+}

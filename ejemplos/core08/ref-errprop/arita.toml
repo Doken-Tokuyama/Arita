@@ -1,0 +1,10 @@
+# ADR-280 / CORE-0.8-REF-ERRPROP — arita-ref-errprop (closes Core 0.8 after Measure+Ingeniero)
+[package]
+name = "arita_ref_errprop"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

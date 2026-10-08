@@ -1,0 +1,6 @@
+# ADR-278 CORE-0.8-QMARK — host ADR-238 surface; ? only in fn→Result
+[package]
+name = "core08_qmark"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

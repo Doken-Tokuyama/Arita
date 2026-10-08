@@ -1,0 +1,10 @@
+// F2.1 — while Int cmp + mut assign
+module while_count
+
+fn main() -> Io<()> {
+  let mut i: Int = 0
+  while i < 3 {
+    print(i)
+    i = i + 1
+  }
+}

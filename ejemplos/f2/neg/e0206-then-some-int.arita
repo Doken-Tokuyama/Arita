@@ -1,0 +1,8 @@
+// ADR-164 neg — Int.then_some → E0206
+module e0206_then_some_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.then_some(2)
+  print(0)
+}

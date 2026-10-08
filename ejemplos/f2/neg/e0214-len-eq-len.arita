@@ -1,0 +1,11 @@
+// Expected: E0214 vacuous length assert
+// ADR-030 / CUT TRAPS-LEN-THEATER-20260914 — assert <recv>.len() == <same>.len()
+module e0214_len_eq_len
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert v.len() == v.len()
+}

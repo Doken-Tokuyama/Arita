@@ -1,0 +1,16 @@
+// ADR-290 §D6 / IM-5: `m["a"] += 1` (Map) => E0006 emitido por HIR (texto exacto del ADR + span), no por el parser
+module core10_index_mut_neg_map
+
+fn f() -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 1
+  m["a"] += 1
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

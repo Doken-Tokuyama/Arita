@@ -1,0 +1,8 @@
+// ADR-148 std-make-ascii-lowercase
+module std_make_ascii_lower
+
+fn main() -> Io<()> {
+  let mut s: String = "AbC"
+  s.make_ascii_lowercase()
+  print(s)
+}

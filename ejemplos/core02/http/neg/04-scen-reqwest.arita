@@ -1,0 +1,7 @@
+// CUT CORE-0.2-SCENARIO-HTTP-20260920 — neg-core02-scen-reqwest → E0321
+module core02_scen_reqwest_neg
+
+async fn main() -> Io<()> {
+  let _r: Int = reqwest_get("http://127.0.0.1/")
+  print("should-not")
+}

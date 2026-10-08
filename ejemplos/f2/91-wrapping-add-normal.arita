@@ -1,0 +1,7 @@
+// ADR-096 std-wrapping-add-normal
+module std_wrapping_add_normal
+
+fn main() -> Io<()> {
+  let a: Int = 40
+  print(a.wrapping_add(2))
+}

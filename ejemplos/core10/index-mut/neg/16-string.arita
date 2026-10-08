@@ -1,0 +1,15 @@
+// ADR-290 §D6 / IM-5: `s[0] += 1` (String) => E0006 emitido por HIR
+module core10_index_mut_neg_string
+
+fn f() -> Result<Int, Int> {
+  let mut s: String = "ab"
+  s[0] += 1
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

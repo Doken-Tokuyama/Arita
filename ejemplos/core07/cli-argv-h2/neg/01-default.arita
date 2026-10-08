@@ -1,0 +1,8 @@
+// ADR-273 — unwrap_or lit vacío tras host.cli_arg required → E0341
+module core07_io_h2_default
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  let p: Text = o.unwrap_or("")
+  print(p)
+}

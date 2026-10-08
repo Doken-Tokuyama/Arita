@@ -1,0 +1,7 @@
+// ADR-071 std-max
+module std_max
+
+fn main() -> Io<()> {
+  let a: Int = 3
+  print(a.max(5))
+}

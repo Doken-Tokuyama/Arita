@@ -1,0 +1,7 @@
+// ADR-060 std-contains-false
+module std_contains_false
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  print(s.contains("xyz"))
+}

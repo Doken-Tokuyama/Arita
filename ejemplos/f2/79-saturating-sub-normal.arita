@@ -1,0 +1,7 @@
+// ADR-091 std-saturating-sub-normal
+module std_saturating_sub_normal
+
+fn main() -> Io<()> {
+  let a: Int = 5
+  print(a.saturating_sub(3))
+}

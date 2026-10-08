@@ -1,0 +1,7 @@
+// ADR-151 neg — String.wrapping_shl → E0206
+module e0206_wrapping_shl_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.wrapping_shl(1))
+}

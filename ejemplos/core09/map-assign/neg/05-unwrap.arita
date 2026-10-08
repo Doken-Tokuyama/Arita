@@ -1,0 +1,12 @@
+// ADR-282 neg — unwrap inventado sobre m["a"] → E0206 (whitelist; emit-ban 241; no reopen E0291)
+// oracle: neg-core09-map-assign-unwrap
+module core09_map_assign_unwrap
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 1
+  // Se liga primero: m["a"].unwrap() da E0006 hoy, no E0206.
+  let o: Option<Int> = m["a"]
+  let x: Int = o.unwrap()
+  print(x)
+}

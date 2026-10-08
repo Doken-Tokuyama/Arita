@@ -1,0 +1,7 @@
+// ADR-094 std-is-some-true
+module std_is_some_true
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(1)
+  print(o.is_some())
+}

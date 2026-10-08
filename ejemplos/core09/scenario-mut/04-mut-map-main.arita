@@ -1,0 +1,57 @@
+// ADR-284 / CORE-0.9-SCENARIO-MUT-20260926 — m[k] = v (282) directamente en main Io<()> (total); el Vec-assign vive en helper fn → Result y main match-convierte a m[k] = v
+// Esperado (stdout determinista): "3" (m["a"] tras overwrite) · "1" (m["b"] ← m.len() antes del insert, R2) · "7" (m["vec"] ← Ok del helper) · "3" (m.len())
+// oracle: core09-scen-mut-map-main
+module core09_scen_mut_map_main
+
+fn fill(i: Int, x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let o: Option<Int> = v.get(i)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 1
+  m["a"] = 3
+  m["b"] = m.len()
+  match fill(1, 7) {
+    Ok(n) => {
+      m["vec"] = n
+    }
+    Err(e) => {
+      m["vec_err"] = e
+    }
+  }
+  let qa: Text = "a"
+  let oa: Option<Int> = m[qa]
+  match oa {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+  let qb: Text = "b"
+  let ob: Option<Int> = m[qb]
+  match ob {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+  let qv: Text = "vec"
+  let ov: Option<Int> = m[qv]
+  match ov {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+  print(m.len())
+}
+
+scenario mut_map_main {
+  acceptance "3"
+  acceptance "1"
+  acceptance "7"
+  acceptance "3"
+}

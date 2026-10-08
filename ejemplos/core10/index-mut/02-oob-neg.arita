@@ -1,0 +1,31 @@
+// ADR-290 / CORE-0.10-INDEX-MUT-20261002 — IM-2a (CANDIDATO): índice OOB y negativo no literal (vía parámetro) en v[i] += x ⇒ Err(0) propagado, sin panic. stdout esperado: 3 0 0 0
+module core10_index_mut_oob_neg
+
+fn bump(i: Int, x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  v[i] += x
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match bump(1, 5) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match bump(3, 5) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match bump(-1, 5) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match bump(9, 5) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

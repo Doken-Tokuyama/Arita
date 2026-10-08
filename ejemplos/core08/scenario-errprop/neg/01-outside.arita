@@ -1,0 +1,8 @@
+// ADR-279 neg — ? inside fn → Io<()> → E0343 `question mark outside result fn`
+// oracle: neg-core08-scen-qmark-outside
+module core08_scen_errprop_outside
+
+fn main() -> Io<()> {
+  let t: Text = host.read_text("ejemplos/core08/scenario-errprop/fixture.txt")?
+  print(t)
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.7-REF-IO-20260926",
+  "adr": "275",
+  "slice": 4,
+  "ref": "arita-ref-io",
+  "lib_path": "ejemplos/core07/ref-io/lib/lib.arita",
+  "lib_sha256": "4ed6af89c6c0a701d8b7fd5f99ccf1d7cab194b58d7102798f11af0c0b5d3c33",
+  "bin_path": "ejemplos/core07/ref-io/bin/main.arita",
+  "bin_sha256": "c72cfebee62d2537730c01f15ff7b9d6ab7bfbbe5911d1ee241699801f28ef39",
+  "edge_path": "ejemplos/core07/ref-io/edge/bin/main.arita",
+  "edge_sha256": "da7a4a64d1f75204b9df10946c87ae275f7ae4f59172e5af8be7c681048af14a",
+  "edge_lib_path": "ejemplos/core07/ref-io/edge/lib/lib.arita",
+  "edge_lib_sha256": "3969e49daa30289838c0ebf44614e33d9a46485cdb8a45a6a36149cccd98d7cf",
+  "neg_h1_path": "ejemplos/core07/ref-io-neg/01-h1.arita",
+  "neg_h1_sha256": "aca32f80b723d535e25635141f2cf0ae14719d4392764c31fca3fed75c748403",
+  "neg_h2_path": "ejemplos/core07/ref-io-neg/02-h2.arita",
+  "neg_h2_sha256": "70d71d883e2648056e85ec8130cb07d2371a1e3435d6033f804a933283e8c133",
+  "arita_toml_path": "ejemplos/core07/ref-io/arita.toml",
+  "arita_toml_sha256": "8ed94ee1d2d9e7ae7d23575cac6eac78733c4d8a077413197609205f55ae3f59",
+  "fixture_path": "ejemplos/core07/ref-io/fixture.json",
+  "fixture_sha256": "69069b5297ad9deb9910e5eb5991d141a6dbc04263719db3083af1713af083c8",
+  "scenarios": [
+    "core07-ref-io-build",
+    "core07-ref-io-cli-happy",
+    "core07-ref-io-cli-fail",
+    "core07-ref-io-scenario",
+    "core07-ref-io-evidence",
+    "core07-ref-io-emit-ban",
+    "neg-core07-ref-io-h1",
+    "neg-core07-ref-io-h2"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": "io-ref-happy",
+    "fail_stdout": "io-ref-fail\n0",
+    "h1": "E0340",
+    "h2": "E0341",
+    "emit_ban": "zero unwrap/expect/panic/argv Index",
+    "lib_pub": [
+      "State",
+      "load_required",
+      "from_args"
+    ],
+    "host": "ADR-238"
+  },
+  "measure_pass": true,
+  "notes": "CLOSED Lex 752/752 ADR-275 REF-IO = Core 0.7 CLOSED; measure_pass:true. HOLDs I/O-new/Mutex/IndexMut/idle/TLS/WS/crates.io/repair/?/HTTP/String.set untouched. Post-0.7 HOLD await <person> GO \u2014 do NOT invent Core 0.8 pins. skip\u2260PASS."
+}

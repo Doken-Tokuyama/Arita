@@ -1,0 +1,14 @@
+// ADR-086 std-vec-last-some
+module std_vec_last_some
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(3)
+  v.push(9)
+  let o: Option<Int> = v.last()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

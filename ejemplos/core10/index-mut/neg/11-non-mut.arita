@@ -1,0 +1,15 @@
+// ADR-290 §D6 / IM-5: binding no-mut + `v[0] += 1` en fn Result => E0202 (sin push: único ofensor es la falta de `mut`)
+module core10_index_mut_neg_non_mut
+
+fn f() -> Result<Int, Int> {
+  let v: Vec<Int> = Vec::new()
+  v[0] += 1
+  Ok(0)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

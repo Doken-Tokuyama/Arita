@@ -1,0 +1,7 @@
+// ADR-091 neg — String.saturating_sub → E0206
+module e0206_saturating_sub_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.saturating_sub(1))
+}

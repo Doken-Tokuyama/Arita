@@ -1,0 +1,13 @@
+// ADR-266 — miss → None (no panic)
+module core06_map_index_none
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", 7)
+  let o: Option<Int> = m["z"]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print("none")
+  }
+}

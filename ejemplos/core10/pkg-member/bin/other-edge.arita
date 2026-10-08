@@ -1,0 +1,15 @@
+// ADR-287 — NON-member (same shape as core04 edge): factor 0 → "edge-other"
+module pkg_member_other_edge
+
+use lib::Config
+use lib::apply
+
+fn main() -> Io<()> {
+  let c: Config = Config { factor: 0 }
+  let y: Int = apply(c.factor, 21)
+  if y == 0 {
+    print("edge-other")
+  } else {
+    print(y)
+  }
+}

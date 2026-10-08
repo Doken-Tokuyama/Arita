@@ -1,0 +1,23 @@
+// ADR-284 §2 neg-core09-scen-map-assign-non-mut (fixture de Measure) — escenario Map+Vec con UN solo ofensor:
+// `m["hits"] = 1` sobre `let m` NO-mut → E0202 (= `put`; ADR-284 L58 / L72). El Vec muta legalmente en helper fn → Result.
+// Control: sin la línea `m["hits"] = 1` el programa compila (verificado por Measure en /tmp).
+module core09_scen_mut_neg_map_assign_non_mut
+
+fn tally(i: Int, x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  let m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  print(m.len())
+  match tally(1, 9) {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

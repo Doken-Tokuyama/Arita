@@ -1,0 +1,26 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.5-INSERT-20260920",
+  "adr": "260",
+  "slice": 1,
+  "ok_path": "ejemplos/core05/insert/01-ok.arita",
+  "ok_sha256": "723d5f95ddd2908ad05e941d9de8a2d10c36de07a0d180c001586ef86c678e8f",
+  "oob_path": "ejemplos/core05/insert/02-err-oob.arita",
+  "oob_sha256": "6ddcd7a4ec3be2c911b496193a5880d7009762c314686095dc9a437d3b6acf25",
+  "neg_path": "ejemplos/core05/insert/neg/01-neg-lit.arita",
+  "neg_sha256": "e77a926b3ecd3e445c0498a520bb3de3003ae0fefbe9632793ce18ea3aacf880",
+  "scenarios": [
+    "core05-insert-ok",
+    "core05-insert-err-oob",
+    "neg-core05-insert-neg-lit",
+    "core05-insert-emit-ban",
+    "neg-core05-insert-was-e0206"
+  ],
+  "codegen_smoke": {
+    "ok_stdout": "ok",
+    "oob_stdout": "err",
+    "neg": "E0311"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-260; NOT CLOSED"
+}

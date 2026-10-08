@@ -1,0 +1,7 @@
+module core10_neg_mutex_arc
+fn f(a: Arc<Mutex<Int>>) -> Io<()> {
+  print("x")
+}
+fn main() -> Io<()> {
+  print("y")
+}

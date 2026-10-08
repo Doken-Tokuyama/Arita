@@ -1,0 +1,8 @@
+// ADR-293 / CORE-0.10-UNDECLARED-CALL-20261003 — neg: llamada a fn NO declarada como ARGUMENTO de print → E0347
+// Ofensor único: la línea del `print`. Control: `print(1)` → build verde.
+// oracle: neg-core10-undeclared-call-print-arg
+module core10_undeclared_call_print_arg
+
+fn main() -> Io<()> {
+  print(ghost(1))
+}

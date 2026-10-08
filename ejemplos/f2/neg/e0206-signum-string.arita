@@ -1,0 +1,7 @@
+// ADR-105 neg — String.signum → E0206
+module e0206_signum_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.signum())
+}

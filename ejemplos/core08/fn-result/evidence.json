@@ -1,0 +1,29 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.8-FN-RESULT-20260926",
+  "adr": "277",
+  "slice": 1,
+  "ok_path": "ejemplos/core08/fn-result/01-ok.arita",
+  "err_path": "ejemplos/core08/fn-result/02-err.arita",
+  "main_io_path": "ejemplos/core08/fn-result/03-main-io.arita",
+  "neg_theater_path": "ejemplos/core08/fn-result/neg/01-theater.arita",
+  "neg_unwrap_path": "ejemplos/core08/fn-result/neg/02-unwrap.arita",
+  "scenarios": [
+    "core08-fn-result-ok",
+    "core08-fn-result-err",
+    "core08-fn-result-main-io",
+    "neg-core08-fn-result-theater",
+    "neg-core08-fn-result-unwrap",
+    "core08-fn-result-emit-ban"
+  ],
+  "codegen_smoke": {
+    "ok_stdout": "hello-fn-result",
+    "err_stdout": "load_failed\n0",
+    "main_io_stdout": "main-io-ok",
+    "theater": "E0342",
+    "unwrap": "E0206",
+    "emit_ban": "no unwrap/expect/panic"
+  },
+  "measure_pass": true,
+  "notes": "CLOSED Lex 758/758 ADR-277 FN-RESULT; measure_pass:true. Artifact DOC/reviews/MEASURE_ADR277_FN_RESULT_20260926.json (from /tmp/arita-measure-277.clean.json; exit 0). §2 6/6 accepted; skip=0. Veyra quick REJECTED non-blocking rustfmt-diff+VT* (.veyra/evidence/20260926T132822Z/). HOLDs ?/Mutex/IndexMut/idle/TLS/WS/crates.io/repair/I/O-new/String.set/threads/unwrap-surface intact. No Core 0.8 CLOSED; next ADR-278 QMARK. skip≠PASS."
+}

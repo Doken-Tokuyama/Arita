@@ -1,0 +1,33 @@
+// ADR-248 oracle core02-ref-shutdown — GET then exit (no hang); .shutdown() after bind w/o serve = 05-policy pattern
+module core02_ref_shutdown
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("bye")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19914)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(200)
+  let url: Text = HttpClient.url(19914, "/")
+  let got: Result<HttpResponse, IoError> = HttpClient.get(url)
+  match got {
+    Err(e) => { print(e) }
+    Ok(resp) => { print(resp.status()) }
+  }
+  print("ref-shutdown-ok")
+}

@@ -1,0 +1,18 @@
+// ADR-204 std-try-reserve-string — Ok + capacity ≥ n
+module std_try_reserve_string
+
+fn main() -> Io<()> {
+  let mut s: String = ""
+  let r: Result<(), Int> = s.try_reserve(8)
+  match r {
+    Ok(u) => {
+      let c: Int = s.capacity()
+      if c >= 8 {
+        print("ok")
+      } else {
+        print("bad")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}

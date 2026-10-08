@@ -1,0 +1,9 @@
+// CUT CORE-0.2-TIMEOUT-CANCEL-20260920 — neg hang theater
+// Expect: rejected E0320 (busy_spin / hang_forever)
+// print required for E0001 surface gate; HIR rejects busy_spin before emit
+module core02_neg_hang_theater
+
+fn main() -> Io<()> {
+  busy_spin()
+  print("x")
+}

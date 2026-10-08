@@ -1,0 +1,10 @@
+// ADR-222 std-vec-append-empty — append empty is no-op on len
+module std_vec_append_empty
+
+fn main() -> Io<()> {
+  let mut a: Vec<Int> = Vec::new()
+  a.push(1)
+  let mut b: Vec<Int> = Vec::new()
+  a.append(b)
+  print(a.len())
+}

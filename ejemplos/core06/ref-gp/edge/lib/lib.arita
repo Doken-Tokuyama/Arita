@@ -1,0 +1,43 @@
+// ADR-268 — oob lib: set Err + Map miss None (as Result Err)
+module lib
+
+pub record PatchSpec {
+  i: Int,
+  x: Int,
+  y: Int,
+}
+
+/// OOB set → Err(0).
+pub fn apply_oob(i: Int, x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  let r: Result<(), Int> = v.set(i, x)
+  match r {
+    Ok(u) => {
+      let bad: Result<Int, Int> = Err(1)
+      bad
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// Map miss [] → None → Err(0).
+pub fn peek_miss(y: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", y)
+  let o: Option<Int> = m["z"]
+  match o {
+    Some(got) => {
+      let bad: Result<Int, Int> = Ok(got)
+      bad
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(0)
+      bad
+    }
+  }
+}

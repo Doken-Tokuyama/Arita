@@ -1,0 +1,7 @@
+module unknown_pred
+
+spec Graph { }
+
+fact edge(a, b)
+
+query missing(a)

@@ -1,0 +1,7 @@
+// F2 Bool — let Bool + print(Path)
+module flag
+
+fn main() -> Io<()> {
+  let flag: Bool = true
+  print(flag)
+}

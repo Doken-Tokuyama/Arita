@@ -1,0 +1,9 @@
+// ADR-235 neg E0202 via keyword borrow mut
+module neg_e0202_borrow
+
+fn main() -> Io<()> {
+  let mut x: Int = 1
+  let a: Int = borrow mut x
+  let b: Int = borrow mut x
+  print(1)
+}

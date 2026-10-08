@@ -1,0 +1,7 @@
+// ADR-139 std-string-is-ascii-true
+module std_string_is_ascii_true
+
+fn main() -> Io<()> {
+  let s: String = "abc"
+  print(s.is_ascii())
+}

@@ -1,0 +1,7 @@
+// ADR-273 — args[i] / Index argv → E0341
+module core07_io_h2_index
+
+fn main() -> Io<()> {
+  let p: Text = args[1]
+  print(p)
+}

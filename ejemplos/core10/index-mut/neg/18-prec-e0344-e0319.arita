@@ -1,0 +1,9 @@
+// ADR-290 Pin 3 / IM-5: en main con índice literal negativo, gana E0344 sobre E0319
+module core10_index_mut_neg_prec_344_319
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[-1] += 2
+  print(1)
+}

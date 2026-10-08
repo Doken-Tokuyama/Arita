@@ -1,0 +1,8 @@
+// ADR-236 / CUT CORE-0.1-TEXT-BYTES-20260919 — Text.as_bytes → Bytes.len
+module bytes_as_bytes
+
+fn main() -> Io<()> {
+  let t: Text = "hi"
+  let b: Bytes = t.as_bytes()
+  print(b.len())
+}

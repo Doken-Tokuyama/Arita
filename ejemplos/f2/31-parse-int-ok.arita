@@ -1,0 +1,11 @@
+// ADR-066 std-parse-int-ok
+module std_parse_int_ok
+
+fn main() -> Io<()> {
+  let s: String = "42"
+  let r: Result<Int, String> = s.parse_int()
+  match r {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

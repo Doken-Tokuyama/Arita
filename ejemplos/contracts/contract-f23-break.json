@@ -1,0 +1,5 @@
+{
+  "id": "contract-f23-break",
+  "source": "ejemplos/f2.3/01-while-break.arita",
+  "expect_stdout": ["0", "1"]
+}

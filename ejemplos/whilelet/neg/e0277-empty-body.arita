@@ -1,0 +1,8 @@
+// ADR-056 neg E0277 morph — empty body lit None
+module whilelet_vacuous_empty
+
+fn main() -> Io<()> {
+  while let Some(x) = None {
+  }
+  print("ok")
+}

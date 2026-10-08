@@ -1,0 +1,9 @@
+// F2.1 neg — while LitBool false → E0226 vacuous while false (ADR-040)
+module e0226_while_false
+
+fn main() -> Io<()> {
+  while false {
+    print("x")
+  }
+  print("ok")
+}

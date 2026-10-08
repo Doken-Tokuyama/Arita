@@ -1,0 +1,5 @@
+module bad_ref
+use lib::internal_tag
+fn main() -> Io<()> {
+  print(internal_tag(1))
+}

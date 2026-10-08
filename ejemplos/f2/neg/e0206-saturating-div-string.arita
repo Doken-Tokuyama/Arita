@@ -1,0 +1,7 @@
+// ADR-210 neg — String.saturating_div → E0206
+module e0206_saturating_div_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.saturating_div(2))
+}

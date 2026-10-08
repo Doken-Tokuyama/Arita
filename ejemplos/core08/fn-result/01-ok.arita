@@ -1,0 +1,27 @@
+// ADR-277 / CORE-0.8-FN-RESULT-20260926 — helper fn→Result Ok path (match propagate, no ?)
+module core08_fn_result_ok
+
+fn load(path: Text) -> Result<Text, Int> {
+  let r: Result<Text, Int> = host.read_text(path)
+  match r {
+    Ok(t) => {
+      let ok: Result<Text, Int> = Ok(t)
+      ok
+    }
+    Err(e) => {
+      let bad: Result<Text, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = load("ejemplos/core08/fn-result/fixture.txt")
+  match r {
+    Ok(t) => { print(t) }
+    Err(e) => {
+      print("load_failed")
+      print(e)
+    }
+  }
+}

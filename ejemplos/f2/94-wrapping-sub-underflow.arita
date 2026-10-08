@@ -1,0 +1,7 @@
+// ADR-097 std-wrapping-sub-underflow — MIN-1 → MAX
+module std_wrapping_sub_underflow
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.wrapping_sub(1))
+}

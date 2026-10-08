@@ -1,0 +1,10 @@
+// Expected: E0211 assert requires evidence
+module e0211_assert_true
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert true
+}

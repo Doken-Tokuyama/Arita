@@ -1,0 +1,7 @@
+# ADR-263 / CORE-0.5-REF-COLL — arita-ref-collections (closes Core 0.5 after Measure)
+[package]
+name = "arita_ref_collections"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

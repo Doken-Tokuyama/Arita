@@ -1,0 +1,7 @@
+// ADR-188 neg — String.div_ceil → E0206
+module e0206_div_ceil_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.div_ceil(2))
+}

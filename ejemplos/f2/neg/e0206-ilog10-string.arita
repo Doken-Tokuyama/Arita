@@ -1,0 +1,7 @@
+// ADR-122 neg — String.ilog10 → E0206
+module e0206_ilog10_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.ilog10())
+}

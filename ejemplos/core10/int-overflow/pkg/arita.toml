@@ -1,0 +1,7 @@
+# ADR-292 / IA-4 — workspace lib+bin: overflow no literal en la lib, llamado desde la bin; `arita build --profile release` debe dar panic 101
+[package]
+name = "ia292"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

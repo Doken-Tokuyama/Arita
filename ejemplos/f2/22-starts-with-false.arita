@@ -1,0 +1,7 @@
+// ADR-061 std-starts-with-false
+module std_starts_with_false
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  print(s.starts_with("xyz"))
+}

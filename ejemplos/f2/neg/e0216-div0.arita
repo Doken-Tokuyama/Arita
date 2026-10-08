@@ -1,0 +1,9 @@
+// F2 neg — E0216 integer division by zero via div(x, 0) call (ADR-044 / TRAPS-INT-DIV0-20260915)
+// Reject in HIR before emit — never rustc panic / E0100 as product gate.
+module unchecked_div_neg
+
+fn div(a: Int, b: Int) -> Int { a / b }
+
+fn main() -> Io<()> { print("ok") }
+
+test t_div0 { assert div(10, 0) == 0 }

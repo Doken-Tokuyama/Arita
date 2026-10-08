@@ -1,0 +1,32 @@
+// ADR-265 / CORE-0.6-SET-FALLIBLE-20260926 — OOB set → Err(0); vec intact; no panic
+module core06_set_oob
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.set(99, 0)
+  match r {
+    Ok(u) => { print("bad-ok") }
+    Err(e) => {
+      let n: Int = v.len()
+      let a: Option<Int> = v.get(0)
+      if e == 0 {
+        if n == 1 {
+          if let Some(x) = a {
+            if x == 1 {
+              print("err")
+            } else {
+              print("bad-val")
+            }
+          } else {
+            print("bad-get")
+          }
+        } else {
+          print("bad-len")
+        }
+      } else {
+        print(e)
+      }
+    }
+  }
+}

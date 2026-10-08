@@ -1,0 +1,12 @@
+// ADR-194 std-checked-previous-multiple-of-none — MIN overflow → None
+module std_checked_previous_multiple_of_none
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_previous_multiple_of(3)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

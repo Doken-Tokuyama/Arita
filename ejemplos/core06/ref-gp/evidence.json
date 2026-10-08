@@ -1,0 +1,47 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.6-REF-GP-20260926",
+  "adr": "268",
+  "slice": 4,
+  "ref": "arita-ref-gp",
+  "lib_path": "ejemplos/core06/ref-gp/lib/lib.arita",
+  "lib_sha256": "5d176f831d31a2bd9a07e8e1778c586c33b9791ca64cb2c4a7dd26b8d109b75b",
+  "bin_path": "ejemplos/core06/ref-gp/bin/main.arita",
+  "bin_sha256": "4dbe6d4f3ea1e766df677c014afd68c5b3a13e7e8b8531a4600f8f9dd04d49a4",
+  "edge_path": "ejemplos/core06/ref-gp/edge/bin/main.arita",
+  "edge_sha256": "0ecf8480ccd3f53f89072b39e294ae4384d6aa19d440fcbdf305e8f47e28e891",
+  "edge_lib_path": "ejemplos/core06/ref-gp/edge/lib/lib.arita",
+  "edge_lib_sha256": "43e8c6074f21d68672d0b2fc55df7a8742ad1f5662594125cc1620e2abb112aa",
+  "neg_index_mut_path": "ejemplos/core06/ref-gp-neg/01-index-mut.arita",
+  "neg_index_mut_sha256": "7289280a1636ed4c7fa44ed90faf95e4a88d59a70ac26b5b6cc637c0b807125b",
+  "neg_set_path": "ejemplos/core06/ref-gp-neg/02-set-neg.arita",
+  "neg_set_sha256": "5cb38c8484da0b2c7ebdcb85687b73a69bd4f2ffe2679039f28615f40c785173",
+  "arita_toml_path": "ejemplos/core06/ref-gp/arita.toml",
+  "arita_toml_sha256": "9f2b625ad9b215799720748672887155e6dbf42af9e0137990bfbafac9184f8a",
+  "scenarios": [
+    "core06-ref-gp-build",
+    "core06-ref-gp-cli-happy",
+    "core06-ref-gp-cli-oob",
+    "core06-ref-gp-scenario",
+    "core06-ref-gp-evidence",
+    "core06-ref-gp-emit-ban",
+    "neg-core06-ref-gp-index-mut",
+    "neg-core06-ref-gp-set-neg"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": "gp-ref-happy",
+    "oob_stdout": "gp-ref-oob",
+    "index_mut": "E0314",
+    "set_neg": "E0319",
+    "emit_helper": "__arita_vec_set",
+    "emit_map_get": ".get(",
+    "lib_pub": [
+      "PatchSpec",
+      "apply_patch",
+      "peek_key"
+    ]
+  },
+  "measure_pass": true,
+  "notes": "CLOSED Lex 728/728 (2026-09-26); Core 0.6 CLOSED; HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair untouched; skip≠PASS. measure_pass:true after Core 0.6 CLOSED."
+}

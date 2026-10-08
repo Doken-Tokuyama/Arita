@@ -1,0 +1,12 @@
+// ADR-192 std-checked-next-multiple-of-none — MAX overflow → None
+module std_checked_next_multiple_of_none
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_next_multiple_of(2)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

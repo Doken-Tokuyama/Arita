@@ -1,0 +1,22 @@
+// CUT CORE-0.2-SERVICE-POLICY-20260920 — neg-core02-policy-neg-int → E0323
+module core02_policy_neg_int
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let bad: ServicePolicy = ServicePolicy {
+        max_body_bytes: -1,
+        max_header_bytes: 65536,
+        max_header_count: 100,
+        idle_timeout_ms: 30000
+      }
+      let r: Result<HttpServer, IoError> = srv.set_policy(bad)
+      match r {
+        Ok(_) => { print("should-not") }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

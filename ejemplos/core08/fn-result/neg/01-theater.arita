@@ -1,0 +1,15 @@
+// ADR-277 neg — theater B: fn→Result body yields Int lit → E0342 `result return type required`
+// Parser pin ADR-277-PARSER-FN-RESULT-20260926 NEG B
+module core08_fn_result_theater
+
+fn load(path: Text) -> Result<Text, Int> {
+  0
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = load("x")
+  match r {
+    Ok(t) => { print(t) }
+    Err(e) => { print(e) }
+  }
+}

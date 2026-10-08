@@ -1,0 +1,16 @@
+// ADR-135 std-from-be-roundtrip (portable: to_be.from_be == id)
+module std_from_be_roundtrip
+
+fn from_be_rt(n: Int) -> Int {
+  let be: Int = n.to_be()
+  let back: Int = be.from_be()
+  back
+}
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert from_be_rt(42) == 42
+}

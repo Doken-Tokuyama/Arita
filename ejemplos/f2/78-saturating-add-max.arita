@@ -1,0 +1,7 @@
+// ADR-090 std-saturating-add-max
+module std_saturating_add_max
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  print(a.saturating_add(1))
+}

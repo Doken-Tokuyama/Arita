@@ -1,0 +1,10 @@
+module join_miss_fail
+
+spec Org { }
+
+fact works(alice, eng)
+fact works(bob, sales)
+
+rule team_mate(X, Y) :- works(X, D), works(Y, D)
+
+query team_mate(alice, bob)

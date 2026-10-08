@@ -1,0 +1,64 @@
+# ARITA CI — runs scripts/ci.sh on push and pull requests.
+# Matrix: ubuntu-latest + macos-latest.
+# Toolchains are pinned: stable 1.97.1 (default; clippy + rustfmt) and
+# nightly-2026-09-13 (miri + rust-src) for the measure miri oracle.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    name: ci (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Rust nightly-2026-09-13 (miri + rust-src)
+        uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master @ 2026-10-01
+        with:
+          toolchain: nightly-2026-09-13
+          components: miri, rust-src
+
+      - name: Rust 1.97.1 (clippy + rustfmt)
+        uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master @ 2026-10-01
+        with:
+          toolchain: 1.97.1
+          components: clippy, rustfmt
+
+      - name: Pin default 1.97.1; expose pinned nightly as `nightly`; miri setup
+        # measure runs `cargo +nightly miri test ...`. rustup refuses a custom
+        # toolchain named `nightly`, so the pinned nightly directory is
+        # symlinked under the channel name `nightly-<host>`.
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup default 1.97.1
+          HOST="$(rustc -vV | sed -n 's/^host: //p')"
+          TC="$(rustup show home)/toolchains"
+          if [ -e "$TC/nightly-$HOST" ] && [ ! -L "$TC/nightly-$HOST" ]; then
+            echo "unexpected unpinned nightly at $TC/nightly-$HOST" >&2
+            exit 1
+          fi
+          ln -sfn "$TC/nightly-2026-09-13-$HOST" "$TC/nightly-$HOST"
+          rustc -V
+          NV="$(rustup run nightly rustc -V)"
+          echo "$NV"
+          case "$NV" in *809936eac*) ;; *) echo "pinned nightly mismatch (want 809936eac)" >&2; exit 1 ;; esac
+          cargo +nightly-2026-09-13 miri setup
+          cargo +nightly miri --version
+
+      - name: Cross target aarch64-unknown-linux-gnu (Linux only; ADR-034 gated oracle)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+          rustup target add aarch64-unknown-linux-gnu
+
+      - name: Run CI gate
+        run: bash scripts/ci.sh

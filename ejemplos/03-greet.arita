@@ -1,0 +1,6 @@
+// F1.1 — módulo con nombre distinto
+module greet
+
+fn main() -> Io<()> {
+  print("hola ARITA")
+}

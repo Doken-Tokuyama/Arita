@@ -1,0 +1,16 @@
+// ADR-290 §D3 / IM-5: índice literal negativo => E0319
+module core10_index_mut_neg_neg_lit
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[-1] += 2
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

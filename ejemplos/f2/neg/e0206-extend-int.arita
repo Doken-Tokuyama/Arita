@@ -1,0 +1,9 @@
+// ADR-224 neg — Int.extend → E0206
+module e0206_extend_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  let b: Int = 2
+  a.extend(b)
+  print(0)
+}

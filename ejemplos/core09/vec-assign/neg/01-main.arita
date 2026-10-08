@@ -1,0 +1,9 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — neg: v[i] = x en main (no fn Result) → E0344
+module core09_vec_assign_neg_main
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 2
+  print(v.len())
+}

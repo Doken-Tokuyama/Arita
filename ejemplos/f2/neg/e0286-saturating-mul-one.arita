@@ -1,0 +1,7 @@
+// ADR-102 neg — saturating_mul(1) vacuous → E0286
+module e0286_saturating_mul_one
+
+fn main() -> Io<()> {
+  let x: Int = 7
+  print(x.saturating_mul(1))
+}

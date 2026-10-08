@@ -1,0 +1,12 @@
+// ADR-113 std-find-some
+module std_find_some
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<Int> = s.find("ll")
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

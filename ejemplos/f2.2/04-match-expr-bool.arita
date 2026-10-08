@@ -1,0 +1,11 @@
+// F2.2 + ADR-025 — match as expression (Bool scrutinee)
+module match_expr_bool
+
+fn main() -> Io<()> {
+  let flag: Bool = true
+  let x: Int = match flag {
+    true => { 1 }
+    false => { 0 }
+  }
+  print(x)
+}

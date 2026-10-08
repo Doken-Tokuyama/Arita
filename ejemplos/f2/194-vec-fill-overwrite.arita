@@ -1,0 +1,38 @@
+// ADR-166 std-vec-fill-overwrite — fill all slots
+module std_vec_fill_overwrite
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  v.fill(9)
+  let a: Option<Int> = v.get(0)
+  let b: Option<Int> = v.get(1)
+  let c: Option<Int> = v.get(2)
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if let Some(z) = c {
+        if x == 9 {
+          if y == 9 {
+            if z == 9 {
+              print("ok")
+            } else {
+              print("bad")
+            }
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

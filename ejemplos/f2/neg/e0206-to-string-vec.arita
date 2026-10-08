@@ -1,0 +1,8 @@
+// ADR-070 neg — Vec.to_string → E0206 (Bool allowed since ADR-070)
+module e0206_to_string_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.to_string())
+}

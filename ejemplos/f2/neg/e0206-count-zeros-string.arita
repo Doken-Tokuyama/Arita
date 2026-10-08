@@ -1,0 +1,7 @@
+// ADR-127 neg — String.count_zeros → E0206
+module e0206_count_zeros_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.count_zeros())
+}

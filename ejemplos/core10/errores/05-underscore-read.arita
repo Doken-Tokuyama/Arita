@@ -1,0 +1,18 @@
+// oracle: core10-underscore-read
+// cause: ADR-295 P4: `_x` read by match
+// offender: -
+// control: -
+module core10_underscore_read
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn main() -> Io<()> {
+  let _x: Result<Int, Int> = f(2)
+  match _x {
+    Ok(v) => { print(v) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

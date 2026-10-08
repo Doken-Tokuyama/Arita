@@ -1,0 +1,24 @@
+// CUT CORE-0.3-SCENARIO-COMPOSE-20260920 — oracle core03-scen-compose-shutdown
+// Dual bind port 0 + shutdown both (ADR-252 lifecycle). NOT CLOSED.
+module core03_scen_compose_shutdown
+
+async fn main() -> Io<()> {
+  let s1: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s1 {
+    Err(e) => { print(e) }
+    Ok(a) => {
+      print(a.port())
+      let s2: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+      match s2 {
+        Err(e) => { print(e) }
+        Ok(b) => {
+          print(b.port())
+          print("dual-bound")
+          a.shutdown()
+          b.shutdown()
+          print("scen-compose-shutdown-ok")
+        }
+      }
+    }
+  }
+}

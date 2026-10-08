@@ -1,0 +1,8 @@
+// ADR-178 std-int-abs-diff
+module std_int_abs_diff
+
+fn main() -> Io<()> {
+  let a: Int = -5
+  let b: Int = 3
+  print(a.abs_diff(b))
+}

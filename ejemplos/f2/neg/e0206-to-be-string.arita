@@ -1,0 +1,7 @@
+// ADR-134 neg — String.to_be → E0206
+module e0206_to_be_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.to_be())
+}

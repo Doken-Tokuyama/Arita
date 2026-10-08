@@ -1,0 +1,10 @@
+// ADR-186 std-vec-is-sorted-false
+module std_vec_is_sorted_false
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(3)
+  v.push(1)
+  v.push(2)
+  print(v.is_sorted())
+}

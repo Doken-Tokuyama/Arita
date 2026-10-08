@@ -1,0 +1,5 @@
+{
+  "id": "contract-hello",
+  "source": "ejemplos/01-hello.arita",
+  "expect_stdout": ["hello"]
+}

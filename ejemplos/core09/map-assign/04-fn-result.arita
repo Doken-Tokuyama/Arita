@@ -1,0 +1,27 @@
+// ADR-282 / CORE-0.9-MAP-ASSIGN-20260926 — m[k] = v dentro de fn → Result<Int, Int> con ? (ADR-278); Ok → stdout 6
+// oracle: core09-map-assign-fn-result
+module core09_map_assign_fn_result
+
+fn base(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+
+fn build(x: Int) -> Result<Int, Int> {
+  let v: Int = base(x)?
+  let mut m: Map<Text, Int> = Map::new()
+  m["k"] = v
+  m["k"] = v + 1
+  let q: Text = "k"
+  let o: Option<Int> = m[q]
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(0) }
+  }
+}
+
+fn main() -> Io<()> {
+  match build(5) {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-236 / CUT CORE-0.1-TEXT-BYTES-20260919 — Text lit + print
+module text_lit
+
+fn main() -> Io<()> {
+  let t: Text = "hi"
+  print(t)
+}

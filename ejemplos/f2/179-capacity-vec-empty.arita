@@ -1,0 +1,12 @@
+// ADR-153 std-capacity-vec-empty — portable ≥0
+module std_capacity_vec_empty
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  let c: Int = v.capacity()
+  if c >= 0 {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

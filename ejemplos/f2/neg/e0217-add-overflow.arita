@@ -1,0 +1,8 @@
+// F2 neg — E0217 integer overflow LitInt MAX+1 (ADR-045 / TRAPS-INT-OVERFLOW-20260915)
+// Reject in HIR before emit — never rustc E0100 / panic / silent release wrap.
+module e0217_add_overflow
+
+fn main() -> Io<()> {
+  let x: Int = 9223372036854775807 + 1
+  print("ok")
+}

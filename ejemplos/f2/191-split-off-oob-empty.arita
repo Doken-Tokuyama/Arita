@@ -1,0 +1,8 @@
+// ADR-162 std-split-off-oob-empty — at>len → empty suffix
+module std_split_off_oob_empty
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  let t: String = s.split_off(99)
+  print(t.len())
+}

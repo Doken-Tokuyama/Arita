@@ -1,0 +1,8 @@
+// CUT CORE-0.3-CLIENT-COMPOSE-20260920 — neg Mutex HOLD must reject
+// Oracle: neg-core03-compose-mutex-hold. Do NOT unpark Mutex.
+module core03_neg_mutex
+
+async fn main() -> Io<()> {
+  let _m: Int = mutex_new(0)
+  print("should-not")
+}

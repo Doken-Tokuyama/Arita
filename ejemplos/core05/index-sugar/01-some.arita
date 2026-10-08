@@ -1,0 +1,13 @@
+// ADR-261 — v[i] in-range → Some (≡ get)
+module core05_index_sugar_some
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(42)
+  let o: Option<Int> = v[0]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

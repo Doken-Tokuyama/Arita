@@ -1,0 +1,11 @@
+// F2 std-min — Vec|String.is_empty() → Bool; ADR-026 / CUT STD-MIN-20260913
+module is_empty_demo
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  print(v.is_empty())
+  v.push(1)
+  print(v.is_empty())
+  let s: String = "hi"
+  print(s.is_empty())
+}

@@ -1,0 +1,6 @@
+// ADR-035 — surface must not name host crate path (E0261)
+module bad_host_path
+
+fn main() -> Io<()> {
+  print(arita_host_demo::mark())
+}

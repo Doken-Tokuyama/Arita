@@ -1,0 +1,10 @@
+// ADR-027 async v0 — minimal async + await
+module async_print
+
+async fn say() -> Io<()> {
+  print("ok")
+}
+
+async fn main() -> Io<()> {
+  await say()
+}

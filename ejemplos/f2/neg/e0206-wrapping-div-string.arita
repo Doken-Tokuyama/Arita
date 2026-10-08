@@ -1,0 +1,7 @@
+// ADR-212 neg — String.wrapping_div → E0206
+module e0206_wrapping_div_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.wrapping_div(2))
+}

@@ -1,0 +1,10 @@
+// F2 test + assert — Stmt::Assert only in Test (not main)
+module assert_demo
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert 2 + 2 == 4
+}

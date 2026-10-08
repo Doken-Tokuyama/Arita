@@ -1,0 +1,9 @@
+// ADR-059 std-push-str-string
+module std_push_str_string
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  let t: String = "there"
+  s.push_str(t)
+  print(s)
+}

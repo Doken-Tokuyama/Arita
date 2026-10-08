@@ -1,0 +1,12 @@
+// oracle: neg-core10-bare-stmt
+// cause: ADR-295 P2(c): Result-typed expression statement
+// offender: f(1)
+// control: replace the offender by a `match f(1) {..}`
+module core10_must_use_bare_stmt
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn main() -> Io<()> {
+  f(1)
+  print("after")
+}

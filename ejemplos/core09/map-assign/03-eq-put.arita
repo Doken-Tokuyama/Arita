@@ -1,0 +1,19 @@
+// ADR-282 / CORE-0.9-MAP-ASSIGN-20260926 — m[k] = v ≡ m.put(k, v): mismo stdout que el gemelo 03-eq-put-twin.arita
+// oracle: core09-map-assign-eq-put (azúcar)
+module core09_map_assign_eq_put
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 7
+  m["b"] = 3
+  m["a"] = 9
+  // Lectura con clave ident: m["a"] literal emite get(&"a".to_string()) (ADR-266) → clippy unnecessary_to_owned (preexistente, fuera de 282).
+  let q: Text = "a"
+  let o: Option<Int> = m[q]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+  print(m.len())
+}

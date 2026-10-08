@@ -1,0 +1,12 @@
+// ADR-083 std-checked-div-none-overflow
+module std_checked_div_none_overflow
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_div(-1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-144 std-ceil-char-boundary
+module std_ceil_char_boundary
+
+fn main() -> Io<()> {
+  let s: String = "niño"
+  print(s.ceil_char_boundary(3))
+}

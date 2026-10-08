@@ -1,0 +1,20 @@
+// ADR-290 / CORE-0.10-INDEX-MUT-20261002 — IM-6 (PROPOSED): migración de ejemplos/core09/vec-assign/neg/05-compound.arita (antes E0006, ahora válido: Vec<Int> en fn → Result<Int, Int>). Versión positiva que además LEE el resultado. stdout esperado: 2
+module core10_index_mut_compound_ok
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] += 1
+  let o: Option<Int> = v.get(0)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

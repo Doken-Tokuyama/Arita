@@ -1,0 +1,9 @@
+// ADR-051 option-swallow-ok — None => print("none") explicit absence
+module option_swallow_ok
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

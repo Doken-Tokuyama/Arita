@@ -1,0 +1,12 @@
+// ADR-198 std-result-flatten-ok-ok — Ok(Ok(7)).flatten() → Ok(7)
+module std_result_flatten_ok_ok
+
+fn main() -> Io<()> {
+  let inner: Result<Int, String> = Ok(7)
+  let r: Result<Result<Int, String>, String> = Ok(inner)
+  let f: Result<Int, String> = r.flatten()
+  match f {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

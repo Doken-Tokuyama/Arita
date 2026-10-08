@@ -1,0 +1,31 @@
+// CUT CORE-0.2-SERVICE-POLICY-20260920 — ADR-246 oracle core02-policy-set-ok
+// set_policy custom + smoke print. Measure may extend with serve+curl.
+module core02_policy_set
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let custom: ServicePolicy = ServicePolicy {
+        max_body_bytes: 4096,
+        max_header_bytes: 8192,
+        max_header_count: 50,
+        idle_timeout_ms: 5000
+      }
+      let r: Result<HttpServer, IoError> = srv.set_policy(custom)
+      match r {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          let p: ServicePolicy = srv2.policy()
+          print(p.max_body_bytes)
+          print(p.max_header_bytes)
+          print(p.max_header_count)
+          print(p.idle_timeout_ms)
+          srv2.shutdown()
+          print("policy-set-ok")
+        }
+      }
+    }
+  }
+}

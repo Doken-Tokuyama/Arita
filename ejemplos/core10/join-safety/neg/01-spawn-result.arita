@@ -1,0 +1,15 @@
+// ADR-286 §0.1d (a) / CORE-0.10-JOIN-SAFETY-20260927 — neg: spawn suelto de una fn async no-IoUnit → E0203
+// Hoy (sin S1b) emite `tokio::spawn(f());` y el Err(7) se pierde en silencio (build 0, run 0).
+// Ofensor único: `async fn f() -> Result<Int, Int>` lanzada con `spawn(f())`.
+// Control: `f` pasa a `-> Io<()>` con cuerpo `print("f")` → build verde.
+// oracle: neg-core10-spawn-result
+module core10_join_safety_spawn_result
+
+async fn f() -> Result<Int, Int> {
+  Err(7)
+}
+
+async fn main() -> Io<()> {
+  spawn(f())
+  print("done")
+}

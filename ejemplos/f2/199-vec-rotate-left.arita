@@ -1,0 +1,38 @@
+// ADR-170 std-vec-rotate-left — [1,2,3] → [2,3,1]
+module std_vec_rotate_left
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  v.rotate_left(1)
+  let a: Option<Int> = v.get(0)
+  let b: Option<Int> = v.get(1)
+  let c: Option<Int> = v.get(2)
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if let Some(z) = c {
+        if x == 2 {
+          if y == 3 {
+            if z == 1 {
+              print("ok")
+            } else {
+              print("bad")
+            }
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

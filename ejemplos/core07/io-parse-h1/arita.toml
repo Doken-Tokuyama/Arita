@@ -1,0 +1,6 @@
+# ADR-272 CORE-0.7-IO-PARSE-H1 — host ADR-238 surface only
+[package]
+name = "core07_io_parse_h1"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

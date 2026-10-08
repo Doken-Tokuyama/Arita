@@ -1,0 +1,7 @@
+// ADR-108 neg — String.checked_neg → E0206
+module e0206_checked_neg_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.checked_neg())
+}

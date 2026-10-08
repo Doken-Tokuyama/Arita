@@ -1,0 +1,26 @@
+// CUT CORE-0.2-HTTP-BINDINGS-20260920 — ADR-245 serve; measure curls /health then kills
+// Surface: HttpServer.bind / .port / .serve(handler) — NOT free http_*
+module core02_http_serve_health
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("ok")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let port: Int = srv.port()
+      print(port)
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r {
+        Ok(_) => { print("done") }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

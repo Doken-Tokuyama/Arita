@@ -1,0 +1,55 @@
+// ADR-268 — arita-ref-gp pub surface (≥2 pub: set/Map fallible + get/[] Option reads)
+// PatchSpec fields mirror JSON keys i/x/y (surface 238/240; parsing exercised in ADR-267)
+module lib
+
+pub record PatchSpec {
+  i: Int,
+  x: Int,
+  y: Int,
+}
+
+/// Apply fallible set + Map put; Ok(set value) or Err(code).
+pub fn apply_patch(i: Int, x: Int, y: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  let mut m: Map<Text, Int> = Map::new()
+  let r: Result<(), Int> = v.set(i, x)
+  match r {
+    Ok(u) => {
+      m.put("k", y)
+      let o: Option<Int> = v.get(i)
+      match o {
+        Some(vv) => {
+          let ok: Result<Int, Int> = Ok(vv)
+          ok
+        }
+        None => {
+          let bad: Result<Int, Int> = Err(0)
+          bad
+        }
+      }
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// Peek Map via [] sugar → Option as Result (Ok value / Err if None).
+pub fn peek_key(y: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("k", y)
+  let o: Option<Int> = m["k"]
+  match o {
+    Some(got) => {
+      let ok: Result<Int, Int> = Ok(got)
+      ok
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(0)
+      bad
+    }
+  }
+}

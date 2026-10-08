@@ -1,0 +1,27 @@
+// ADR-280 — CLI fail: lib from_args_fail Err via ?; stdout errprop-ref-fail + payload (2 sin arg; no panic); ZERO ? in main Io
+module arita_ref_errprop_fail
+
+use lib::State
+use lib::load_missing
+use lib::process_fail
+use lib::from_args_fail
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = from_args_fail()
+  match r {
+    Ok(n) => {
+      let s: State = State { n: n }
+      let got: Int = s.n
+      print(got)
+    }
+    Err(e) => {
+      print("errprop-ref-fail")
+      print(e)
+    }
+  }
+}
+
+scenario ref_errprop_err {
+  acceptance "errprop-ref-fail"
+  acceptance "2"
+}

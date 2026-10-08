@@ -1,0 +1,7 @@
+// ADR-133 std-swap-bytes-one
+module std_swap_bytes_one
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.swap_bytes())
+}

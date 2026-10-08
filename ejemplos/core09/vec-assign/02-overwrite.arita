@@ -1,0 +1,37 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — overwrite: el último valor gana y len no cambia; stdout "5" y "2"
+module core09_vec_assign_overwrite
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v[0] = 3
+  v[0] = 4
+  v[0] = 5
+  let o: Option<Int> = v.get(0)
+  match o {
+    Some(x) => { Ok(x) }
+    None => { Err(1) }
+  }
+}
+
+fn g() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v[1] = 7
+  v[1] = 8
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+  match g() {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

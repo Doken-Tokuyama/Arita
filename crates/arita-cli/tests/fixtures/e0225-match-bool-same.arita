@@ -1,0 +1,12 @@
+// Expected: E0225 vacuous match arms
+// ADR-031 / CUT TRAPS-MATCH-VACUOUS-20260914 — Bool arms same constant
+module e0225_match_bool_same
+
+fn main() -> Io<()> {
+  let flag: Bool = true
+  let x: Int = match flag {
+    true => { 1 }
+    false => { 1 }
+  }
+  print(x)
+}

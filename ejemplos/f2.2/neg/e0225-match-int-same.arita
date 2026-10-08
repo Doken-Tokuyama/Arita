@@ -1,0 +1,13 @@
+// Expected: E0225 vacuous match arms
+// ADR-031 / CUT TRAPS-MATCH-VACUOUS-20260914 — Int arms incl `_` same constant
+module e0225_match_int_same
+
+fn main() -> Io<()> {
+  let n: Int = 0
+  let x: Int = match n {
+    0 => { 1 }
+    1 => { 1 }
+    _ => { 1 }
+  }
+  print(x)
+}

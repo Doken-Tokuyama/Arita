@@ -1,0 +1,7 @@
+// ADR-194 neg — String.previous_multiple_of → E0206
+module e0206_previous_multiple_of_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.previous_multiple_of(2))
+}

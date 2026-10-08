@@ -1,0 +1,42 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — dentro de fn Result anidado en while/if/match; índice OOB → Err(0) propagado por el ? implícito; stdout "1" y "0"
+module core09_vec_assign_fn_result
+
+fn fill(k: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v.push(0)
+  let mut go: Bool = true
+  while go {
+    let c: Bool = true
+    if c {
+      v[k] = 1
+    }
+    go = false
+  }
+  let o: Option<Int> = v.get(2)
+  match o {
+    Some(x) => {
+      v[0] = x
+    }
+    None => {
+      v[0] = 9
+    }
+  }
+  let a: Option<Int> = v.get(0)
+  match a {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match fill(2) {
+    Ok(s) => { print(s) }
+    Err(e) => { print(e) }
+  }
+  match fill(4) {
+    Ok(s) => { print(s) }
+    Err(e) => { print(e) }
+  }
+}

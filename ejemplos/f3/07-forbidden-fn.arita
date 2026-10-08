@@ -1,0 +1,5 @@
+module forbidden_fn
+
+fn main() -> Io<()> {
+  print("no")
+}

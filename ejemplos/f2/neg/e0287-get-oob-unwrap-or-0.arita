@@ -1,0 +1,9 @@
+// ADR-103 neg — get OOB + unwrap_or(0) → E0287
+module e0287_get_oob_unwrap_or_0
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let o: Option<Int> = v.get(9)
+  print(o.unwrap_or(0))
+}

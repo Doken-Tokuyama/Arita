@@ -1,0 +1,8 @@
+// ADR-168 neg — take without mut → E0202
+module e0202_option_take_not_mut
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(1)
+  let t: Option<Int> = o.take()
+  print(0)
+}

@@ -1,0 +1,6 @@
+# ADR-277 CORE-0.8-FN-RESULT — host ADR-238 surface only; no ?
+[package]
+name = "core08_fn_result"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

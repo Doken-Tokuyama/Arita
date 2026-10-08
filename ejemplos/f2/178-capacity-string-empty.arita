@@ -1,0 +1,12 @@
+// ADR-153 std-capacity-string-empty — portable ≥0
+module std_capacity_string_empty
+
+fn main() -> Io<()> {
+  let s: String = ""
+  let c: Int = s.capacity()
+  if c >= 0 {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

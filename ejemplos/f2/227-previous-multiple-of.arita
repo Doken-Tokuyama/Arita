@@ -1,0 +1,7 @@
+// ADR-194 std-previous-multiple-of — 7.previous_multiple_of(3) → 6
+module std_previous_multiple_of
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.previous_multiple_of(3))
+}

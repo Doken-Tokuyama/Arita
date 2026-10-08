@@ -1,0 +1,16 @@
+// ADR-156 std-shrink-to-fit-vec — portable capacity≥len after reserve+shrink
+module std_shrink_to_fit_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.reserve(64)
+  v.shrink_to_fit()
+  let c: Int = v.capacity()
+  let n: Int = v.len()
+  if c >= n {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-062 std-ends-with-true
+module std_ends_with_true
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  print(s.ends_with("lo"))
+}

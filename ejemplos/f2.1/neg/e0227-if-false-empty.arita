@@ -1,0 +1,8 @@
+// F2.1 neg companion — empty then, LitBool false, no else → E0227 (HIR unit)
+module e0227_if_false_empty
+
+fn main() -> Io<()> {
+  if false {
+  }
+  print("ok")
+}

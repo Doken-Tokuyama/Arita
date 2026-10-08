@@ -1,0 +1,27 @@
+// ADR-283 §2 core09-vec-assign-qmark-chain (fixture de Measure, independiente de Codegen) — v[i] = x + ? (ADR-278) en la misma fn → el primer Err corta la cadena.
+// Semántica pineada (ADR-283 §0 Err runtime + Evaluación): chain(0): v[0] = 5 OK, luego boom(3)? → Err(3) → stdout "3".
+// chain(4): v[4] OOB → return Err(0) ANTES de boom (boom nunca corre) → stdout "0". Esperado: "3" y "0".
+module core09_vec_assign_qmark_chain
+
+fn boom(k: Int) -> Result<Int, Int> {
+  Err(k)
+}
+
+fn chain(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[i] = 5
+  let t: Int = boom(3)?
+  Ok(t)
+}
+
+fn main() -> Io<()> {
+  match chain(0) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+  match chain(4) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

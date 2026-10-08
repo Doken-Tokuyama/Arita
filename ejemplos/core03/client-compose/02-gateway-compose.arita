@@ -1,0 +1,54 @@
+// CUT CORE-0.3-CLIENT-COMPOSE-20260920 — gateway :19920 → HttpClient → upstream :19921
+// Handler call-out via HttpClient.post_text (slice 1 core). Requires upstream up.
+// Oracle: core03-compose-gateway-ok. NOT CLOSED.
+module core03_gateway_compose
+
+async fn handle_proxy(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let url: Text = HttpClient.url(19921, "/")
+      let cres: Result<HttpResponse, IoError> = HttpClient.post_text(url, body)
+      match cres {
+        Err(e) => {
+          let out: Result<HttpResponse, IoError> = Err(e)
+          out
+        }
+        Ok(resp) => {
+          let br: Result<Text, IoError> = resp.body_text()
+          match br {
+            Err(e) => {
+              let out: Result<HttpResponse, IoError> = Err(e)
+              out
+            }
+            Ok(t) => {
+              let out_resp: HttpResponse = HttpResponse.ok_text(t)
+              let out: Result<HttpResponse, IoError> = Ok(out_resp)
+              out
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19920)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("gateway-ready")
+      let r: Result<(), IoError> = srv.serve(handle_proxy)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

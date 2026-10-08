@@ -1,0 +1,8 @@
+// ADR-160 neg — String.truncate(-1) → E0288
+module e0288_string_truncate_neg
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s.truncate(-1)
+  print(0)
+}

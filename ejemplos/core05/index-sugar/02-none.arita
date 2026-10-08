@@ -1,0 +1,18 @@
+// ADR-261 — OOB / neg → None (no panic)
+module core05_index_sugar_none
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let a: Option<Int> = v[99]
+  let b: Option<Int> = v[-1]
+  if let Some(x) = a {
+    print(x)
+  } else {
+    if let Some(y) = b {
+      print(y)
+    } else {
+      print("none")
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/arita-syntax",
+  "crates/arita-codegen",
+  "crates/arita-cli",
+  "crates/arita-hir",
+  "crates/arita-logic",
+  "crates/arita-host-demo",
+  "crates/arita-host-core01",
+  "crates/arita-host-http",
+]

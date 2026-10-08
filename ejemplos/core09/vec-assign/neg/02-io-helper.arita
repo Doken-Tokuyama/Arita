@@ -1,0 +1,14 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — neg: v[i] = x en helper -> Io<()> (fuera de fn Result) → E0344
+module core09_vec_assign_neg_io_helper
+
+fn h() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 2
+  print(v.len())
+}
+
+fn main() -> Io<()> {
+  h()
+  print(0)
+}

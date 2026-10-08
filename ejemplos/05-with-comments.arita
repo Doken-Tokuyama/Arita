@@ -1,0 +1,9 @@
+// F1.1 smoke: comments ignored
+module commented
+
+fn main() -> Io<()> {
+  // first line
+  print("alpha")
+  // second
+  print("beta")
+}

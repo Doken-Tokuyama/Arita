@@ -1,0 +1,64 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.9-SCENARIO-MUT-20260926",
+  "adr": "284",
+  "slice": 3,
+  "01_mut_happy_path": "ejemplos/core09/scenario-mut/01-mut-happy.arita",
+  "01_mut_happy_sha256": "9fb3dd927a5ef87c4f053f38119e3b431f7ad2995689197dec11b2e0b6618d2c",
+  "02_mut_err_path": "ejemplos/core09/scenario-mut/02-mut-err.arita",
+  "02_mut_err_sha256": "b0b1e06e274182df2f9c3355f14e1a72bb1cb84692118807214beea15761be9a",
+  "03_mut_chain_path": "ejemplos/core09/scenario-mut/03-mut-chain.arita",
+  "03_mut_chain_sha256": "0f3b1469400753aacb8e1cdbef4a0d845d8075ecd18343a6f054da8d2acae255",
+  "04_mut_map_main_path": "ejemplos/core09/scenario-mut/04-mut-map-main.arita",
+  "04_mut_map_main_sha256": "bbb292b15f3bad31c883c1854f40f9fbcfe1a88515e259ca5d73feca0ce13f2c",
+  "neg_01_vec_assign_outside_path": "ejemplos/core09/scenario-mut/neg/01-vec-assign-outside.arita",
+  "neg_01_vec_assign_outside_sha256": "627e082dd14779192ff2512540019a45732894a8f658a266a28c6e78a9fe62fd",
+  "neg_02_map_assign_non_mut_path": "ejemplos/core09/scenario-mut/neg/02-map-assign-non-mut.arita",
+  "neg_02_map_assign_non_mut_sha256": "b777188b224e20c4f6385103df536d06b4e6c70b39bbf0d1b5ed91d3428217da",
+  "neg_03_unwrap_theater_path": "ejemplos/core09/scenario-mut/neg/03-unwrap-theater.arita",
+  "neg_03_unwrap_theater_sha256": "2fd382b6a6558ecad50abca6b7bebd5f7b17f1c352da0b80c90b184dd3681e94",
+  "scenarios": [
+    "core09-scen-mut-happy",
+    "core09-scen-mut-err",
+    "core09-scen-mut-chain",
+    "core09-scen-mut-map-main",
+    "neg-core09-scen-vec-assign-outside",
+    "neg-core09-scen-map-assign-non-mut",
+    "neg-core09-scen-unwrap-theater",
+    "core09-scen-mut-emit-ban",
+    "core09-scen-mut-build"
+  ],
+  "measure_stdout": {
+    "happy": [
+      "2",
+      "9",
+      "2",
+      "mut-happy"
+    ],
+    "err": [
+      "0",
+      "mut-err"
+    ],
+    "chain": [
+      "40",
+      "err",
+      "77",
+      "err",
+      "0"
+    ],
+    "map_main": [
+      "3",
+      "1",
+      "7",
+      "3"
+    ]
+  },
+  "measure_negs": {
+    "vec_assign_outside": "E0344",
+    "map_assign_non_mut": "E0202",
+    "unwrap_theater": "E0206"
+  },
+  "measure_artifact": "DOC/reviews/MEASURE_ADR284_SCENARIO_MUT_20260927.json",
+  "measure_pass": true,
+  "notes": "CLOSED Lex 825/825 ADR-284 SCENARIO-MUT slice 3 (Core 0.9); measure_pass:true. Exclusive full measure + cargo test -p arita-cli 151/0 on frozen tree (933/933 shasum OK). Veyra Proof quick ACCEPTED exit 0 (.veyra/evidence/20260927T051022Z/). Gate DOC/GATE-CORE09-SCENARIO-MUT-20260926.md. Slice 4 ADR-285 GO IMPL. No Core 0.9 CLOSED. skip!=PASS."
+}

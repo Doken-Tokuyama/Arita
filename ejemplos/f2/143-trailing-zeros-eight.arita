@@ -1,0 +1,7 @@
+// ADR-128 std-trailing-zeros-eight
+module std_trailing_zeros_eight
+
+fn main() -> Io<()> {
+  let a: Int = 8
+  print(a.trailing_zeros())
+}

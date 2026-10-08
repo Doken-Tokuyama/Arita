@@ -1,0 +1,7 @@
+// ADR-210 std-saturating-div-min — i64::MIN.saturating_div(-1) → i64::MAX (no panic)
+module std_saturating_div_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.saturating_div(-1))
+}

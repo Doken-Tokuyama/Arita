@@ -1,0 +1,8 @@
+// ADR-063 std-trim-spaces
+module std_trim_spaces
+
+fn main() -> Io<()> {
+  let s: String = "  hi  "
+  let t: String = s.trim()
+  print(t)
+}

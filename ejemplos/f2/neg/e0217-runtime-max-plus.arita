@@ -1,0 +1,9 @@
+// F2 neg companion — E0217 runtime morph: let a=MAX; a+1 (ADR-045; closes release wrap)
+// Not measure-wired (measure uses e0217-add-overflow lit); evidence must be E0217 only.
+module e0217_runtime_max_plus
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let x: Int = a + 1
+  print("ok")
+}

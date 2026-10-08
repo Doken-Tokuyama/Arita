@@ -1,0 +1,36 @@
+// ADR-292 / IA — `arita test`: cada test desborda con `+ - *` no literal; la asercion se CUMPLIRIA con wrap
+// (assert f(MAX,1) == MIN) => sin `-C overflow-checks=on` los tests PASAN (el oraculo debe fallar); con el flag, FAILED con
+// `attempt to <op> with overflow`. `ctl` no desborda y debe pasar siempre.
+module core10_int_overflow_test
+
+fn add(a: Int, b: Int) -> Int {
+  a + b
+}
+
+fn sub(a: Int, b: Int) -> Int {
+  a - b
+}
+
+fn mul(a: Int, b: Int) -> Int {
+  a * b
+}
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test ctl {
+  assert add(1, 2) == 3
+}
+
+test ovf_add {
+  assert add(9223372036854775807, 1) == -9223372036854775808
+}
+
+test ovf_sub {
+  assert sub(-9223372036854775807, 2) == 9223372036854775807
+}
+
+test ovf_mul {
+  assert mul(9223372036854775807, 2) == -2
+}

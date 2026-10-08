@@ -1,0 +1,8 @@
+// ADR-158 neg — Int.swap → E0206
+module e0206_swap_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  a.swap(0, 1)
+  print(0)
+}

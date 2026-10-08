@@ -1,0 +1,8 @@
+// ADR-235 / CORE-0.1-BORROW-SURFACE — keyword shared borrow (Copy-out)
+module core01_borrow
+
+fn main() -> Io<()> {
+  let x: Int = 7
+  let a: Int = borrow x
+  print(a)
+}

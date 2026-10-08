@@ -1,0 +1,12 @@
+// ADR-202 std-result-ok-some — Ok(7).ok() → Some(7)
+module std_result_ok_some
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(7)
+  let o: Option<Int> = r.ok()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,7 @@
+# ADR-263 OOB consumer (insert Err + index None)
+[package]
+name = "arita_ref_collections_oob"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

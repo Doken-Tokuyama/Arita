@@ -1,0 +1,7 @@
+# ADR-268 OOB consumer (set Err + Map miss None)
+[package]
+name = "arita_ref_gp_oob"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

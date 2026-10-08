@@ -1,0 +1,18 @@
+// ADR-289 / CORE-EMIT-UNUSED-PARENS-V0 — PU-2 (PROPOSED): sitios `(..).max(0) as usize` y
+// argumentos de macro (`println!`) NO migrados: el Rust emitido sigue compilando sin
+// `unused_parens` y el paréntesis del `as` se conserva. Stdout ok 3.
+module core10_unused_parens_sites
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.resize(3, 9)
+  v.reserve(8)
+  let c: Int = v.capacity()
+  if c >= 8 {
+    print("ok")
+  } else {
+    print("bad")
+  }
+  print(v.len())
+}

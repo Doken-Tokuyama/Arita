@@ -1,0 +1,8 @@
+// ADR-146 std-trim-ascii-start
+module std_trim_ascii_start
+
+fn main() -> Io<()> {
+  let s: String = "  hi"
+  let t: String = s.trim_ascii_start()
+  print(t)
+}

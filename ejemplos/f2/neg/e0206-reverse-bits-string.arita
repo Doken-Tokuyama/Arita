@@ -1,0 +1,7 @@
+// ADR-130 neg — String.reverse_bits → E0206
+module e0206_reverse_bits_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.reverse_bits())
+}

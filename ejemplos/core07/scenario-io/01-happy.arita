@@ -1,0 +1,33 @@
+// ADR-274 / CORE-0.7-SCENARIO-IO-20260926 — cli_arg Some + read Ok + json_get Some → io-happy
+// E0340/E0341 discipline: match Ok/Err + Some/None; no unwrap_or theater
+module core07_scen_io_happy
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let r: Result<Text, Int> = host.read_text(p)
+      match r {
+        Ok(doc) => {
+          let nopt: Option<Int> = host.json_get_int(doc, "n")
+          match nopt {
+            Some(n) => {
+              if n == 7 {
+                print("io-happy")
+              } else {
+                print("bad-n")
+              }
+            }
+            None => { print("missing_n") }
+          }
+        }
+        Err(_) => { print("read_failed") }
+      }
+    }
+    None => { print("usage") }
+  }
+}
+
+scenario io_happy {
+  acceptance "io-happy"
+}

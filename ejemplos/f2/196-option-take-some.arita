@@ -1,0 +1,17 @@
+// ADR-168 std-option-take-some
+module std_option_take_some
+
+fn main() -> Io<()> {
+  let mut o: Option<Int> = Some(7)
+  let t: Option<Int> = o.take()
+  let gone: Bool = o.is_none()
+  if let Some(n) = t {
+    if gone {
+      print(n)
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

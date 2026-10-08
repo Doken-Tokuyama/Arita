@@ -1,0 +1,8 @@
+// ADR-119 — resize without mut → E0202
+module e0202_resize_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  v.resize(1, 0)
+  print(0)
+}

@@ -1,0 +1,7 @@
+// F2 String pest — let String + print(Path)
+module str_hi
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s)
+}

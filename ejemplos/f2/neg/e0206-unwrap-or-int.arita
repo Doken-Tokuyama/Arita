@@ -1,0 +1,7 @@
+// ADR-093 neg — Int.unwrap_or → E0206
+module e0206_unwrap_or_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.unwrap_or(0))
+}

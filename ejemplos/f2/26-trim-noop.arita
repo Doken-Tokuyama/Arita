@@ -1,0 +1,8 @@
+// ADR-063 std-trim-noop — already trimmed
+module std_trim_noop
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  let t: String = s.trim()
+  print(t)
+}

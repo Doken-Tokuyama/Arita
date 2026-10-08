@@ -1,0 +1,6 @@
+// Library member — no main (ADR-254 lib module + ADR-255 package)
+module lib
+
+pub fn double(x: Int) -> Int {
+  x + x
+}

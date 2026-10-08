@@ -1,0 +1,13 @@
+// ADR-286 §0.1d oráculo 4 / CORE-0.10-JOIN-SAFETY-20260927 — pos: `await join(spawn(<fn Io<()>>))`
+// Cubre en positivo la forma P6 `{ let _ = tokio::spawn(worker()).await; }` (A-10). stdout exacto: w / done.
+// oracle: core10-spawn-iounit
+module core10_join_safety_spawn_iounit
+
+async fn worker() -> Io<()> {
+  print("w")
+}
+
+async fn main() -> Io<()> {
+  await join(spawn(worker()))
+  print("done")
+}

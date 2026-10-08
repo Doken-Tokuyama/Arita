@@ -1,0 +1,11 @@
+module cycle_reach_ok
+
+spec Graph { }
+
+fact edge(a, b)
+fact edge(b, a)
+
+rule reach(X, Y) :- edge(X, Y)
+rule reach(X, Z) :- edge(X, Y), reach(Y, Z)
+
+query reach(a, a)

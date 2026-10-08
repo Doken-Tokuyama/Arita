@@ -1,0 +1,16 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — neg: valor de tipo incompatible v[0] = "x" → E0203 (≡ v.set(0, "x"))
+module core09_vec_assign_neg_type
+
+fn f(n: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = "x"
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match f(1) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

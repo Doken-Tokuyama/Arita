@@ -1,0 +1,29 @@
+// ADR-267 — set OOB Err(0) + Map miss None; no panic → stdout gp-oob
+module core06_scen_gp_oob
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", 7)
+  let r: Result<(), Int> = v.set(99, 0)
+  match r {
+    Ok(u) => { print("bad-ok") }
+    Err(e) => {
+      let o: Option<Int> = m["z"]
+      if let Some(x) = o {
+        print(x)
+      } else {
+        if e == 0 {
+          print("gp-oob")
+        } else {
+          print(e)
+        }
+      }
+    }
+  }
+}
+
+scenario gp_oob {
+  acceptance "gp-oob"
+}

@@ -1,0 +1,7 @@
+// ADR-097 std-wrapping-sub-normal
+module std_wrapping_sub_normal
+
+fn main() -> Io<()> {
+  let a: Int = 5
+  print(a.wrapping_sub(3))
+}

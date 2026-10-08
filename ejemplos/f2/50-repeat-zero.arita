@@ -1,0 +1,8 @@
+// ADR-075 std-repeat-zero
+module std_repeat_zero
+
+fn main() -> Io<()> {
+  let s: String = "ab"
+  let t: String = s.repeat(0)
+  print(t)
+}

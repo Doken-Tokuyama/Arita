@@ -1,0 +1,86 @@
+// CUT CORE-0.2-REF-HTTP-DAEMON-20260920 — ADR-248 ref `arita-ref-http-json`
+// Empty body → health JSON; else echo. Fixed :19901 (spawn zero-arg MVP).
+// Policy default. Client via HttpClient.url. After traffic: process exit (shutdown oracle → scen-shutdown).
+// Companion `ref-server-port0.arita` = bind 0 for Measure external client. No new APIs. NOT PASS until Measure.
+module arita_ref_http_json
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let n: Int = body.len()
+      match n {
+        0 => {
+          let resp: HttpResponse = HttpResponse.ok_text("{\"ok\":true}")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        _ => {
+          let resp: HttpResponse = HttpResponse.ok_text(body)
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+      }
+    }
+  }
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19901)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let p: ServicePolicy = ServicePolicy.default()
+      let sp: Result<HttpServer, IoError> = srv.set_policy(p)
+      match sp {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          print(srv2.port())
+          print("ref-ready")
+          let r: Result<(), IoError> = srv2.serve(handle)
+          match r {
+            Ok(_) => {}
+            Err(e) => { print(e) }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(250)
+  let port: Int = 19901
+  let uh: Text = HttpClient.url(port, "/health")
+  let gh: Result<HttpResponse, IoError> = HttpClient.get(uh)
+  match gh {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  let ue: Text = HttpClient.url(port, "/echo")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(ue, "ref-echo-payload")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("ref-http-json-done")
+}

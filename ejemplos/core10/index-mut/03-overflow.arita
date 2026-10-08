@@ -1,0 +1,67 @@
+// ADR-290 / CORE-0.10-INDEX-MUT-20261002 — IM-2b (CANDIDATO): overflow de cada operador compuesto ⇒ Err(0) (sin panic en debug ni wrap en release). Los literales máximos solo van en v.push(..) (no hay Binary que plegar a E0217).
+// stdout esperado (7 líneas): 9223372036854775807 · 0 · -9223372036854775808 · 0 · 9223372036854775807 · 0 · -9223372036854775807
+module core10_index_mut_overflow
+
+fn addm(x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9223372036854775807)
+  v[0] += x
+  let o: Option<Int> = v.get(0)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn subm(x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(-9223372036854775807)
+  v[0] -= x
+  let o: Option<Int> = v.get(0)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn mulm(x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9223372036854775807)
+  v[0] *= x
+  let o: Option<Int> = v.get(0)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match addm(0) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match addm(1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match subm(1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match subm(2) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match mulm(1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match mulm(2) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match mulm(-1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

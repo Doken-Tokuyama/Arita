@@ -1,0 +1,7 @@
+// ADR-278 neg — ? inside fn → Io<()> → E0343 `question mark outside result fn`
+module core08_qmark_outside
+
+fn main() -> Io<()> {
+  let t: Text = host.read_text("ejemplos/core08/qmark/fixture.txt")?
+  print(t)
+}

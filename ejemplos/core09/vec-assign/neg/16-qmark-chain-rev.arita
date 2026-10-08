@@ -1,0 +1,19 @@
+// ADR-283 §2 + addendum Ingeniero 23:58 neg-core09-vec-assign-qmark-chain-rev (fixture de Measure) — orden inverso de 15-qmark-chain:
+// en la misma fn NO-Result, `let n: Int = g()?` ANTES de `v[0] = 2` → E0343 exacto (gana el primer ofensor en orden fuente;
+// una impl donde E0344 siempre gana debe fallar). Sin v.push / literal Vec (E0006 por sí solos en fn `-> Int`).
+module core09_vec_assign_neg_qmark_chain_rev
+
+fn g() -> Result<Int, Int> {
+  Ok(1)
+}
+
+fn h() -> Int {
+  let mut v: Vec<Int> = Vec::new()
+  let n: Int = g()?
+  v[0] = 2
+  n
+}
+
+fn main() -> Io<()> {
+  print(h())
+}

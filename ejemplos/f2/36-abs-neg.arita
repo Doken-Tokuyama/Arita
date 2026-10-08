@@ -1,0 +1,7 @@
+// ADR-069 std-abs-neg
+module std_abs_neg
+
+fn main() -> Io<()> {
+  let n: Int = -3
+  print(n.abs())
+}

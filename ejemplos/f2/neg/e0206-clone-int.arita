@@ -1,0 +1,7 @@
+// ADR-058 neg — Int.clone → E0206
+module e0206_clone_int
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  print(n.clone())
+}

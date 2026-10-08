@@ -1,0 +1,12 @@
+// F2.1 / ADR-023 — Int cmp as Bool let init (==)
+module cmp_let
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  let ok: Bool = a == 7
+  if ok {
+    print("eq")
+  } else {
+    print("ne")
+  }
+}

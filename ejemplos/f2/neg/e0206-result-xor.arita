@@ -1,0 +1,9 @@
+// ADR-174 neg — Result.xor VOID → E0206
+module e0206_result_xor
+
+fn main() -> Io<()> {
+  let a: Result<Int, String> = Ok(1)
+  let b: Result<Int, String> = Ok(2)
+  let c: Result<Int, String> = a.xor(b)
+  print(0)
+}

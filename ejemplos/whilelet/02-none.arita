@@ -1,0 +1,10 @@
+// ADR-055/056 whilelet-02 — non-lit None binding: 0 iters (no E0277)
+module whilelet_none
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  while let Some(x) = o {
+    print(x)
+  }
+  print("ok")
+}

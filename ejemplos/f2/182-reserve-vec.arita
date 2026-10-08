@@ -1,0 +1,13 @@
+// ADR-154 std-reserve-vec — capacity ≥ n after reserve
+module std_reserve_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.reserve(8)
+  let c: Int = v.capacity()
+  if c >= 8 {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

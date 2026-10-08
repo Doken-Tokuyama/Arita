@@ -1,0 +1,17 @@
+// CUT CORE-0.2-HTTP-BINDINGS-20260920 — ADR-245 types surface smoke (NOT measure-wired)
+// bind + port + shutdown; serve covered by host unit test (blocking).
+// skip ≠ PASS · CLOSED only after measure+Ingeniero gate
+module core02_http_health
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let port: Int = srv.port()
+      print(port)
+      srv.shutdown()
+      print("http-health-ok")
+    }
+  }
+}

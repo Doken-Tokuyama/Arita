@@ -1,0 +1,16 @@
+// ADR-243 neg — spawn outside async (sync helper; main async + print for E0001)
+module neg_spawn_outside
+
+async fn worker() -> Io<()> {
+  print("w")
+}
+
+fn helper() -> Io<()> {
+  let t: Task = spawn(worker())
+  print("h")
+}
+
+async fn main() -> Io<()> {
+  helper()
+  print("x")
+}

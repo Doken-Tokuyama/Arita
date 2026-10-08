@@ -1,0 +1,22 @@
+// ADR-266 — m[k] ≡ m.get(k)
+module core06_map_index_eq_get
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", 7)
+  let a: Option<Int> = m["a"]
+  let b: Option<Int> = m.get("a")
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if x == y {
+        print("eq")
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

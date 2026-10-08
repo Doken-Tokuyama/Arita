@@ -1,0 +1,25 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.4-MULTI-MODULE-20260920",
+  "adr": "254",
+  "slice": 1,
+  "level": "tested",
+  "entry_path": "ejemplos/core04/multi-module/main.arita",
+  "entry_sha256": "1c999b3310d65d207dba5e2693708c1d902375ba8f1d258f0b69a7dbcda88b65",
+  "lib_path": "ejemplos/core04/multi-module/util.arita",
+  "lib_sha256": "7013504dbf50b7f84363b8658c8f7a0cd13572ef85a571ab221fc37a683a37d8",
+  "scenarios": [
+    "core04-mm-happy",
+    "core04-mm-neg-missing",
+    "core04-mm-neg-crate",
+    "core04-mm-evidence"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "run_stdout": "42",
+    "neg_missing": "E0404",
+    "neg_crate": "E0261"
+  },
+  "measure_pass": false,
+  "notes": "Lex 2026-09-20 Codegen: multi-file module+use; NOT CLOSED"
+}

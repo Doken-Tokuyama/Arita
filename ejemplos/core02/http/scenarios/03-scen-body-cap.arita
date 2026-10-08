@@ -1,0 +1,56 @@
+// CUT CORE-0.2-SCENARIO-HTTP-20260920 — ADR-247 oracle core02-scen-body-cap
+module core02_scen_body_cap
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("should-not-see")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19873)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let tight: ServicePolicy = ServicePolicy {
+        max_body_bytes: 16,
+        max_header_bytes: 65536,
+        max_header_count: 100,
+        idle_timeout_ms: 30000
+      }
+      let sp: Result<HttpServer, IoError> = srv.set_policy(tight)
+      match sp {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          print(srv2.port())
+          print("ready")
+          let r: Result<(), IoError> = srv2.serve(handle)
+          match r {
+            Ok(_) => {}
+            Err(e) => { print(e) }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(200)
+  let url: Text = "http://127.0.0.1:19873/"
+  let big: Text = "xxxxxxxxxxxxxxxxx"
+  let got: Result<HttpResponse, IoError> = HttpClient.post_text(url, big)
+  match got {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let body_r: Result<Text, IoError> = resp.body_text()
+      match body_r {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("scen-body-cap-done")
+}

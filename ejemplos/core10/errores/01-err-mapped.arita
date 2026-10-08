@@ -1,0 +1,29 @@
+// ADR-286 / CORE-0.10-DEAD-SINK-20260927 — positivo: Err remapeado a Err(3) explícito es manejo legítimo (ADR-286 §2 L73; P3(ii) L39; D-4 L20)
+// inner = Err(1); outer liga e a un binding muerto pero devuelve Err(3) explícito; main imprime etiqueta + payload.
+// stdout exacto: mapped / 3 · exit 0
+// oracle: core10-err-mapped
+module core10_err_mapped
+
+fn inner() -> Result<Int, Int> {
+  Err(1)
+}
+
+fn outer() -> Result<Int, Int> {
+  match inner() {
+    Ok(x) => { Ok(x) }
+    Err(e) => {
+      let _c: Int = e
+      Err(3)
+    }
+  }
+}
+
+fn main() -> Io<()> {
+  match outer() {
+    Ok(v) => { print(v) }
+    Err(e) => {
+      print("mapped")
+      print(e)
+    }
+  }
+}

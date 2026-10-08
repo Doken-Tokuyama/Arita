@@ -1,0 +1,8 @@
+// ADR-168 std-option-take-none
+module std_option_take_none
+
+fn main() -> Io<()> {
+  let mut o: Option<Int> = None
+  let t: Option<Int> = o.take()
+  print(t.is_none())
+}

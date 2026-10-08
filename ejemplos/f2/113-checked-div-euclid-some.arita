@@ -1,0 +1,12 @@
+// ADR-111 std-checked-div-euclid-some
+module std_checked_div_euclid_some
+
+fn main() -> Io<()> {
+  let a: Int = -7
+  let o: Option<Int> = a.checked_div_euclid(4)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

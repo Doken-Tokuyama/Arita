@@ -1,0 +1,9 @@
+// ADR-287 — NON-member: prints "other"
+module pkg_member_other
+
+use lib::add
+
+fn main() -> Io<()> {
+  print("other")
+  print(add(1, 1))
+}

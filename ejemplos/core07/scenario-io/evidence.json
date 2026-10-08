@@ -1,0 +1,35 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.7-SCENARIO-IO-20260926",
+  "adr": "274",
+  "slice": 3,
+  "happy_path": "ejemplos/core07/scenario-io/01-happy.arita",
+  "happy_sha256": "0c232ed734e33171bea958720d28e1a7a26ff64965db89e62ba1499084fc92ec",
+  "fail_path": "ejemplos/core07/scenario-io/02-fail.arita",
+  "fail_sha256": "8f5d5c1d5d3947ea6f026408909d84e5a5fd2a1b2888f4fd9011c5a725037342",
+  "neg_h1_path": "ejemplos/core07/scenario-io/neg/01-h1.arita",
+  "neg_h1_sha256": "d48134d310de2afd8c56c56550645f5e877e4501a8638e03874dc5bc29302fe3",
+  "neg_h2_path": "ejemplos/core07/scenario-io/neg/02-h2.arita",
+  "neg_h2_sha256": "a536674cf17b8a692d425c2025dad22cbb7072ce0c38ab9cb382f39e19194dc5",
+  "arita_toml_path": "ejemplos/core07/scenario-io/arita.toml",
+  "arita_toml_sha256": "2ee7e7deedd954c19c90ab53f23fd974f9586dcc8d78dec344ee90525a13ae86",
+  "fixture_path": "ejemplos/core07/scenario-io/fixture.json",
+  "fixture_sha256": "b867a3a25c79830e76cfe31656f01a7ba653332984d850df2cb480ca7502ced9",
+  "scenarios": [
+    "core07-scen-io-happy",
+    "core07-scen-io-fail",
+    "neg-core07-scen-io-h1",
+    "neg-core07-scen-io-h2",
+    "core07-scen-io-build"
+  ],
+  "codegen_smoke": {
+    "happy_stdout": "io-happy",
+    "fail_stdout": "io-fail",
+    "h1": "E0340",
+    "h2": "E0341",
+    "unit_adr274": "ok",
+    "clippy_arita_cli": "ok"
+  },
+  "measure_pass": true,
+  "notes": "Lex Measure+Ingeniero ADR-274 CLOSED 744/744; measure_pass:true. Artifact DOC/reviews/MEASURE_ADR274_SCENARIO_IO_20260926.json (from /tmp/arita-measure-274.clean.json; exit 0). §2 5/5 scen-io accepted; skip=0. Veyra quick REJECTED non-blocking RUSTSEC-2026-0007+rustfmt-diff (.veyra/evidence/20260926T112424Z/). HOLDs slice4 REF-IO / I/O-new / Mutex / IndexMut / idle / TLS/WS / crates.io / repair intact."
+}

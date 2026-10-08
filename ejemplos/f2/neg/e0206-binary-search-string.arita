@@ -1,0 +1,8 @@
+// ADR-190 neg — String.binary_search → E0206
+module e0206_binary_search_string
+
+fn main() -> Io<()> {
+  let s: String = "abc"
+  let r: Result<Int, Int> = s.binary_search(1)
+  print(0)
+}

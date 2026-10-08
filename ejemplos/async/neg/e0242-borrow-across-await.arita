@@ -1,0 +1,13 @@
+// Expected: E0242 borrow held across await (ADR-039)
+module e0242_borrow_across_await
+
+async fn tick() -> Io<()> {
+  print("tick")
+}
+
+async fn main() -> Io<()> {
+  let s: String = "hi"
+  let r: Int = &s
+  await tick()
+  print(r)
+}

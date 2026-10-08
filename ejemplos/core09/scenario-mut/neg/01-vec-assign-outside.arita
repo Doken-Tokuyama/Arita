@@ -1,0 +1,16 @@
+// ADR-284 §2 neg-core09-scen-vec-assign-outside (fixture de Measure) — escenario Map+Vec con UN solo ofensor:
+// `v[0] = 9` directamente en main `Io<()>` → E0344 (ADR-284 L57 / L71; §0 L22–L23: `v[i] = x` solo en helper fn → Result).
+// Control: sin la línea `v[0] = 9` el programa compila (verificado por Measure en /tmp).
+module core09_scen_mut_neg_vec_assign_outside
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  m["hits"] = 2
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[0] = 9
+  print(m.len())
+  print(v.len())
+}

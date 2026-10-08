@@ -1,0 +1,7 @@
+// ADR-072 std-clamp-in
+module std_clamp_in
+
+fn main() -> Io<()> {
+  let n: Int = 3
+  print(n.clamp(1, 5))
+}

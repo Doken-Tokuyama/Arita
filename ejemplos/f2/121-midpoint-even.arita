@@ -1,0 +1,7 @@
+// ADR-115 std-midpoint-even — 2.midpoint(8) → 5
+module std_midpoint_even
+
+fn main() -> Io<()> {
+  let a: Int = 2
+  print(a.midpoint(8))
+}

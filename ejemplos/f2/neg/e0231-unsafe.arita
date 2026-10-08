@@ -1,0 +1,8 @@
+// Expected: E0231 unsafe / FFI not allowed in ARITA
+module e0231_unsafe
+
+fn main() -> Io<()> {
+  unsafe {
+    print("unreachable")
+  }
+}

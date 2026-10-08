@@ -1,0 +1,9 @@
+// ADR-049 std-clear-vec — clear then len==0
+module std_clear_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.clear()
+  print(v.len())
+}

@@ -1,0 +1,7 @@
+// ADR-137 std-string-is-empty-true
+module std_string_is_empty_true
+
+fn main() -> Io<()> {
+  let s: String = ""
+  print(s.is_empty())
+}

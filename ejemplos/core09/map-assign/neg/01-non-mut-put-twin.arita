@@ -1,0 +1,9 @@
+// ADR-282 neg — gemelo put de 01-non-mut.arita → E0202 borrow conflict (mismo texto)
+// oracle: neg-core09-map-assign-non-mut (gemelo put)
+module core09_map_assign_non_mut_twin
+
+fn main() -> Io<()> {
+  let m: Map<Text, Int> = Map::new()
+  m.put("a", 1)
+  print(m.len())
+}

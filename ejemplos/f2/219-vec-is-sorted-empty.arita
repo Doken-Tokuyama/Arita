@@ -1,0 +1,7 @@
+// ADR-186 std-vec-is-sorted-empty — empty is sorted
+module std_vec_is_sorted_empty
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  print(v.is_sorted())
+}

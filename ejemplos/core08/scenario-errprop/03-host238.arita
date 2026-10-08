@@ -1,0 +1,37 @@
+// ADR-279 — host 238 write_text/read_text Result + ? inside helper fn→Result (≠ E0340 discard)
+// oracle: core08-scen-errprop-host238
+module core08_scen_errprop_host238
+
+fn save(path: Text, body: Text) -> Result<Int, Int> {
+  let n: Int = host.write_text(path, body)?
+  Ok(n)
+}
+
+fn load(path: Text) -> Result<Text, Int> {
+  let t: Text = host.read_text(path)?
+  Ok(t)
+}
+
+fn main() -> Io<()> {
+  let w: Result<Int, Int> = save("ejemplos/core08/scenario-errprop/scratch.txt", "errprop-host238")
+  match w {
+    Ok(_) => {
+      let r: Result<Text, Int> = load("ejemplos/core08/scenario-errprop/scratch.txt")
+      match r {
+        Ok(t) => { print(t) }
+        Err(e) => {
+          print("errprop_failed")
+          print(e)
+        }
+      }
+    }
+    Err(e) => {
+      print("errprop_failed")
+      print(e)
+    }
+  }
+}
+
+scenario errprop_host238 {
+  acceptance "errprop-host238"
+}

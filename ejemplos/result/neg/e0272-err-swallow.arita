@@ -1,0 +1,11 @@
+// ADR-048 neg-e0272 — Err(e) unused + default lit theater → E0272
+module result_err_swallow_neg
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = Err(1)
+  let v: Int = match r {
+    Ok(x) => { x }
+    Err(e) => { 0 }
+  }
+  print(v)
+}

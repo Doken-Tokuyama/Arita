@@ -1,0 +1,38 @@
+// CUT CORE-0.2-SERVICE-POLICY-20260920 — ADR-246 oracle core02-policy-body-cap
+// Tight max_body_bytes=16; Measure: serve + POST >16 → reject; handler must not 200.
+module core02_policy_body_cap
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("should-not-see")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let tight: ServicePolicy = ServicePolicy {
+        max_body_bytes: 16,
+        max_header_bytes: 65536,
+        max_header_count: 100,
+        idle_timeout_ms: 30000
+      }
+      let r: Result<HttpServer, IoError> = srv.set_policy(tight)
+      match r {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          let port: Int = srv2.port()
+          print(port)
+          print("body-cap-ready")
+          let serve_r: Result<(), IoError> = srv2.serve(handle)
+          match serve_r {
+            Ok(_) => { print("done") }
+            Err(e) => { print(e) }
+          }
+        }
+      }
+    }
+  }
+}

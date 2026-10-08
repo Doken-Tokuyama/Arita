@@ -1,0 +1,8 @@
+// ADR-103 neg — get on empty + unwrap_or(0) → E0287
+module e0287_get_empty_unwrap_or_0
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  let o: Option<Int> = v.get(0)
+  print(o.unwrap_or(0))
+}

@@ -1,0 +1,8 @@
+// ADR-101 neg — checked_mul overflow + unwrap_or(0) → E0285
+module e0285_checked_mul_unwrap_or_0
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_mul(2)
+  print(o.unwrap_or(0))
+}

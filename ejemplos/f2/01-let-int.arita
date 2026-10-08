@@ -1,0 +1,9 @@
+// F2 pest v0 — let Int + print(Path)
+module let_int
+
+fn main() -> Io<()> {
+  let n: Int = 42
+  let mut m: Int = 7
+  print(n)
+  print(m)
+}

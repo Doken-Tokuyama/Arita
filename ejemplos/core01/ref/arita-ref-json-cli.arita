@@ -1,0 +1,60 @@
+// ADR-240 / CORE-0.1-REF-JSON-CLI — read JSON → transform → stdout; 2 scenarios
+module arita_ref_json_cli
+
+fn main() -> Io<()> {
+  print("ref-json-cli")
+}
+
+fn scen_sum() -> Io<()> {
+  let doc_r: Result<Text, Int> = host.read_text("ejemplos/core01/ref/input.json")
+  match doc_r {
+    Ok(doc) => {
+      let doc2: Text = doc.clone()
+      let on: Option<Int> = host.json_get_int(doc, "n")
+      let om: Option<Int> = host.json_get_int(doc2, "m")
+      if let Some(n) = on {
+        if let Some(m) = om {
+          let s: Int = n + m
+          print(s)
+        } else {
+          print(0)
+        }
+      } else {
+        print(0)
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}
+
+fn scen_prod() -> Io<()> {
+  let doc_r: Result<Text, Int> = host.read_text("ejemplos/core01/ref/input.json")
+  match doc_r {
+    Ok(doc) => {
+      let doc2: Text = doc.clone()
+      let on: Option<Int> = host.json_get_int(doc, "n")
+      let om: Option<Int> = host.json_get_int(doc2, "m")
+      if let Some(n) = on {
+        if let Some(m) = om {
+          let p: Int = n * m
+          print(p)
+        } else {
+          print(0)
+        }
+      } else {
+        print(0)
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}
+
+scenario sum {
+  target scen_sum
+  acceptance "7"
+}
+
+scenario prod {
+  target scen_prod
+  acceptance "12"
+}

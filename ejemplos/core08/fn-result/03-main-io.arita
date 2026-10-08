@@ -1,0 +1,30 @@
+// ADR-277 — fn main() -> Io<()> still OK calling helper Result via match (no ? in Io main)
+module core08_fn_result_main_io
+
+fn load(path: Text) -> Result<Text, Int> {
+  let r: Result<Text, Int> = host.read_text(path)
+  match r {
+    Ok(t) => {
+      let ok: Result<Text, Int> = Ok(t)
+      ok
+    }
+    Err(e) => {
+      let bad: Result<Text, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = load("ejemplos/core08/fn-result/fixture.txt")
+  match r {
+    Ok(t) => {
+      let _t: Text = t
+      print("main-io-ok")
+    }
+    Err(e) => {
+      print("load_failed")
+      print(e)
+    }
+  }
+}

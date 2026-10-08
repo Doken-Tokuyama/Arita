@@ -1,0 +1,8 @@
+// ADR-087 std-vec-contains-false
+module std_vec_contains_false
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.contains(9))
+}

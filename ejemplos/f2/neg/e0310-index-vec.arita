@@ -1,0 +1,9 @@
+// ADR-261 Fase B: E0310 retired for Vec sugar; IndexMut OUT → E0314
+// (file kept for measure id continuity; was Fase A E0310)
+module e0310_index_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 2
+}

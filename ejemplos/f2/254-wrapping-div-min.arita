@@ -1,0 +1,7 @@
+// ADR-212 std-wrapping-div-min — i64::MIN.wrapping_div(-1) → MIN (no panic)
+module std_wrapping_div_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.wrapping_div(-1))
+}

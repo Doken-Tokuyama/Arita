@@ -1,0 +1,9 @@
+// ADR-158 neg — lit swap index < 0 → E0295
+module e0295_swap_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.swap(-1, 0)
+  print(0)
+}

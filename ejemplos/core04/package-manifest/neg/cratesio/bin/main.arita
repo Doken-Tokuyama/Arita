@@ -1,0 +1,4 @@
+module bad
+fn main() -> Io<()> {
+  print("no")
+}

@@ -1,0 +1,57 @@
+// ADR-285 / CORE-0.9-REF-MUT-20260926 — CLI OOB: args/JSON → lib load_arg → run → apply; v[7] = x OOB → Err(0) propagado por ? → main match fail determinista (sin panic/unwrap)
+// Entrada (lib load_arg): cli_arg(1) = ruta JSON; sin arg → ejemplos/core09/ref-mut/edge/fixture.json (la del scenario; cwd = raíz del repo)
+// Fixture edge {"i": 7, "x": 9} (Vec len 3) → stdout exacto: "ref-mut-err" · "0" (Err(0) de 283 en apply, propagado por el ? de run; la rama Ok no imprime nada)
+// main Io<()>: CERO ? y CERO v[i] = ; solo m[k] = v (282, total) + match Ok/Err (sin unwrap)
+module arita_ref_mut_oob
+
+use lib::apply
+use lib::run
+use lib::load_arg
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  match load_arg("ejemplos/core09/ref-mut/edge/fixture.json", "i") {
+    Ok(i) => {
+      m["i"] = i
+      match load_arg("ejemplos/core09/ref-mut/edge/fixture.json", "x") {
+        Ok(x) => {
+          match run(i, x) {
+            Ok(n) => {
+              m["hits"] = n
+              match apply(i, x, i) {
+                Ok(s) => {
+                  m["slot"] = s
+                  print(n)
+                  print(s)
+                  print(m.len())
+                  print("ref-mut-happy")
+                }
+                Err(e) => {
+                  print("ref-mut-err")
+                  print(e)
+                }
+              }
+            }
+            Err(e) => {
+              print("ref-mut-err")
+              print(e)
+            }
+          }
+        }
+        Err(e) => {
+          print("ref-mut-err")
+          print(e)
+        }
+      }
+    }
+    Err(e) => {
+      print("ref-mut-err")
+      print(e)
+    }
+  }
+}
+
+scenario ref_mut_err {
+  acceptance "ref-mut-err"
+  acceptance "0"
+}

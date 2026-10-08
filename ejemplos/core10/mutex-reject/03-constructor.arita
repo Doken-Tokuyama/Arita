@@ -1,0 +1,5 @@
+module core10_neg_mutex_ctor
+fn main() -> Io<()> {
+  let m: Int = Mutex.new(0)
+  print("x")
+}

@@ -1,0 +1,56 @@
+// CUT CORE-0.3-ERROR-PROP-20260920 — gateway :19930 maps upstream Err→502, forward status+body
+// Pattern ADR-250. NOT CLOSED.
+module core03_gateway_errprop
+
+async fn handle_proxy(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let url: Text = HttpClient.url(19931, "/")
+      let cres: Result<HttpResponse, IoError> = HttpClient.post_text(url, body)
+      match cres {
+        Err(_e) => {
+          let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        Ok(up) => {
+          let code: Int = up.status()
+          let br: Result<Text, IoError> = up.body_text()
+          match br {
+            Err(_e2) => {
+              let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+            Ok(t) => {
+              let resp: HttpResponse = HttpResponse.status(code, t)
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19930)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("errprop-gateway-ready")
+      let r: Result<(), IoError> = srv.serve(handle_proxy)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+// ADR-256 — pub API surface
+module lib
+
+pub record Point {
+  x: Int,
+  y: Int,
+}
+
+pub fn add(a: Int, b: Int) -> Int {
+  a + b
+}
+
+fn hidden(x: Int) -> Int {
+  x
+}

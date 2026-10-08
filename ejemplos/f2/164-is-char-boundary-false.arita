@@ -1,0 +1,7 @@
+// ADR-143 std-is-char-boundary-false (mid multi-byte ñ)
+module std_is_char_boundary_false
+
+fn main() -> Io<()> {
+  let s: String = "niño"
+  print(s.is_char_boundary(3))
+}

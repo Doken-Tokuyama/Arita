@@ -1,0 +1,24 @@
+// ADR-292 / IA — CONTROL: en el limite exacto SIN desbordar; exit 0 y stdout intacto en TODOS los perfiles.
+// stdout esperado (6 lineas): before · 9223372036854775807 · -9223372036854775808 · 9223372030926249001 · -9223372036854775808 · after
+module core10_int_overflow_boundary_ok
+
+fn add(a: Int, b: Int) -> Int {
+  a + b
+}
+
+fn sub(a: Int, b: Int) -> Int {
+  a - b
+}
+
+fn mul(a: Int, b: Int) -> Int {
+  a * b
+}
+
+fn main() -> Io<()> {
+  print("before")
+  print(add(9223372036854775806, 1))
+  print(sub(-9223372036854775807, 1))
+  print(mul(3037000499, 3037000499))
+  print(mul(-4611686018427387904, 2))
+  print("after")
+}

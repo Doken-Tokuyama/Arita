@@ -1,0 +1,37 @@
+// ADR-180 std-vec-sort-unstable-rev — reverse [5,4,3,2,1] → ascending
+// (Vec<String> deferred: F1.1 ty_vec_int only; Parser HOLD)
+module std_vec_sort_unstable_rev
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(5)
+  v.push(4)
+  v.push(3)
+  v.push(2)
+  v.push(1)
+  v.sort_unstable()
+  let a: Option<Int> = v.get(0)
+  let e: Option<Int> = v.get(4)
+  let n: Int = v.len()
+  if n == 5 {
+    if let Some(x) = a {
+      if let Some(y) = e {
+        if x == 1 {
+          if y == 5 {
+            print("ok")
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-128 std-leading-zeros-one
+module std_leading_zeros_one
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.leading_zeros())
+}

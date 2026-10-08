@@ -1,0 +1,8 @@
+// ADR-065 std-to-uppercase
+module std_to_uppercase
+
+fn main() -> Io<()> {
+  let s: String = "Hi"
+  let t: String = s.to_uppercase()
+  print(t)
+}

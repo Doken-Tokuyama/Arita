@@ -1,0 +1,11 @@
+// F2.2 + ADR-025 — match as expression (Int scrutinee)
+module match_expr_int
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  let x: Int = match n {
+    1 => { 10 }
+    _ => { 20 }
+  }
+  print(x)
+}

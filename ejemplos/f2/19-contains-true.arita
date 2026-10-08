@@ -1,0 +1,7 @@
+// ADR-060 std-contains-true
+module std_contains_true
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  print(s.contains("ell"))
+}

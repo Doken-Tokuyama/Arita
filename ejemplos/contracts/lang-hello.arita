@@ -1,0 +1,10 @@
+// LANG-CONTRACT (ADR-019) — stdout expect co-located with program
+module lang_hello
+
+fn main() -> Io<()> {
+  print("hello")
+}
+
+contract hello_c {
+  expect_stdout "hello"
+}

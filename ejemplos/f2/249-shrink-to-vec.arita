@@ -1,0 +1,20 @@
+// ADR-208 std-shrink-to-vec — capacity ≥ max(len, min_cap) after reserve+shrink_to
+module std_shrink_to_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.reserve(64)
+  v.shrink_to(8)
+  let c: Int = v.capacity()
+  let n: Int = v.len()
+  if c >= 8 {
+    if c >= n {
+      print("ok")
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

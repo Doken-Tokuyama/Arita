@@ -1,0 +1,51 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.3-REF-COMPOSE-20260920",
+  "adr": "253",
+  "ref": "arita-ref-http-compose",
+  "level": "tested",
+  "source_path": "ejemplos/core03/ref-http-compose/arita-ref-http-compose.arita",
+  "source_sha256": "51040f491e09ac4467581799fa27d290e055e6e0319c3f400c3531fccc1e5cea",
+  "scenarios": [
+    "core03-ref-health",
+    "core03-ref-pipeline-happy",
+    "core03-ref-fail-a",
+    "core03-ref-fail-b",
+    "core03-ref-evidence",
+    "core03-ref-shutdown"
+  ],
+  "apis": [
+    "HttpServer",
+    "ServicePolicy",
+    "HttpClient",
+    "HttpRequest.path",
+    "HttpResponse.status"
+  ],
+  "topology": {
+    "gateway": "19970 GET /health POST /pipeline",
+    "upstream_a": "19971 /step-a",
+    "upstream_b": "19972 /step-b",
+    "port0_companion": "ref-gw-port0.arita"
+  },
+  "spawn_pattern": "spawn(run_*)() empty-params MVP; fixed ports for all-in-one",
+  "codegen_smoke_build": {
+    "arita-ref-http-compose": "ok",
+    "scen-health": "ok",
+    "scen-pipeline-happy": "ok",
+    "scen-fail-a": "ok",
+    "scen-fail-b": "ok",
+    "scen-shutdown": "ok",
+    "ref-gw-port0": "ok",
+    "neg/01-reqwest": "E0321"
+  },
+  "codegen_smoke_runtime": {
+    "ref": "200 health JSON + 200 ref-compose-ping + done",
+    "health": "200",
+    "pipeline-happy": "200 ref-compose-ping",
+    "fail-a": "502 upstream_unavailable",
+    "fail-b": "502 upstream_unavailable",
+    "shutdown": "dual-bound + ref-compose-shutdown-ok"
+  },
+  "measure_pass": false,
+  "notes": "Lex 2026-09-20 Codegen: path routing via Bool match (if/else valued → E0308 emit). NOT CLOSED"
+}

@@ -1,0 +1,12 @@
+// ADR-174 std-result-or — Err.or(Ok(7)) → Ok(7)
+module std_result_or
+
+fn main() -> Io<()> {
+  let a: Result<Int, String> = Err("x")
+  let b: Result<Int, String> = Ok(7)
+  let c: Result<Int, String> = a.or(b)
+  match c {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

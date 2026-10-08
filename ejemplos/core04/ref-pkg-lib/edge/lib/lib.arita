@@ -1,0 +1,15 @@
+// ADR-258 — arita-ref-pkg-lib pub surface (≥2 pub items)
+module lib
+
+pub record Config {
+  factor: Int,
+}
+
+/// Scale input by factor (pure).
+pub fn apply(factor: Int, x: Int) -> Int {
+  factor * x
+}
+
+fn internal_tag(x: Int) -> Int {
+  x
+}

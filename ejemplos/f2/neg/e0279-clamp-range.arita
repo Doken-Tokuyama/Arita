@@ -1,0 +1,7 @@
+// ADR-072 neg — lo > hi → E0279
+module e0279_clamp_range
+
+fn main() -> Io<()> {
+  let n: Int = 0
+  print(n.clamp(5, 1))
+}

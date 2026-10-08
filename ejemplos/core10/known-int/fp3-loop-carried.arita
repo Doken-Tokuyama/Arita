@@ -1,0 +1,17 @@
+// ADR-294 KNOWN-INT-SCOPE (oraculo core10-known-int-fp3-loop-carried): programa VALIDO que debe compilar y ejecutar.
+// `a = MAX` al entrar; el bucle hace `a = 0` en cada vuelta y `a + 1` solo en la 2.a, donde a vale 0. Sin ADR-294: E0217 falso por efecto de 2.a vuelta.
+// stdout (medido con rustc por el Parser, 2026-10-04): 1 / ok; sin avisos de rustc.
+module core10_known_int_fp3_loop_carried
+fn main() -> Io<()> {
+  let mut a: Int = 9223372036854775807
+  let mut i: Int = 0
+  while i < 2 {
+    if i == 1 {
+      let r: Int = a + 1
+      print(r)
+    }
+    a = 0
+    i = i + 1
+  }
+  print("ok")
+}

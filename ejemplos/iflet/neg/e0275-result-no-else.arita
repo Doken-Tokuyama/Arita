@@ -1,0 +1,9 @@
+// ADR-054 neg E0275 — if let Ok without else
+module iflet_result_no_else
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(1)
+  if let Ok(x) = r {
+    print(x)
+  }
+}

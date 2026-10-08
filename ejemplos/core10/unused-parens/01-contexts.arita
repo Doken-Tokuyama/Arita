@@ -1,0 +1,39 @@
+// ADR-289 / CORE-EMIT-UNUSED-PARENS-V0 — PU-2 (PROPOSED): contextos Bare (let / asignación /
+// condición if-while / brazo de match / cola de fn / argumento de llamada) sin paréntesis
+// redundantes en el Rust emitido. Stdout 10 2 12 3 6.
+module core10_unused_parens_contexts
+
+fn double(x: Int) -> Int {
+  x + x
+}
+
+fn main() -> Io<()> {
+  let a: Int = 2
+  let b: Int = 3
+  let mut s: Int = a + b
+  s = s * 2
+  let mut i: Int = 0
+  while i < a {
+    i = i + 1
+  }
+  let ok: Bool = s > a
+  let k: Int = match s {
+    10 => { a + 10 }
+    _ => { 0 }
+  }
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  let n: Int = v.len()
+  let d: Int = double(v.len())
+  if ok {
+    print(s)
+  } else {
+    print(0)
+  }
+  print(i)
+  print(k)
+  print(n)
+  print(d)
+}

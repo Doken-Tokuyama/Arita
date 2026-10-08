@@ -1,0 +1,8 @@
+// ADR-162 neg — split_off without mut → E0202
+module e0202_split_off_not_mut
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  let t: String = s.split_off(1)
+  print(0)
+}

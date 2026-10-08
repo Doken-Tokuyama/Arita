@@ -1,0 +1,7 @@
+// ADR-124 neg — String.count_ones → E0206
+module e0206_count_ones_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.count_ones())
+}

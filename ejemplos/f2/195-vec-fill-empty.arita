@@ -1,0 +1,8 @@
+// ADR-166 std-vec-fill-empty — empty fill is no-op
+module std_vec_fill_empty
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.fill(1)
+  print(v.is_empty())
+}

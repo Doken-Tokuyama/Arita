@@ -1,0 +1,7 @@
+// ADR-210 neg — saturating_div(0) → E0216
+module e0216_saturating_div_zero
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.saturating_div(0))
+}

@@ -1,0 +1,11 @@
+// Expected: E0240 await outside async function
+module e0240_await_outside
+
+fn greet() -> Io<()> {
+  print("hi")
+}
+
+fn main() -> Io<()> {
+  await greet()
+  print("x")
+}

@@ -1,0 +1,36 @@
+// ADR-268 — CLI happy: lib set Ok + Map Some; stdout gp-ref-happy
+// PatchSpec {i,x,y} = parsed JSON {"i":1,"x":9,"y":7} (ADR-267 surface)
+module arita_ref_gp
+
+use lib::PatchSpec
+use lib::apply_patch
+use lib::peek_key
+
+fn main() -> Io<()> {
+  let c: PatchSpec = PatchSpec { i: 1, x: 9, y: 7 }
+  let r1: Result<Int, Int> = apply_patch(c.i, c.x, c.y)
+  match r1 {
+    Ok(a) => {
+      let r2: Result<Int, Int> = peek_key(c.y)
+      match r2 {
+        Ok(b) => {
+          if a == 9 {
+            if b == 7 {
+              print("gp-ref-happy")
+            } else {
+              print("bad-b")
+            }
+          } else {
+            print(a)
+          }
+        }
+        Err(e) => { print(e) }
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}
+
+scenario ref_gp_happy {
+  acceptance "gp-ref-happy"
+}

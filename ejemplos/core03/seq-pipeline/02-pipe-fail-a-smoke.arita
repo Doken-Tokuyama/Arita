@@ -1,0 +1,117 @@
+// CUT CORE-0.3-SEQ-PIPELINE-20260920 — oracle core03-pipe-fail-a
+// A down → 502; B up but must not be used (body ≠ from-b).
+module core03_pipe_fail_a_smoke
+
+async fn handle_b(_req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("from-b-should-not")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn run_b() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19942)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print("step-b-up")
+      let r: Result<(), IoError> = srv.serve(handle_b)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn handle_pipe(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(in_body) => {
+      let url_a: Text = HttpClient.url(19941, "/")
+      let a_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_a, in_body)
+      match a_res {
+        Err(_e) => {
+          let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        Ok(a) => {
+          let br_a: Result<Text, IoError> = a.body_text()
+          match br_a {
+            Err(_e2) => {
+              let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+            Ok(ta) => {
+              let url_b: Text = HttpClient.url(19942, "/")
+              let b_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_b, ta)
+              match b_res {
+                Err(_e3) => {
+                  let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                  let out: Result<HttpResponse, IoError> = Ok(resp)
+                  out
+                }
+                Ok(b) => {
+                  let br_b: Result<Text, IoError> = b.body_text()
+                  match br_b {
+                    Err(_e4) => {
+                      let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                      let out: Result<HttpResponse, IoError> = Ok(resp)
+                      out
+                    }
+                    Ok(tb) => {
+                      let resp: HttpResponse = HttpResponse.ok_text(tb)
+                      let out: Result<HttpResponse, IoError> = Ok(resp)
+                      out
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn run_gw() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19940)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print("pipe-gw-up")
+      let r: Result<(), IoError> = srv.serve(handle_pipe)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t2: Task = spawn(run_b())
+  delay(150)
+  let t3: Task = spawn(run_gw())
+  delay(200)
+  let url: Text = HttpClient.url(19940, "/")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(url, "x")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("pipe-fail-a-done")
+}

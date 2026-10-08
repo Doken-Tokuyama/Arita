@@ -1,0 +1,16 @@
+// ADR-102 pos — wrapping overflow asserted (non-vacuous)
+module std_wrapping_add_overflow_assert
+
+fn wrap_overflow() -> Int {
+  let a: Int = 9223372036854775807
+  let b: Int = a.wrapping_add(1)
+  b
+}
+
+fn main() -> Io<()> {
+  print(wrap_overflow())
+}
+
+test t {
+  assert wrap_overflow() == -9223372036854775808
+}

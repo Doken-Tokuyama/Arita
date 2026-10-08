@@ -1,0 +1,7 @@
+// ADR-110 std-div-euclid — (-7).div_euclid(4) → -2
+module std_div_euclid
+
+fn main() -> Io<()> {
+  let a: Int = -7
+  print(a.div_euclid(4))
+}

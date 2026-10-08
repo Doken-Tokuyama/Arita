@@ -1,0 +1,10 @@
+// ADR-051 neg-e0274 — None arm default lit theater
+module option_none_swallow_neg
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  let v: Int = match o {
+    Some(x) => { x }
+    None => { 0 }
+  }
+  print(v)
+}

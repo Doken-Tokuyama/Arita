@@ -1,0 +1,6 @@
+// F1.1 smoke — ADR-005 / CUT F1.1-SURFACE-20260913
+module hello
+
+fn main() -> Io<()> {
+  print("hello")
+}

@@ -1,0 +1,11 @@
+// ADR-118 std-truncate-shrink
+module std_truncate_shrink
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  v.truncate(1)
+  print(v.len())
+}

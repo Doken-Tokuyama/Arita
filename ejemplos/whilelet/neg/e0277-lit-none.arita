@@ -1,0 +1,9 @@
+// ADR-056 neg E0277 — vacuous while let Some = None lit
+module whilelet_vacuous_none
+
+fn main() -> Io<()> {
+  while let Some(x) = None {
+    print(x)
+  }
+  print("ok")
+}

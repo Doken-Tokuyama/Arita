@@ -1,0 +1,6 @@
+{
+  "id": "contract-target-helper",
+  "source": "ejemplos/contracts/lang-target-helper.arita",
+  "target": "helper",
+  "expect_stdout": ["from-helper"]
+}

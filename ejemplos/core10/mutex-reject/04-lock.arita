@@ -1,0 +1,6 @@
+module core10_neg_mutex_lock
+fn main() -> Io<()> {
+  let n: Int = 0
+  let g: Int = n.lock()
+  print("x")
+}

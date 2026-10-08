@@ -1,0 +1,9 @@
+// ADR-282 neg — valor de tipo incorrecto m["a"] = "x" sobre Map<Text, Int> → E0203 type mismatch (≡ gemelo put)
+// oracle: neg-core09-map-assign-type (variante valor)
+module core09_map_assign_value_type
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = "x"
+  print(m.len())
+}

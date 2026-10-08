@@ -1,0 +1,6 @@
+{
+  "id": "contract-hello-bad-hash",
+  "source": "ejemplos/01-hello.arita",
+  "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "expect_stdout": ["hello"]
+}

@@ -1,0 +1,18 @@
+// oracle: core10-let-used
+// cause: ADR-295 P4: scrutinee is a use
+// offender: -
+// control: -
+module core10_let_used
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = f(1)
+  match r {
+    Ok(v) => { print(v) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

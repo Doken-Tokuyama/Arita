@@ -1,0 +1,9 @@
+// Bin member — before + overflow desde la lib; esperado: stdout `before`, exit 101 (release con overflow-checks)
+module ia292
+
+use lib::add
+
+fn main() -> Io<()> {
+  print("before")
+  print(add(9223372036854775807, 1))
+}

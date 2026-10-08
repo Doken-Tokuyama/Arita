@@ -1,0 +1,8 @@
+// ADR-073 neg — Vec.trim_start → E0206
+module e0206_trim_start_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.trim_start())
+}

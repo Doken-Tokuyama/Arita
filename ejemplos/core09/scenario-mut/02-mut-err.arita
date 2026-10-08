@@ -1,0 +1,39 @@
+// ADR-284 / CORE-0.9-SCENARIO-MUT-20260926 — err: Vec OOB (283) → Err(0) propagado con ? (278) → main match fail determinista; sin panic, sin unwrap
+// Esperado (stdout determinista): "0" (código Err propagado) · "mut-err" (rama Err de main). Exit 0 (como ADR-279 02-err: fallo = rama Err de main, no panic).
+// oracle: core09-scen-mut-err
+module core09_scen_mut_err
+
+fn tally(i: Int, x: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  m["hits"] = 2
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn run(i: Int) -> Result<Int, Int> {
+  let n: Int = tally(i, 9)?
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match run(99) {
+    Ok(n) => {
+      print(n)
+      print("mut-err-unexpected-ok")
+    }
+    Err(e) => {
+      print(e)
+      print("mut-err")
+    }
+  }
+}
+
+scenario mut_err {
+  acceptance "0"
+  acceptance "mut-err"
+}

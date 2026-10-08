@@ -1,0 +1,6 @@
+# ADR-238 CORE-0.1-FILES-JSON-CLI
+[package]
+name = "core01_io"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

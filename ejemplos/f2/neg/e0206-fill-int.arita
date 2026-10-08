@@ -1,0 +1,8 @@
+// ADR-166 neg — Int.fill → E0206
+module e0206_fill_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  a.fill(0)
+  print(0)
+}

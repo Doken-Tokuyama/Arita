@@ -1,0 +1,7 @@
+// ADR-105 std-signum-neg
+module std_signum_neg
+
+fn main() -> Io<()> {
+  let a: Int = -3
+  print(a.signum())
+}

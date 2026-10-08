@@ -1,0 +1,8 @@
+// ADR-118 — truncate without mut → E0202
+module e0202_truncate_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  v.truncate(0)
+  print(0)
+}

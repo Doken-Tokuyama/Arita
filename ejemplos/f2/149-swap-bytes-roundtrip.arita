@@ -1,0 +1,8 @@
+// ADR-133 std-swap-bytes-roundtrip
+module std_swap_bytes_roundtrip
+
+fn main() -> Io<()> {
+  let a: Int = 42
+  let b: Int = a.swap_bytes()
+  print(b.swap_bytes())
+}

@@ -1,0 +1,6 @@
+// Library member — add sin literales (no plegable por E0217)
+module lib
+
+pub fn add(a: Int, b: Int) -> Int {
+  a + b
+}

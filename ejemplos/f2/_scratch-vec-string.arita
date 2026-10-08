@@ -1,0 +1,8 @@
+module test_vec_string
+fn main() -> Io<()> {
+  let mut v: Vec<String> = Vec::new()
+  v.push("c")
+  v.push("a")
+  v.push("b")
+  print(v.len())
+}

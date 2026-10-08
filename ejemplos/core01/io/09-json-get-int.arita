@@ -1,0 +1,12 @@
+// ADR-238 — host.json_get_int
+module io_json_get_int
+
+fn main() -> Io<()> {
+  let doc: Text = "{\"n\": 42}"
+  let o: Option<Int> = host.json_get_int(doc, "n")
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

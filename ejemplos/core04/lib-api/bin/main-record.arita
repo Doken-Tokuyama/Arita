@@ -1,0 +1,10 @@
+// ADR-256 — bin uses pub record from lib (same workspace)
+module demo_rec
+
+use lib::Point
+use lib::add
+
+fn main() -> Io<()> {
+  let p: Point = Point { x: 10, y: 20 }
+  print(add(p.x, p.y))
+}

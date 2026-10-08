@@ -1,0 +1,7 @@
+# ADR-258 edge consumer (same lib API, factor 0)
+[package]
+name = "arita_ref_pkg_edge"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

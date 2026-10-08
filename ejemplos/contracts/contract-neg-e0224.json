@@ -1,0 +1,5 @@
+{
+  "id": "contract-neg-e0224",
+  "source": "ejemplos/f2.3/neg/e0224-break-outside.arita",
+  "expect_reject": "E0224"
+}

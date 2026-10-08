@@ -1,0 +1,9 @@
+// ADR-224 neg — extend without mut recv → E0202
+module e0202_extend_not_mut
+
+fn main() -> Io<()> {
+  let a: Vec<Int> = Vec::new()
+  let b: Vec<Int> = Vec::new()
+  a.extend(b)
+  print(0)
+}

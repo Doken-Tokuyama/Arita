@@ -1,0 +1,7 @@
+// ADR-091 std-saturating-sub-min
+module std_saturating_sub_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.saturating_sub(1))
+}

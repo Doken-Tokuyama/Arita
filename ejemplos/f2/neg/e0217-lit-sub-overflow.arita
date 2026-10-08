@@ -1,0 +1,7 @@
+// F2 neg — E0217 LitInt MIN-1 (ADR-045; measure `neg-e0217-sub-overflow`)
+module e0217_lit_sub_overflow
+
+fn main() -> Io<()> {
+  let x: Int = -9223372036854775808 - 1
+  print("ok")
+}

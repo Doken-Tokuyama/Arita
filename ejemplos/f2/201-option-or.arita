@@ -1,0 +1,13 @@
+// ADR-172 std-option-or — None.or(Some(7)) → Some(7)
+module std_option_or
+
+fn main() -> Io<()> {
+  let a: Option<Int> = None
+  let b: Option<Int> = Some(7)
+  let c: Option<Int> = a.or(b)
+  if let Some(n) = c {
+    print(n)
+  } else {
+    print("none")
+  }
+}

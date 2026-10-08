@@ -1,0 +1,8 @@
+// ADR-160 std-string-truncate-ascii
+module std_string_truncate_ascii
+
+fn main() -> Io<()> {
+  let mut s: String = "hello"
+  s.truncate(2)
+  print(s)
+}

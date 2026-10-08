@@ -1,0 +1,8 @@
+// ADR-178 std-int-abs-diff-minmax — MIN/MAX no panic
+module std_int_abs_diff_minmax
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let b: Int = 9223372036854775807
+  print(a.abs_diff(b))
+}

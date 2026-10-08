@@ -1,0 +1,7 @@
+// F2 neg companion — E0216 LitInt `% 0` (ADR-044; measure uses e0216-div0)
+module e0216_lit_rem0
+
+fn main() -> Io<()> {
+  let x: Int = 10 % 0
+  print(x)
+}

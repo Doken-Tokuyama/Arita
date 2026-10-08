@@ -1,0 +1,7 @@
+# ADR-268 / CORE-0.6-REF-GP — arita-ref-gp (closes Core 0.6 after Measure)
+[package]
+name = "arita_ref_gp"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

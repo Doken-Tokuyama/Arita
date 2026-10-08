@@ -1,0 +1,4 @@
+module lib
+fn secret(x: Int) -> Int {
+  x
+}

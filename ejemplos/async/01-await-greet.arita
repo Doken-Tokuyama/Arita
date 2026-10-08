@@ -1,0 +1,11 @@
+// ADR-027 async v0 — await helper then print
+module await_greet
+
+async fn greet() -> Io<()> {
+  print("hi")
+}
+
+async fn main() -> Io<()> {
+  await greet()
+  print("done")
+}

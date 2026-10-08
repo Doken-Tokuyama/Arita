@@ -1,0 +1,89 @@
+// ADR-284 / CORE-0.9-SCENARIO-MUT-20260926 — chain: helper Map ? → helper Vec ? → etapa posterior ?; el primer Err corta la cadena
+// stage_post es un tripwire observable: si llega a correr, la cadena devuelve Err(77).
+// Esperado (stdout determinista):
+//   full(1)  → Map ok + Vec in-bounds → Ok(40)                    → "40"
+//   chain(1) → Map ok + Vec ok → stage_post corre → Err(77)       → "err" "77"  (la etapa posterior SÍ ocurre si Vec va bien)
+//   chain(5) → Map ok + Vec OOB → Err(0) corta; stage_post NO corre → "err" "0"   (si corriera sería 77)
+// oracle: core09-scen-mut-chain
+module core09_scen_mut_chain
+
+fn stage_map(x: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = x
+  m["a"] = 40
+  m["b"] = 2
+  let q: Text = "a"
+  let o: Option<Int> = m[q]
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn stage_vec(i: Int, x: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let o: Option<Int> = v.get(i)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn stage_post(k: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["post"] = k
+  let q: Text = "post"
+  let o: Option<Int> = m[q]
+  match o {
+    Some(y) => { Err(y) }
+    None => { Err(1) }
+  }
+}
+
+fn full(i: Int) -> Result<Int, Int> {
+  let a: Int = stage_map(1)?
+  let b: Int = stage_vec(i, a)?
+  Ok(b)
+}
+
+fn chain(i: Int) -> Result<Int, Int> {
+  let a: Int = stage_map(1)?
+  let _b: Int = stage_vec(i, a)?
+  let t: Int = stage_post(77)?
+  Ok(t)
+}
+
+fn main() -> Io<()> {
+  match full(1) {
+    Ok(x) => { print(x) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+  match chain(1) {
+    Ok(x) => { print(x) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+  match chain(5) {
+    Ok(x) => { print(x) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}
+
+scenario mut_chain {
+  acceptance "40"
+  acceptance "err"
+  acceptance "77"
+  acceptance "err"
+  acceptance "0"
+}

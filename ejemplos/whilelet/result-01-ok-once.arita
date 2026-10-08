@@ -1,0 +1,11 @@
+// ADR-077 whilelet-result-01 — Ok once then Err
+module whilelet_result_ok_once
+
+fn main() -> Io<()> {
+  let mut r: Result<Int, Int> = Ok(1)
+  while let Ok(x) = r {
+    print(x)
+    r = Err(0)
+  }
+  print("after")
+}

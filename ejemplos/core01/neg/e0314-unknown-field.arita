@@ -1,0 +1,12 @@
+// ADR-233 — E0314 unknown field
+module e0314_unknown_field
+
+record Point {
+  x: Int,
+  y: Int
+}
+
+fn main() -> Io<()> {
+  let p: Point = Point { x: 1, y: 2 }
+  print(p.z)
+}

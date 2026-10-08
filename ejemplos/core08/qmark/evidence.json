@@ -1,0 +1,29 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.8-QMARK-20260926",
+  "adr": "278",
+  "slice": 2,
+  "ok_path": "ejemplos/core08/qmark/01-chain.arita",
+  "err_path": "ejemplos/core08/qmark/02-err.arita",
+  "main_io_path": "ejemplos/core08/qmark/03-main-io-match.arita",
+  "neg_outside_path": "ejemplos/core08/qmark/neg/01-outside.arita",
+  "neg_option_path": "ejemplos/core08/qmark/neg/02-option.arita",
+  "scenarios": [
+    "core08-qmark-chain",
+    "core08-qmark-err",
+    "neg-core08-qmark-outside",
+    "neg-core08-qmark-option",
+    "core08-qmark-emit-ban",
+    "core08-qmark-main-io-match"
+  ],
+  "codegen_smoke": {
+    "chain_stdout": "hello-qmark",
+    "err_stdout": "qmark_failed\n0",
+    "main_io_stdout": "main-io-qmark-ok",
+    "outside": "E0343",
+    "option": "E0203",
+    "emit_ban": "no unwrap/expect/panic; has ? or match early-return"
+  },
+  "measure_pass": true,
+  "notes": "CLOSED Lex 764/764 ADR-278 QMARK; measure_pass:true. Artifact DOC/reviews/MEASURE_ADR278_QMARK_REMEASURE_20260926.json (verdict accepted \u00b7 764/764 \u00b7 exit 0). \u00a72 6/6: core08-qmark-chain/err/main-io-match \u00b7 neg-outside E0343 \u00b7 neg-option E0203 \u00b7 emit-ban. Veyra quick ACCEPTED exit 0 (.veyra/evidence/20260926T143843Z/; VT008\u00d712 info only). HOLDs Mutex/IndexMut-assign/idle/TLS/WS/crates.io/repair/I/O-new/String.set/threads/unwrap-surface/Option?/279-280/E0342-E0272-E0340-E0341-E0291 intact. No Core 0.8 CLOSED; next GO IMPL ADR-279 SCENARIO-ERRPROP only (280 HOLD). skip\u2260PASS."
+}

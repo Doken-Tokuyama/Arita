@@ -1,0 +1,11 @@
+// ADR-202 std-ok-or-some — Some(7).ok_or("x") → Ok(7)
+module std_ok_or_some
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(7)
+  let r: Result<Int, String> = o.ok_or("x")
+  match r {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

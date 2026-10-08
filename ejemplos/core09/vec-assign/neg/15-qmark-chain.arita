@@ -1,0 +1,19 @@
+// ADR-283 §2 neg-core09-vec-assign-qmark-chain (fixture de Measure) — en la misma fn NO-Result, `v[0] = 2` ANTES de `let n: Int = g()?`
+// (g: fn → Result<Int, Int>) → E0344 exacto (pin ADR-283 §2 23:50: un solo diag, gana el primero en orden fuente).
+// Gemelo inverso: 16-qmark-chain-rev (→ E0343, addendum Ingeniero 23:58). Sin v.push / literal Vec (E0006 por sí solos en fn `-> Int`).
+module core09_vec_assign_neg_qmark_chain
+
+fn g() -> Result<Int, Int> {
+  Ok(1)
+}
+
+fn h() -> Int {
+  let mut v: Vec<Int> = Vec::new()
+  v[0] = 2
+  let n: Int = g()?
+  n
+}
+
+fn main() -> Io<()> {
+  print(h())
+}

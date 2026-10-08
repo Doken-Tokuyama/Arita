@@ -1,0 +1,8 @@
+// ADR-202 neg — Int.ok_or → E0206
+module e0206_ok_or_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let r: Result<Int, String> = a.ok_or("x")
+  print(0)
+}

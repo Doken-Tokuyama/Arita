@@ -1,0 +1,7 @@
+// ADR-214 std-saturating-rem-min — i64::MIN.saturating_rem(-1) → 0 (no panic)
+module std_saturating_rem_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.saturating_rem(-1))
+}

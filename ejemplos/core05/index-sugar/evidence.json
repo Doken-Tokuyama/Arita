@@ -1,0 +1,24 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.5-INDEX-SUGAR-20260920",
+  "adr": "261",
+  "slice": 2,
+  "some_sha256": "9903e086b1796c3f5f0c0bf7f90486ff8012dadea91cde5cf02447a92aecfcef",
+  "none_sha256": "244da6384a6fc0b1c4e2024f516eee354fd96df833b327ba9c1bbd347406aca9",
+  "eq_sha256": "314b8f6de47352053a6b7c0805dc9c4cc1b61cf06e075f2e2ca0028fbdf8c882",
+  "scenarios": [
+    "core05-index-sugar-some",
+    "core05-index-sugar-none",
+    "core05-index-sugar-eq-get",
+    "core05-index-emit-ban",
+    "neg-core05-index-mut"
+  ],
+  "codegen_smoke": {
+    "some": "42",
+    "none": "none",
+    "eq": "eq",
+    "mut": "E0314"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-261; NOT CLOSED"
+}

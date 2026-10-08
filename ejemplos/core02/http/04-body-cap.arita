@@ -1,0 +1,27 @@
+// CUT CORE-0.2-HTTP-BINDINGS-20260920 — ADR-245 body-cap host (NOT measure PASS until Measure N/N)
+// Host rejects body > 1 MiB before handler (413 / typed IoError path).
+// Measure: POST >1048576 bytes → expect reject; then kill serve.
+module core02_http_body_cap
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("should-not-see")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let port: Int = srv.port()
+      print(port)
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r {
+        Ok(_) => { print("done") }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.7-CLI-ARGV-H2-20260926",
+  "adr": "273",
+  "slice": 2,
+  "arg_ok_path": "ejemplos/core07/cli-argv-h2/01-arg-ok.arita",
+  "arg_miss_path": "ejemplos/core07/cli-argv-h2/02-arg-miss.arita",
+  "json_miss_path": "ejemplos/core07/cli-argv-h2/03-json-miss.arita",
+  "neg_default_path": "ejemplos/core07/cli-argv-h2/neg/01-default.arita",
+  "neg_index_path": "ejemplos/core07/cli-argv-h2/neg/02-index.arita",
+  "scenarios": [
+    "core07-io-h2-arg-ok",
+    "core07-io-h2-arg-miss",
+    "core07-io-h2-json-miss",
+    "neg-core07-io-h2-default",
+    "neg-core07-io-h2-index",
+    "core07-io-h2-emit-ban"
+  ],
+  "codegen_smoke": {
+    "arg_ok_stdout": "hello-arg",
+    "arg_miss_stdout": "usage",
+    "json_miss_stdout": "missing_n",
+    "default": "E0341",
+    "index": "E0341",
+    "emit_ban": "no Index/argv[] / unwrap theater"
+  },
+  "measure_pass": true,
+  "notes": "Lex Measure remasure+Ingeniero ADR-273 CLOSED 739/739 after FIX E0341-CORE06; measure_pass:true"
+}

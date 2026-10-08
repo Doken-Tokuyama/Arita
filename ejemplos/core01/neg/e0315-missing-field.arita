@@ -1,0 +1,12 @@
+// ADR-233 — E0315 missing field
+module e0315_missing_field
+
+record Point {
+  x: Int,
+  y: Int
+}
+
+fn main() -> Io<()> {
+  let p: Point = Point { x: 1 }
+  print(p.x)
+}

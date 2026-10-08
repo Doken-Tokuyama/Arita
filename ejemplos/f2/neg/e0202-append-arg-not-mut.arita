@@ -1,0 +1,9 @@
+// ADR-222 neg — append arg without mut → E0202
+module e0202_append_arg_not_mut
+
+fn main() -> Io<()> {
+  let mut a: Vec<Int> = Vec::new()
+  let b: Vec<Int> = Vec::new()
+  a.append(b)
+  print(0)
+}

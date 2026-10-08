@@ -1,0 +1,8 @@
+// ADR-074 neg — Vec.strip_prefix → E0206
+module e0206_strip_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.strip_prefix(1))
+}

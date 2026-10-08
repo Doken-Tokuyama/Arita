@@ -1,0 +1,33 @@
+// ADR-158 std-vec-swap-oob-noop — OOB swap leaves vec unchanged
+module std_vec_swap_oob_noop
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.swap(0, 99)
+  let a: Option<Int> = v.get(0)
+  let b: Option<Int> = v.get(1)
+  let n: Int = v.len()
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if x == 1 {
+        if y == 2 {
+          if n == 2 {
+            print("ok")
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

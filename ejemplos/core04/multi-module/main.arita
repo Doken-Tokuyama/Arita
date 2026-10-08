@@ -1,0 +1,8 @@
+// ADR-254 / CORE-0.4-MULTI-MODULE — entry uses sibling util.arita
+module demo
+
+use util::double
+
+fn main() -> Io<()> {
+  print(double(21))
+}

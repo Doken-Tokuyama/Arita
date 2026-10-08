@@ -1,0 +1,8 @@
+// ADR-196 (was ADR-062): Vec.ends_with(Int) → E0203 (arg must be Vec; recv OK)
+module e0206_ends_with_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.ends_with(1))
+}

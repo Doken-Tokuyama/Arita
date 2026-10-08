@@ -1,0 +1,7 @@
+// ADR-140 std-to-ascii-upper
+module std_to_ascii_upper
+
+fn main() -> Io<()> {
+  let s: String = "AbC"
+  print(s.to_ascii_uppercase())
+}

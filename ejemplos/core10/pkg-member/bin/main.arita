@@ -1,0 +1,9 @@
+// ADR-287 — MEMBER (bin/main.arita): prints "member-main:42"
+module pkg_member_main
+
+use lib::add
+
+fn main() -> Io<()> {
+  print("member-main:")
+  print(add(20, 22))
+}

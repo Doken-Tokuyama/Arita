@@ -1,0 +1,7 @@
+// ADR-124 std-count-ones-zero
+module std_count_ones_zero
+
+fn main() -> Io<()> {
+  let a: Int = 0
+  print(a.count_ones())
+}

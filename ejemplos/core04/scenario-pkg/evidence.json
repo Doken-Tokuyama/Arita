@@ -1,0 +1,24 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.4-SCENARIO-PKG-20260920",
+  "adr": "257",
+  "slice": 4,
+  "level": "tested",
+  "lib_path": "ejemplos/core04/scenario-pkg/lib/lib.arita",
+  "lib_sha256": "b978fe0910610a7cbe411c404ae498b1c4b426f565f46264d34a4418a1d95271",
+  "bin_path": "ejemplos/core04/scenario-pkg/bin/main.arita",
+  "bin_sha256": "49e7658630a64ec5e82eab0d3237769bb34e69b81ab84140d4d2b185a755e214",
+  "scenarios": [
+    "core04-scen-pkg-happy",
+    "core04-scen-pkg-lib-fn",
+    "neg-core04-scen-pkg-private",
+    "core04-scen-pkg-workspace-build"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "run_stdout": "42",
+    "neg_private": "E0331"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-257 IMPL; NOT CLOSED until Measure+Ingeniero"
+}

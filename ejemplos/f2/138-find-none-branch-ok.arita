@@ -1,0 +1,12 @@
+// ADR-125 pos — find miss via if-let None (non-theater)
+module std_find_none_branch_ok
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<Int> = s.find("xyz")
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

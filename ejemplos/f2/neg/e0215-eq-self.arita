@@ -1,0 +1,11 @@
+// Expected: E0215 vacuous comparison assert
+// ADR-038 / CUT TRAPS-CMP-THEATER-20260915 — assert lit == lit (identical sides)
+module e0215_eq_self
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert 1 == 1
+}

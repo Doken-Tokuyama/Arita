@@ -1,0 +1,23 @@
+// ADR-253 oracle core03-ref-shutdown — dual bind port 0 + clean shutdown (no hang)
+module scen_ref_shutdown
+
+async fn main() -> Io<()> {
+  let s1: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s1 {
+    Err(e) => { print(e) }
+    Ok(a) => {
+      print(a.port())
+      let s2: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+      match s2 {
+        Err(e) => { print(e) }
+        Ok(b) => {
+          print(b.port())
+          print("dual-bound")
+          a.shutdown()
+          b.shutdown()
+          print("ref-compose-shutdown-ok")
+        }
+      }
+    }
+  }
+}

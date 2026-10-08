@@ -1,0 +1,7 @@
+// ADR-140 std-to-ascii-lower
+module std_to_ascii_lower
+
+fn main() -> Io<()> {
+  let s: String = "AbC"
+  print(s.to_ascii_lowercase())
+}

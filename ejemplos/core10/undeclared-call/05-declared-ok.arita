@@ -1,0 +1,13 @@
+// ADR-293 / CORE-0.10-UNDECLARED-CALL-20261003 — positivo (control): misma forma que neg/02-let con la fn DECLARADA
+// stdout exacto: 1 · exit 0 · build verde sin diagnósticos
+// oracle: core10-declared-call-ok
+module core10_declared_call_ok
+
+fn ghost(n: Int) -> Int {
+  n
+}
+
+fn main() -> Io<()> {
+  let n: Int = ghost(1)
+  print(n)
+}

@@ -1,0 +1,10 @@
+# ADR-280 OOB/fail consumer (read Err via ? → errprop-ref-fail)
+[package]
+name = "arita_ref_errprop_fail"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

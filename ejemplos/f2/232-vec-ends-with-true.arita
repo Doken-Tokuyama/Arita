@@ -1,0 +1,13 @@
+// ADR-196 std-vec-ends-with-true — [1,2,3].ends_with([2,3]) → true
+module std_vec_ends_with_true
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  let mut s: Vec<Int> = Vec::new()
+  s.push(2)
+  s.push(3)
+  print(v.ends_with(s))
+}

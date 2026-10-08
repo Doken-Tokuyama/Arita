@@ -1,0 +1,34 @@
+// ADR-285 / CORE-0.9-REF-MUT-20260926 — neg: `m[k] = v` sobre binding no-mut → E0202 (≡ m.put; ADR-285 §2 L55; ADR-281 L125)
+// Forma ref-mut (ADR-285 §1 L35–37). Binding `let m` (sin mut) en L8.
+// Ofensor único: L9 `m["k"] = x`. Sin L9 → build verde.
+// oracle: neg-core09-ref-map-assign-non-mut
+module core09_ref_mut_neg_map_non_mut
+
+fn apply(i: Int, x: Int) -> Result<Int, Int> {
+  let m: Map<Text, Int> = Map::new()
+  m["k"] = x
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v[i] = x
+  let o: Option<Int> = v.get(i)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn run(i: Int, x: Int) -> Result<Int, Int> {
+  let a: Int = apply(i, x)?
+  Ok(a)
+}
+
+fn main() -> Io<()> {
+  match run(1, 9) {
+    Ok(a) => { print(a) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

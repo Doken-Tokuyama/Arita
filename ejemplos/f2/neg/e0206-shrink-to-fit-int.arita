@@ -1,0 +1,8 @@
+// ADR-156 neg — Int.shrink_to_fit → E0206
+module e0206_shrink_to_fit_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  a.shrink_to_fit()
+  print(0)
+}

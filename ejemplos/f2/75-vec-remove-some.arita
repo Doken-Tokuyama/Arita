@@ -1,0 +1,15 @@
+// ADR-088 std-vec-remove-some
+module std_vec_remove_some
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  let o: Option<Int> = v.remove(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

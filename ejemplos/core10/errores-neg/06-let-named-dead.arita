@@ -1,0 +1,12 @@
+// oracle: neg-core10-let-named-dead
+// cause: ADR-295 P2(b): named Result binding never used (prefix `_` does not exempt)
+// offender: let _r: Result<Int, Int> = f(1)
+// control: add `match _r {..}`
+module core10_must_use_let_named_dead
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn main() -> Io<()> {
+  let _r: Result<Int, Int> = f(1)
+  print("after")
+}

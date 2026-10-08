@@ -1,0 +1,9 @@
+// F2.1 neg — if condition type ≠ Bool → E0220 (Path typed Int)
+module bad_cond
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  if n {
+    print("x")
+  }
+}

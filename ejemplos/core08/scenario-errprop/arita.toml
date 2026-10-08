@@ -1,0 +1,6 @@
+# ADR-279 CORE-0.8-SCENARIO-ERRPROP — host ADR-238; ? only in fn→Result helpers
+[package]
+name = "core08_scenario_errprop"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

@@ -1,0 +1,8 @@
+// ADR-150 neg — String.checked_shl → E0206
+module e0206_checked_shl_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  let o: Option<Int> = s.checked_shl(1)
+  print(0)
+}

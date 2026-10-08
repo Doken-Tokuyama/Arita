@@ -1,0 +1,8 @@
+// ADR-065 std-to-lowercase
+module std_to_lowercase
+
+fn main() -> Io<()> {
+  let s: String = "Hi"
+  let t: String = s.to_lowercase()
+  print(t)
+}

@@ -1,0 +1,16 @@
+// ADR-290 §D6 / IM-5: rhs Text => E0203
+module core10_index_mut_neg_rhs_text
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] += "x"
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

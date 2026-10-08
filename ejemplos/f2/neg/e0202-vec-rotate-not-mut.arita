@@ -1,0 +1,8 @@
+// ADR-170 neg — rotate without mut → E0202
+module e0202_vec_rotate_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  v.rotate_left(1)
+  print(0)
+}

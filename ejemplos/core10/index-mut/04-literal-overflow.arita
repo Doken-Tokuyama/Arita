@@ -1,0 +1,38 @@
+// ADR-290 / CORE-0.10-INDEX-MUT-20261002 — P10 (CANDIDATO): rhs LITERAL con elemento en el máximo i64 (`v[0] *= 2`, `v[0] += 1`) no debe plegarse a E0217 (el fold de ADR-045 solo mira Expr::Binary / known_int de idents); ⇒ Err(0) en ejecución. stdout esperado: 0 0 0
+module core10_index_mut_literal_overflow
+
+fn mul2() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9223372036854775807)
+  v[0] *= 2
+  Ok(1)
+}
+
+fn add1() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9223372036854775807)
+  v[0] += 1
+  Ok(1)
+}
+
+fn sub1() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(-9223372036854775807)
+  v[0] -= 2
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match mul2() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match add1() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match sub1() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

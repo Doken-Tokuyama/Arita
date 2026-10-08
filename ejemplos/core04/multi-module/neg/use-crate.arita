@@ -1,0 +1,6 @@
+// expect E0261 — crates.io / external path banned
+module demo
+use tokio::spawn
+fn main() -> Io<()> {
+  print("no")
+}

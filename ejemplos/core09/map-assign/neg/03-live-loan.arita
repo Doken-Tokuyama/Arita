@@ -1,0 +1,15 @@
+// ADR-282 neg — loan viva: let mut m; r = borrow m; m[k] = v; r leído después (m["a"] vía r) → E0202 (≡ gemelo put)
+// oracle: neg-core09-map-assign-live-loan
+module core09_map_assign_live_loan
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  let r: Map<Text, Int> = borrow m
+  m["a"] = 1
+  let o: Option<Int> = r["a"]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

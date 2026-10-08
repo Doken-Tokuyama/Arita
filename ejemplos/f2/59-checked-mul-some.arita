@@ -1,0 +1,12 @@
+// ADR-082 std-checked-mul-some
+module std_checked_mul_some
+
+fn main() -> Io<()> {
+  let a: Int = 6
+  let o: Option<Int> = a.checked_mul(7)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

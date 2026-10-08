@@ -1,0 +1,7 @@
+// CUT CORE-0.3-SCENARIO-COMPOSE-20260920 — neg-core03-scen-reqwest → E0321
+module core03_scen_neg_reqwest
+
+async fn main() -> Io<()> {
+  let _r: Int = reqwest_get("http://127.0.0.1/")
+  print("should-not")
+}

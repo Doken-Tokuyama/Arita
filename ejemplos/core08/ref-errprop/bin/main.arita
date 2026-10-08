@@ -1,0 +1,30 @@
+// ADR-280 — CLI happy: lib from_args/? chain Ok + State n==7; stdout errprop-ref-happy; ZERO ? in main Io
+module arita_ref_errprop
+
+use lib::State
+use lib::load_required
+use lib::process
+use lib::from_args
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = from_args()
+  match r {
+    Ok(n) => {
+      let s: State = State { n: n }
+      let got: Int = s.n
+      if got == 7 {
+        print("errprop-ref-happy")
+      } else {
+        print("bad-n")
+      }
+    }
+    Err(e) => {
+      print("errprop-ref-fail")
+      print(e)
+    }
+  }
+}
+
+scenario ref_errprop_happy {
+  acceptance "errprop-ref-happy"
+}

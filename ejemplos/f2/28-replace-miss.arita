@@ -1,0 +1,8 @@
+// ADR-064 std-replace-miss
+module std_replace_miss
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let t: String = s.replace("z", "x")
+  print(t)
+}

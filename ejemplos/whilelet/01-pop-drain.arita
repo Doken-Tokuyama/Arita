@@ -1,0 +1,12 @@
+// ADR-055 whilelet-01 — pop drain LIFO
+module whilelet_pop_drain
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  while let Some(x) = v.pop() {
+    print(x)
+  }
+}

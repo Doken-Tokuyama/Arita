@@ -1,0 +1,7 @@
+// ADR-110 std-rem-euclid — (-7).rem_euclid(4) → 1
+module std_rem_euclid
+
+fn main() -> Io<()> {
+  let a: Int = -7
+  print(a.rem_euclid(4))
+}

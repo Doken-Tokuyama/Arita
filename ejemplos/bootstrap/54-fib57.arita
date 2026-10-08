@@ -1,0 +1,70 @@
+// ADR-219 BOOTSTRAP-54-20260919 — dual-oracle pure fn (fib-lite)
+// Golden: fib57() = 365435296162 (F0=0…F57=365435296162; same constant as Rust reference in arita-cli::bootstrap)
+// Locals: as_ (skip keyword as), at…az, ba…bf.
+module bootstrap_fib57
+
+fn fib57() -> Int {
+  let a: Int = 0
+  let b: Int = 1
+  let c: Int = a + b
+  let d: Int = b + c
+  let e: Int = c + d
+  let f: Int = d + e
+  let g: Int = e + f
+  let h: Int = f + g
+  let i: Int = g + h
+  let j: Int = h + i
+  let k: Int = i + j
+  let l: Int = j + k
+  let m: Int = k + l
+  let n: Int = l + m
+  let o: Int = m + n
+  let p: Int = n + o
+  let q: Int = o + p
+  let r: Int = p + q
+  let s: Int = q + r
+  let t: Int = r + s
+  let u: Int = s + t
+  let v: Int = t + u
+  let w: Int = u + v
+  let x: Int = v + w
+  let y: Int = w + x
+  let z: Int = x + y
+  let aa: Int = y + z
+  let ab: Int = z + aa
+  let ac: Int = aa + ab
+  let ad: Int = ab + ac
+  let ae: Int = ac + ad
+  let af: Int = ad + ae
+  let ag: Int = ae + af
+  let ah: Int = af + ag
+  let ai: Int = ag + ah
+  let aj: Int = ah + ai
+  let ak: Int = ai + aj
+  let al: Int = aj + ak
+  let am: Int = ak + al
+  let an: Int = al + am
+  let ao: Int = am + an
+  let ap: Int = an + ao
+  let aq: Int = ao + ap
+  let ar: Int = ap + aq
+  let as_: Int = aq + ar
+  let at: Int = ar + as_
+  let au: Int = as_ + at
+  let av: Int = at + au
+  let aw: Int = au + av
+  let ax: Int = av + aw
+  let ay: Int = aw + ax
+  let az: Int = ax + ay
+  let ba: Int = ay + az
+  let bb: Int = az + ba
+  let bc: Int = ba + bb
+  let bd: Int = bb + bc
+  let be: Int = bc + bd
+  let bf: Int = bd + be
+  bf
+}
+
+fn main() -> Io<()> {
+  print(fib57())
+}

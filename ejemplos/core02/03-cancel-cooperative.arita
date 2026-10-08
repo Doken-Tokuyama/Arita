@@ -1,0 +1,16 @@
+// CUT CORE-0.2-TIMEOUT-CANCEL-20260920 — pos: cancel cooperativa → Err tipado
+// cancel_token / cancel / until_cancelled = curated surface (AtomicBool bridge; no Mutex)
+// Pattern: race timeout vs until_cancelled; cancel from sibling path when spawn exists on Lex.
+// Box v0: cancel then until_cancelled under timeout → Ok(()) after cancel observed.
+// NOT wired to measure; skip ≠ PASS
+module core02_cancel_cooperative
+
+async fn main() -> Io<()> {
+  let t: Int = cancel_token()
+  cancel(t)
+  let r: Result<(), String> = timeout(5000, until_cancelled(t))
+  match r {
+    Ok(_) => { print("cancelled-ok") }
+    Err(e) => { print(e) }
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-106 std-is-negative-true
+module std_is_negative_true
+
+fn main() -> Io<()> {
+  let a: Int = -3
+  print(a.is_negative())
+}

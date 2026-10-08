@@ -1,0 +1,12 @@
+// ADR-101 pos — checked_add overflow handled via if-let (not unwrap_or lit)
+module std_checked_add_overflow_match
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_add(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("overflow")
+  }
+}

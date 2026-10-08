@@ -1,0 +1,8 @@
+// ADR-236 neg — as_bytes not on Int
+module neg_as_bytes_int
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  let b: Bytes = n.as_bytes()
+  print(b.len())
+}

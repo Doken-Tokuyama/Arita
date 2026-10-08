@@ -1,0 +1,9 @@
+// ADR-290 §D3 / IM-5: compuesto fuera de fn -> Result (main) => E0344
+module core10_index_mut_neg_main
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] += 2
+  print(1)
+}

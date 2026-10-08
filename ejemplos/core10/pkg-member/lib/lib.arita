@@ -1,0 +1,19 @@
+// ADR-287 — pub API of the pkg-member fixture
+module lib
+
+pub record Point {
+  x: Int,
+  y: Int,
+}
+
+pub record Config {
+  factor: Int,
+}
+
+pub fn add(a: Int, b: Int) -> Int {
+  a + b
+}
+
+pub fn apply(factor: Int, x: Int) -> Int {
+  factor * x
+}

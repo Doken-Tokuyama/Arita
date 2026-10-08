@@ -1,0 +1,8 @@
+// ADR-204 neg — try_reserve without mut → E0202
+module e0202_try_reserve_not_mut
+
+fn main() -> Io<()> {
+  let s: String = ""
+  let r: Result<(), Int> = s.try_reserve(8)
+  print(0)
+}

@@ -1,0 +1,9 @@
+// F2.2 neg — Bool match missing false and no _ → E0221
+module bad_bool_match
+
+fn main() -> Io<()> {
+  let flag: Bool = true
+  match flag {
+    true => { print("yes") }
+  }
+}

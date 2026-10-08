@@ -1,0 +1,8 @@
+// ADR-070 std-bool-to-string-false
+module std_bool_to_string_false
+
+fn main() -> Io<()> {
+  let b: Bool = false
+  let s: String = b.to_string()
+  print(s)
+}

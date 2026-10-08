@@ -1,0 +1,13 @@
+// ADR-224 std-vec-extend — a grows; b intact (shared, ≠ append drain)
+module std_vec_extend
+
+fn main() -> Io<()> {
+  let mut a: Vec<Int> = Vec::new()
+  a.push(1)
+  let mut b: Vec<Int> = Vec::new()
+  b.push(2)
+  b.push(3)
+  a.extend(b)
+  print(a.len())
+  print(b.len())
+}

@@ -1,0 +1,27 @@
+// ADR-262 — insert OOB Err + v[999] None; no panic
+module core05_scen_coll_oob
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.insert(99, 0)
+  match r {
+    Ok(u) => { print("bad-ok") }
+    Err(e) => {
+      let o: Option<Int> = v[999]
+      if let Some(x) = o {
+        print(x)
+      } else {
+        if e == 0 {
+          print("coll-oob")
+        } else {
+          print(e)
+        }
+      }
+    }
+  }
+}
+
+scenario coll_oob {
+  acceptance "coll-oob"
+}

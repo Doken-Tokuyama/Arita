@@ -1,0 +1,7 @@
+// ADR-035 / HOST-BORDER-HELLO-20260914 — host.mark() bridge + stdout host-ok
+module host_bridge_hello
+
+fn main() -> Io<()> {
+  host.mark()
+  print("host-ok")
+}

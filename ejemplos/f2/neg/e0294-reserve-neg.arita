@@ -1,0 +1,8 @@
+// ADR-154 neg — reserve(-1) → E0294
+module e0294_reserve_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.reserve(-1)
+  print(0)
+}

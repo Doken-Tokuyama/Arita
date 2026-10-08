@@ -1,0 +1,8 @@
+// ADR-182 neg — reverse without mut → E0202
+module e0202_reverse_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  v.reverse()
+  print(0)
+}

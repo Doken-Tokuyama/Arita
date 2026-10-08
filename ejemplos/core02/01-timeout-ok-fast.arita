@@ -1,0 +1,16 @@
+// CUT CORE-0.2-TIMEOUT-CANCEL-20260920 — pos: completes before ms → Ok
+// Surface: timeout(ms, async_call) -> Result<(), String>
+// NOT wired to measure (Measure-owned); skip ≠ PASS
+module core02_timeout_ok_fast
+
+async fn quick() -> Io<()> {
+  print("fast")
+}
+
+async fn main() -> Io<()> {
+  let r: Result<(), String> = timeout(1000, quick())
+  match r {
+    Ok(_) => { print("ok") }
+    Err(e) => { print(e) }
+  }
+}

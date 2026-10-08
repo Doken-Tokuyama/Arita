@@ -1,0 +1,4 @@
+# ADR-248 ref HTTP daemon
+[package]
+name = "arita_ref_http_json"
+profile = "service"

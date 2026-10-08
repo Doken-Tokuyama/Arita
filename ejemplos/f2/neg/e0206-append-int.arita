@@ -1,0 +1,9 @@
+// ADR-222 neg — Int.append → E0206
+module e0206_append_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  let mut b: Int = 2
+  a.append(b)
+  print(0)
+}

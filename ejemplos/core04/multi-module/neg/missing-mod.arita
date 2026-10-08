@@ -1,0 +1,6 @@
+// expect E0404 — sibling module file missing
+module demo
+use ghost::item
+fn main() -> Io<()> {
+  print("no")
+}

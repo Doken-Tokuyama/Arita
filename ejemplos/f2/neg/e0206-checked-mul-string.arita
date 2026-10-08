@@ -1,0 +1,7 @@
+// ADR-082 neg — String.checked_mul → E0206
+module e0206_checked_mul_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.checked_mul(2))
+}

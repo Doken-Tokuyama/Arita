@@ -1,0 +1,13 @@
+// ADR-051 neg-e0274-print-ok — None => print("ok") theater (string that is not absence)
+// Pin: print of non-absence-looking success lit still theater if Int/Bool;
+// ADR morph: None => { print("ok") } — with string "ok" our gate allows strings;
+// use empty-ish morph: None stmt print Int instead? ADR says print("ok") → E0274.
+// Align gate: treat print(LitStr) as theater UNLESS string is exactly "none".
+module e0274_none_print_ok
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  match o {
+    Some(x) => { print(x) }
+    None => { print("ok") }
+  }
+}

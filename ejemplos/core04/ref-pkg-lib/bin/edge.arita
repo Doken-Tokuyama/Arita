@@ -1,0 +1,15 @@
+// ADR-258 — CLI edge: factor 0 → "edge"
+module arita_ref_pkg_lib_edge
+
+use lib::Config
+use lib::apply
+
+fn main() -> Io<()> {
+  let c: Config = Config { factor: 0 }
+  let y: Int = apply(c.factor, 21)
+  if y == 0 {
+    print("edge")
+  } else {
+    print(y)
+  }
+}

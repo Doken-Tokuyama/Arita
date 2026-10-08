@@ -1,0 +1,8 @@
+// ADR-059 std-push-str-lit
+module std_push_str_lit
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s.push_str("!")
+  print(s)
+}

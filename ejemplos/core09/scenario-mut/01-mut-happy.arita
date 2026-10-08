@@ -1,0 +1,55 @@
+// ADR-284 / CORE-0.9-SCENARIO-MUT-20260926 — happy: Map insert/overwrite (282) + Vec in-bounds (283) en helper fn → Result<Int, Int>; main match-convierte
+// Esperado (stdout determinista): "2" (v[0] ← m["hits"] tras overwrite) · "9" (v[1] = x in-bounds) · "2" (v[2] ← m.len()) · "mut-happy"
+// oracle: core09-scen-mut-happy
+module core09_scen_mut_happy
+
+fn tally(i: Int, x: Int, sel: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  m["hits"] = 2
+  m["miss"] = 5
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v.push(0)
+  let q: Text = "hits"
+  let h: Option<Int> = m[q]
+  match h {
+    Some(n) => {
+      v[0] = n
+    }
+    None => {
+      v[0] = 0
+    }
+  }
+  v[i] = x
+  v[2] = m.len()
+  let o: Option<Int> = v.get(sel)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match tally(1, 9, 0) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match tally(1, 9, 1) {
+    Ok(b) => { print(b) }
+    Err(e) => { print(e) }
+  }
+  match tally(1, 9, 2) {
+    Ok(c) => { print(c) }
+    Err(e) => { print(e) }
+  }
+  print("mut-happy")
+}
+
+scenario mut_happy {
+  acceptance "2"
+  acceptance "9"
+  acceptance "2"
+  acceptance "mut-happy"
+}

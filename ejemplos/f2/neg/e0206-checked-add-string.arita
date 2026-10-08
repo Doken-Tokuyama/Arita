@@ -1,0 +1,7 @@
+// ADR-080 neg — String.checked_add → E0206
+module e0206_checked_add_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.checked_add(1))
+}

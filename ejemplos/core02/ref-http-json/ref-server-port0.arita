@@ -1,0 +1,51 @@
+// ADR-248 Measure companion — bind port 0 + policy default + print port + serve (external client).
+// Graceful: Measure may kill; process-local shutdown after bind without concurrent client uses .shutdown().
+module arita_ref_server_port0
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let n: Int = body.len()
+      match n {
+        0 => {
+          let resp: HttpResponse = HttpResponse.ok_text("{\"ok\":true}")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        _ => {
+          let resp: HttpResponse = HttpResponse.ok_text(body)
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let p: ServicePolicy = ServicePolicy.default()
+      let sp: Result<HttpServer, IoError> = srv.set_policy(p)
+      match sp {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          print(srv2.port())
+          print("ref-port0-ready")
+          let r: Result<(), IoError> = srv2.serve(handle)
+          match r {
+            Ok(_) => {}
+            Err(e) => { print(e) }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+// ADR-108 std-checked-neg-some
+module std_checked_neg_some
+
+fn main() -> Io<()> {
+  let a: Int = 5
+  let o: Option<Int> = a.checked_neg()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

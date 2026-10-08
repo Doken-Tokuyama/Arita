@@ -1,0 +1,13 @@
+// ADR-085 std-vec-get-some
+module std_vec_get_some
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9)
+  let o: Option<Int> = v.get(0)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

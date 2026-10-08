@@ -1,0 +1,7 @@
+// ADR-086 neg — String.first → E0206
+module e0206_first_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.first())
+}

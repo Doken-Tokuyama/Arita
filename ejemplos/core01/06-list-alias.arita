@@ -1,0 +1,9 @@
+// ADR-237 / CUT CORE-0.1-LIST-MAP-NAMES — List ≡ Vec
+module list_alias
+
+fn main() -> Io<()> {
+  let mut xs: List<Int> = List::new()
+  xs.push(1)
+  xs.push(2)
+  print(xs.len())
+}

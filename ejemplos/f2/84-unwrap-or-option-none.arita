@@ -1,0 +1,7 @@
+// ADR-093 std-unwrap-or-option-none
+module std_unwrap_or_option_none
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  print(o.unwrap_or(99))
+}

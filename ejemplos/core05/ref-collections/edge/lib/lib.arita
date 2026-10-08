@@ -1,0 +1,42 @@
+// ADR-263 — oob lib: insert Err + index None (as Result Err)
+module lib
+
+pub record BagSpec {
+  seed: Int,
+}
+
+/// OOB insert → Err(0).
+pub fn build_oob(seed: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(3)
+  let r: Result<(), Int> = v.insert(99, 0)
+  match r {
+    Ok(u) => {
+      let bad: Result<Int, Int> = Err(1)
+      bad
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// OOB [] → None → Err(0).
+pub fn peek_oob(seed: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(3)
+  let o: Option<Int> = v[999]
+  match o {
+    Some(x) => {
+      let bad: Result<Int, Int> = Ok(x)
+      bad
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(0)
+      bad
+    }
+  }
+}

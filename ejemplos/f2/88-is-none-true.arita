@@ -1,0 +1,7 @@
+// ADR-094 std-is-none-true
+module std_is_none_true
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  print(o.is_none())
+}

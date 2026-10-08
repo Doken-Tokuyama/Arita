@@ -1,0 +1,8 @@
+// ADR-148 neg — make_ascii_lowercase without mut → E0202
+module e0202_make_ascii_not_mut
+
+fn main() -> Io<()> {
+  let s: String = "AbC"
+  s.make_ascii_lowercase()
+  print(0)
+}

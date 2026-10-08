@@ -1,0 +1,57 @@
+// CUT CORE-0.3-ERROR-PROP-20260920 — oracle core03-err-timeout
+// ADR-244 timeout → gateway 504 upstream_timeout (v0; client IoError timeout not distinct)
+module core03_err_timeout_smoke
+
+async fn hang() -> Io<()> {
+  delay(5000)
+}
+
+async fn handle_proxy(_req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let tr: Result<(), String> = timeout(1, hang())
+  match tr {
+    Err(_e) => {
+      let resp: HttpResponse = HttpResponse.status(504, "upstream_timeout")
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+    Ok(_u) => {
+      let resp: HttpResponse = HttpResponse.status(200, "should-not")
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn run_gateway() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19930)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print("gateway-up")
+      let r: Result<(), IoError> = srv.serve(handle_proxy)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_gateway())
+  delay(200)
+  let url: Text = HttpClient.url(19930, "/")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(url, "x")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("err-timeout-done")
+}

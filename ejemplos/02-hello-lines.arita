@@ -1,0 +1,8 @@
+// F1.1 — varios print(LitStr)
+module hello_lines
+
+fn main() -> Io<()> {
+  print("line one")
+  print("line two")
+  print("line three")
+}

@@ -1,0 +1,34 @@
+// ADR-145 BOOTSTRAP-18-20260919 — dual-oracle pure fn (fib-lite)
+// Golden: fib21() = 10946 (F0=0…F21=10946; same constant as Rust reference in arita-cli::bootstrap)
+// Int helpers: Expr/Let only (no while) — unrolled Fibonacci steps.
+module bootstrap_fib21
+
+fn fib21() -> Int {
+  let a: Int = 0
+  let b: Int = 1
+  let c: Int = a + b
+  let d: Int = b + c
+  let e: Int = c + d
+  let f: Int = d + e
+  let g: Int = e + f
+  let h: Int = f + g
+  let i: Int = g + h
+  let j: Int = h + i
+  let k: Int = i + j
+  let l: Int = j + k
+  let m: Int = k + l
+  let n: Int = l + m
+  let o: Int = m + n
+  let p: Int = n + o
+  let q: Int = o + p
+  let r: Int = p + q
+  let s: Int = q + r
+  let t: Int = r + s
+  let u: Int = s + t
+  let v: Int = t + u
+  v
+}
+
+fn main() -> Io<()> {
+  print(fib21())
+}

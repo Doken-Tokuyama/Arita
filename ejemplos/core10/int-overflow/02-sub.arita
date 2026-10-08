@@ -1,0 +1,12 @@
+// ADR-292 / IA — sub: overflow de `a - b` no literal => panic uniforme, exit 101.
+// stdout esperado (1 linea, antes del panic): before
+module core10_int_overflow_sub
+
+fn sub(a: Int, b: Int) -> Int {
+  a - b
+}
+
+fn main() -> Io<()> {
+  print("before")
+  print(sub(-9223372036854775807, 2))
+}

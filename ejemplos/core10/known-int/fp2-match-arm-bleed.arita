@@ -1,0 +1,18 @@
+// ADR-294 KNOWN-INT-SCOPE (oraculo core10-known-int-fp2-match-arm): programa VALIDO que debe compilar y ejecutar.
+// `a = MAX` en el brazo `true` de un `match`; el brazo `false` hace `a + 1` y no se ejecuta (flag = true). Sin ADR-294: E0217 falso por filtrado entre brazos.
+// stdout (medido con rustc por el Parser, 2026-10-04): ok; rustc avisa unused_assignments (warn; aceptado por el Ingeniero).
+module core10_known_int_fp2_match_arm
+fn main() -> Io<()> {
+  let mut a: Int = 0
+  let flag: Bool = true
+  match flag {
+    true => {
+      a = 9223372036854775807
+    }
+    false => {
+      let r: Int = a + 1
+      print(r)
+    }
+  }
+  print("ok")
+}

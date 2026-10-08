@@ -1,0 +1,8 @@
+// ADR-257 — bin exercises pub fn double via package workspace
+module scen_pkg
+
+use lib::double
+
+fn main() -> Io<()> {
+  print(double(21))
+}

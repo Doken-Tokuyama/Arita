@@ -1,0 +1,9 @@
+// ADR-196 neg — Int.starts_with → E0206
+module e0206_vec_starts_with_int
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  let mut p: Vec<Int> = Vec::new()
+  p.push(1)
+  print(n.starts_with(p))
+}

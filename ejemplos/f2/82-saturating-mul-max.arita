@@ -1,0 +1,7 @@
+// ADR-092 std-saturating-mul-max
+module std_saturating_mul_max
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  print(a.saturating_mul(2))
+}

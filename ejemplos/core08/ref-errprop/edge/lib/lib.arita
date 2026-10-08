@@ -1,0 +1,43 @@
+// ADR-280 — fail lib: load_missing / process_fail / from_args_fail → Err via ?
+module lib
+
+pub record State {
+  n: Int,
+}
+
+/// Missing path → read Err via ?.
+pub fn load_missing(path: Text) -> Result<Int, Int> {
+  let doc: Text = host.read_text(path)?
+  let o: Option<Int> = host.json_get_int(doc, "n")
+  match o {
+    Some(n) => {
+      let ok: Result<Int, Int> = Ok(n)
+      ok
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(1)
+      bad
+    }
+  }
+}
+
+/// ? chain over load_missing → early Err on miss.
+pub fn process_fail(path: Text) -> Result<Int, Int> {
+  let n: Int = load_missing(path)?
+  Ok(n)
+}
+
+/// cli_arg required → process_fail (fail when path missing or arg None).
+pub fn from_args_fail() -> Result<Int, Int> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let n: Int = process_fail(p)?
+      Ok(n)
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(2)
+      bad
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# ADR-257 / CORE-0.4-SCENARIO-PKG — scenarios over lib+bin workspace
+[package]
+name = "scen_pkg"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

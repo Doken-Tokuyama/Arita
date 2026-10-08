@@ -1,0 +1,13 @@
+// ADR-041 morph sketch (assert x == 3 in dead then) — surface `assert` is test-only
+// (fn body → E0006). Canonical measure oracle: e0227-if-false.arita (print/ok).
+// HIR unit `e0227_if_false_*` covers LitBool false / no-else. This file is a
+// print-morph companion that still rejects E0227 without touching E0215.
+module e0227_if_false_assert
+
+fn main() -> Io<()> {
+  let x: Int = 3
+  if false {
+    print("dead")
+  }
+  print("ok")
+}

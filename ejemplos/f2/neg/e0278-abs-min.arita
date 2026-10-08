@@ -1,0 +1,7 @@
+// ADR-069 neg — i64::MIN.abs() → E0278
+module e0278_abs_min
+
+fn main() -> Io<()> {
+  let n: Int = -9223372036854775808
+  print(n.abs())
+}

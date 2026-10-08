@@ -1,0 +1,16 @@
+// ADR-286 §0.1d (a) / CORE-0.10-JOIN-SAFETY-20260927 — neg: `await join(spawn(f()))` con f no-IoUnit → E0203
+// Parsea por la alternativa `user_call` de `await_expr` (pest L279). Hoy emite
+// `{ let _ = tokio::spawn(f()).await; };` y el Err(7) se pierde en silencio.
+// Ofensor único: `async fn f() -> Result<Int, Int>` dentro de `join(spawn(f()))`.
+// Control: `f` pasa a `-> Io<()>` con cuerpo `print("f")` → build verde.
+// oracle: neg-core10-join-spawn-inline
+module core10_join_safety_join_spawn_inline
+
+async fn f() -> Result<Int, Int> {
+  Err(7)
+}
+
+async fn main() -> Io<()> {
+  await join(spawn(f()))
+  print("done")
+}

@@ -1,0 +1,12 @@
+// ADR-111 std-checked-div-euclid-none-min — MIN/−1 → None
+module std_checked_div_euclid_none_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_div_euclid(-1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

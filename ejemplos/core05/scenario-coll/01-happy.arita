@@ -1,0 +1,28 @@
+// ADR-262 — insert in-range Ok + v[i] Some; stdout coll-happy
+module core05_scen_coll_happy
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(3)
+  let r: Result<(), Int> = v.insert(1, 9)
+  match r {
+    Ok(u) => {
+      let o: Option<Int> = v[1]
+      if let Some(x) = o {
+        if x == 9 {
+          print("coll-happy")
+        } else {
+          print("bad-val")
+        }
+      } else {
+        print("bad-none")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}
+
+scenario coll_happy {
+  acceptance "coll-happy"
+}

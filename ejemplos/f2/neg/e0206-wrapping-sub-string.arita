@@ -1,0 +1,7 @@
+// ADR-097 neg — String.wrapping_sub → E0206
+module e0206_wrapping_sub_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.wrapping_sub(1))
+}

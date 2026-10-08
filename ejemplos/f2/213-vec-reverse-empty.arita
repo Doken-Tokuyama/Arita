@@ -1,0 +1,9 @@
+// ADR-182 std-vec-reverse-empty — empty no-op
+module std_vec_reverse_empty
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.reverse()
+  let gone: Bool = v.is_empty()
+  print(gone)
+}

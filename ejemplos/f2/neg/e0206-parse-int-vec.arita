@@ -1,0 +1,8 @@
+// ADR-066 neg — Vec.parse_int → E0206
+module e0206_parse_int_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.parse_int())
+}

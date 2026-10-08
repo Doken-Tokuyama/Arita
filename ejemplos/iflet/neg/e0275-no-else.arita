@@ -1,0 +1,9 @@
+// ADR-053 neg-e0275 — if let without else
+module bad_iflet
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(1)
+  if let Some(x) = o {
+    print(x)
+  }
+}

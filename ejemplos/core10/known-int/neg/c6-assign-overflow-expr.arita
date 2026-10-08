@@ -1,0 +1,9 @@
+// ADR-294 KNOWN-INT-SCOPE (oraculo neg-core10-known-int-c6-assign-overflow): control en recto, conserva E0217.
+// `a = MAX; a = a + 1` en el mismo ambito: desbordamiento definitivo. Texto exacto `E0217: integer overflow`, sin span.
+module core10_known_int_c6_assign_overflow
+fn main() -> Io<()> {
+  let mut a: Int = 9223372036854775807
+  a = a + 1
+  print(a)
+  print("ok")
+}

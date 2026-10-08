@@ -1,0 +1,8 @@
+// ADR-265 / CORE-0.6-SET-FALLIBLE-20260926 — IndexMut HOLD → E0314
+module core06_index_mut_assign
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 2
+}

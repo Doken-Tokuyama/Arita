@@ -1,0 +1,12 @@
+// ADR-268 — lit i < 0 set → E0319
+module core06_ref_gp_set_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.set(-1, 0)
+  match r {
+    Ok(u) => { print("bad") }
+    Err(e) => { print(e) }
+  }
+}

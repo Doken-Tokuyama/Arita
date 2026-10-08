@@ -1,0 +1,12 @@
+// ADR-121 std-ilog2-some — 8→3
+module std_ilog2_some
+
+fn main() -> Io<()> {
+  let a: Int = 8
+  let o: Option<Int> = a.ilog2()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

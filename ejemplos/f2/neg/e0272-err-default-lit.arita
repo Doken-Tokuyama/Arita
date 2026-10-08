@@ -1,0 +1,10 @@
+// ADR-048 neg-e0272 — Err unused + lit default
+module e0272_err_default_lit
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = Err(1)
+  let v: Int = match r {
+    Ok(x) => { x }
+    Err(e) => { 0 }
+  }
+  print(v)
+}

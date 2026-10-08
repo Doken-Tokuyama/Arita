@@ -1,0 +1,12 @@
+// ADR-164 std-bool-then-some-false
+module std_bool_then_some_false
+
+fn main() -> Io<()> {
+  let b: Bool = false
+  let o: Option<Int> = b.then_some(42)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

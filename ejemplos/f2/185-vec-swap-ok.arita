@@ -1,0 +1,38 @@
+// ADR-158 std-vec-swap-ok — swap 0↔2
+module std_vec_swap_ok
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v.push(3)
+  v.swap(0, 2)
+  let a: Option<Int> = v.get(0)
+  let b: Option<Int> = v.get(1)
+  let c: Option<Int> = v.get(2)
+  if let Some(x) = a {
+    if let Some(y) = b {
+      if let Some(z) = c {
+        if x == 3 {
+          if y == 2 {
+            if z == 1 {
+              print("ok")
+            } else {
+              print("bad")
+            }
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

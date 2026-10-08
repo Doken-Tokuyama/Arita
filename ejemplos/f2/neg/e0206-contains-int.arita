@@ -1,0 +1,7 @@
+// ADR-087 neg — Int.contains → E0206
+module e0206_contains_int
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  print(n.contains(1))
+}

@@ -1,0 +1,8 @@
+// Bin member — uses package lib via `use lib::double`
+module demo
+
+use lib::double
+
+fn main() -> Io<()> {
+  print(double(21))
+}

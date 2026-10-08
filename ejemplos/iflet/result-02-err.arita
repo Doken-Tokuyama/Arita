@@ -1,0 +1,11 @@
+// ADR-054 iflet-result-02 — Err path
+module iflet_result_err
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Err("fail")
+  if let Err(e) = r {
+    print(e)
+  } else {
+    print(0)
+  }
+}

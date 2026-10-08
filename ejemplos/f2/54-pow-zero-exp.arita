@@ -1,0 +1,7 @@
+// ADR-079 std-pow-zero-exp
+module std_pow_zero_exp
+
+fn main() -> Io<()> {
+  let n: Int = 5
+  print(n.pow(0))
+}

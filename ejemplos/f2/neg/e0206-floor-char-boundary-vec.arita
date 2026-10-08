@@ -1,0 +1,7 @@
+// ADR-144 neg — Vec.floor_char_boundary → E0206
+module e0206_floor_char_boundary_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  print(v.floor_char_boundary(0))
+}

@@ -1,0 +1,10 @@
+// F2 fn + Call — helper Int→Int + print(user_call)
+module fn_call
+
+fn double(x: Int) -> Int {
+  x + x
+}
+
+fn main() -> Io<()> {
+  print(double(21))
+}

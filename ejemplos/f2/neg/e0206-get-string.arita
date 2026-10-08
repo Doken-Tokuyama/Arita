@@ -1,0 +1,7 @@
+// ADR-085 neg — String.get → E0206
+module e0206_get_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.get(0))
+}

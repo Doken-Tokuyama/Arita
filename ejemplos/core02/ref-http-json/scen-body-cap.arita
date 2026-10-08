@@ -1,0 +1,46 @@
+// ADR-248 oracle core02-ref-body-cap — max_body_bytes=16; oversize must not handler-200
+module core02_ref_body_cap
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("should-not-see")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19913)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let tight: ServicePolicy = ServicePolicy {
+        max_body_bytes: 16,
+        max_header_bytes: 65536,
+        max_header_count: 100,
+        idle_timeout_ms: 30000
+      }
+      let sp: Result<HttpServer, IoError> = srv.set_policy(tight)
+      match sp {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          print(srv2.port())
+          print("ready")
+          let r: Result<(), IoError> = srv2.serve(handle)
+          match r { Ok(_) => {} Err(e) => { print(e) } }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(200)
+  let url: Text = HttpClient.url(19913, "/")
+  let big: Text = "xxxxxxxxxxxxxxxxx"
+  let got: Result<HttpResponse, IoError> = HttpClient.post_text(url, big)
+  match got {
+    Err(e) => { print(e) }
+    Ok(resp) => { print(resp.status()) }
+  }
+  print("ref-body-cap-done")
+}

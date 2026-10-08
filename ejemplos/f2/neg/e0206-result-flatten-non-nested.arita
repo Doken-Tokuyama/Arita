@@ -1,0 +1,8 @@
+// ADR-198 neg — Result<Int,String>.flatten (non-nested) → E0206
+module e0206_result_flatten_non_nested
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(1)
+  let f: Result<Int, String> = r.flatten()
+  print(0)
+}

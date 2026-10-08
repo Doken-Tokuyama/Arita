@@ -1,0 +1,149 @@
+// CUT CORE-0.3-SCENARIO-COMPOSE-20260920 — oracle core03-scen-compose-happy
+// Dual-hop scenario harness (fixed ports; port-0 companion separate). NOT CLOSED.
+module core03_scen_compose_happy
+
+async fn handle_a(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn run_a() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19951)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("scen-a-up")
+      let r: Result<(), IoError> = srv.serve(handle_a)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}
+
+async fn handle_b(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn run_b() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19952)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("scen-b-up")
+      let r: Result<(), IoError> = srv.serve(handle_b)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}
+
+async fn handle_pipe(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(in_body) => {
+      let url_a: Text = HttpClient.url(19951, "/")
+      let a_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_a, in_body)
+      match a_res {
+        Err(_e) => {
+          let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        Ok(a) => {
+          let br_a: Result<Text, IoError> = a.body_text()
+          match br_a {
+            Err(_e2) => {
+              let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+            Ok(ta) => {
+              let url_b: Text = HttpClient.url(19952, "/")
+              let b_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_b, ta)
+              match b_res {
+                Err(_e3) => {
+                  let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                  let out: Result<HttpResponse, IoError> = Ok(resp)
+                  out
+                }
+                Ok(b) => {
+                  let br_b: Result<Text, IoError> = b.body_text()
+                  match br_b {
+                    Err(_e4) => {
+                      let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                      let out: Result<HttpResponse, IoError> = Ok(resp)
+                      out
+                    }
+                    Ok(tb) => {
+                      let resp: HttpResponse = HttpResponse.ok_text(tb)
+                      let out: Result<HttpResponse, IoError> = Ok(resp)
+                      out
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn run_gw() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19950)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("scen-gw-up")
+      let r: Result<(), IoError> = srv.serve(handle_pipe)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t1: Task = spawn(run_a())
+  delay(120)
+  let t2: Task = spawn(run_b())
+  delay(120)
+  let t3: Task = spawn(run_gw())
+  delay(200)
+  let url: Text = HttpClient.url(19950, "/pipeline")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(url, "scen-compose-ping")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br { Ok(b) => { print(b) } Err(e) => { print(e) } }
+    }
+  }
+  print("scen-compose-happy-done")
+}

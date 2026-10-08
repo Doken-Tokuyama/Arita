@@ -1,0 +1,18 @@
+// ADR-204 std-try-reserve-vec — Ok + capacity ≥ n
+module std_try_reserve_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  let r: Result<(), Int> = v.try_reserve(8)
+  match r {
+    Ok(u) => {
+      let c: Int = v.capacity()
+      if c >= 8 {
+        print("ok")
+      } else {
+        print("bad")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}

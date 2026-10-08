@@ -1,0 +1,7 @@
+// ADR-139 neg — Int.is_ascii → E0206
+module e0206_is_ascii_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.is_ascii())
+}

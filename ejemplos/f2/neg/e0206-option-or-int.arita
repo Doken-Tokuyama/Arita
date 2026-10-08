@@ -1,0 +1,9 @@
+// ADR-172 neg — Int.or → E0206
+module e0206_option_or_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let b: Option<Int> = Some(2)
+  let c: Option<Int> = a.or(b)
+  print(0)
+}

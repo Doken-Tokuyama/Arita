@@ -1,0 +1,13 @@
+// ADR-184 std-option-flatten-some-some
+module std_option_flatten_some_some
+
+fn main() -> Io<()> {
+  let inner: Option<Int> = Some(7)
+  let o: Option<Option<Int>> = Some(inner)
+  let f: Option<Int> = o.flatten()
+  if let Some(n) = f {
+    print(n)
+  } else {
+    print("none")
+  }
+}

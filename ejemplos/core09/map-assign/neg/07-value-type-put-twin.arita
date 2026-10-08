@@ -1,0 +1,9 @@
+// ADR-282 neg — gemelo put de 07-value-type.arita → E0203 type mismatch
+// oracle: neg-core09-map-assign-type (variante valor, gemelo put)
+module core09_map_assign_value_type_twin
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", "x")
+  print(m.len())
+}

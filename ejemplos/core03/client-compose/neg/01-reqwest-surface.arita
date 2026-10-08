@@ -1,0 +1,8 @@
+// CUT CORE-0.3-CLIENT-COMPOSE-20260920 — neg → E0321 reqwest
+// Oracle: neg-core03-compose-reqwest. skip≠PASS.
+module core03_neg_reqwest
+
+async fn main() -> Io<()> {
+  let _r: Int = reqwest_get("http://127.0.0.1/")
+  print("should-not")
+}

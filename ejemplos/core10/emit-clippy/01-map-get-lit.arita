@@ -1,0 +1,13 @@
+// ADR-288 / CORE-EMIT-CLIPPY-B282-20261001 — B-282-1: `m.get("lit")` sobre un Map local no debe
+// emitir `.get(&"lit".to_string())` (clippy `unnecessary_to_owned`); stdout `7`.
+module core10_emit_clippy_map_get_lit
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 7
+  let o: Option<Int> = m.get("a")
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

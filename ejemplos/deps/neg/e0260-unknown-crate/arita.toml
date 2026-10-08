@@ -1,0 +1,6 @@
+# ADR-029 — unknown crate must yield E0260
+[package]
+name = "e0260_unknown"
+
+[deps]
+serde = { bridge = "json" }

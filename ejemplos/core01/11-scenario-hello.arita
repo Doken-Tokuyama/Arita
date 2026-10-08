@@ -1,0 +1,10 @@
+// ADR-239 / CORE-0.1-SCENARIO — language-level scenario/acceptance
+module scenario_hello
+
+fn main() -> Io<()> {
+  print("scenario-ok")
+}
+
+scenario s_hello {
+  acceptance "scenario-ok"
+}

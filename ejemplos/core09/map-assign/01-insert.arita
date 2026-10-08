@@ -1,0 +1,16 @@
+// ADR-282 / CORE-0.9-MAP-ASSIGN-20260926 — m[k] = v clave nueva → insert; m["a"] ≡ get → Some(7)
+// oracle: core09-map-assign-insert
+module core09_map_assign_insert
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 7
+  // Lectura con clave ident: m["a"] literal emite get(&"a".to_string()) (ADR-266) → clippy unnecessary_to_owned (preexistente, fuera de 282).
+  let q: Text = "a"
+  let o: Option<Int> = m[q]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-212 std-wrapping-div-normal — 10.wrapping_div(3) → 3
+module std_wrapping_div_normal
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.wrapping_div(3))
+}

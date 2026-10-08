@@ -1,0 +1,16 @@
+// ADR-293 / CORE-0.10-UNDECLARED-CALL-20261003 — neg: la llamada a fn NO declarada vive dentro de una fn -> Result (no en main) → E0347
+// Ofensor único: la línea del `let` dentro de `f`. Control: inicializar con `n` → build verde (stdout 1).
+// oracle: neg-core10-undeclared-call-in-result-fn
+module core10_undeclared_call_in_result_fn
+
+fn f(n: Int) -> Result<Int, Int> {
+  let r: Int = ghost(n)
+  Ok(r)
+}
+
+fn main() -> Io<()> {
+  match f(1) {
+    Ok(v) => { print(v) }
+    Err(e) => { print(e) }
+  }
+}

@@ -1,0 +1,80 @@
+// ADR-267 — CLI/JSON + set Ok + Map m[k] Some → stdout gp-happy
+// set/Map lets at fn top so emit injects __arita_vec_set + HashMap + Map[]→get
+// ADR-273 collateral FIX: no unwrap_or after host.json_get_int (E0341);
+// explicit match Some/None fail paths (cli-argv-h2 pattern); set stays under Stmt::If
+// so module_uses_vec_set still sees it (Match arm bodies are not walked).
+module core06_scen_gp_happy
+
+fn main() -> Io<()> {
+  let arg0: Option<Text> = host.cli_arg(0)
+  let doc: Text = "{\"i\": 1, \"x\": 9, \"y\": 7}"
+  let doc2: Text = doc.clone()
+  let doc3: Text = doc.clone()
+  let oi: Option<Int> = host.json_get_int(doc, "i")
+  let ox: Option<Int> = host.json_get_int(doc2, "x")
+  let oy: Option<Int> = host.json_get_int(doc3, "y")
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  let mut m: Map<Text, Int> = Map::new()
+  let mut i: Int = 0
+  let mut x: Int = 0
+  let mut y: Int = 0
+  let mut ready: Bool = false
+  match arg0 {
+    Some(_a) => {
+      match oi {
+        Some(ii) => {
+          match ox {
+            Some(xx) => {
+              match oy {
+                Some(yy) => {
+                  i = ii
+                  x = xx
+                  y = yy
+                  ready = true
+                }
+                None => { print("bad-y") }
+              }
+            }
+            None => { print("bad-x") }
+          }
+        }
+        None => { print("bad-i") }
+      }
+    }
+    None => { print("bad-arg0") }
+  }
+  if ready {
+    let r: Result<(), Int> = v.set(i, x)
+    match r {
+      Ok(u) => {
+        m.put("k", y)
+        let o: Option<Int> = m["k"]
+        let ov: Option<Int> = v[i]
+        if let Some(got) = o {
+          if let Some(vv) = ov {
+            if vv == 9 {
+              if got == 7 {
+                print("gp-happy")
+              } else {
+                print("bad-map")
+              }
+            } else {
+              print("bad-set")
+            }
+          } else {
+            print("bad-vnone")
+          }
+        } else {
+          print("bad-mnone")
+        }
+      }
+      Err(e) => { print(e) }
+    }
+  }
+}
+
+scenario gp_happy {
+  acceptance "gp-happy"
+}

@@ -1,0 +1,7 @@
+// ADR-117 std-is-multiple-of-zero-div — d==0 → false (no E0216)
+module std_is_multiple_of_zero_div
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.is_multiple_of(0))
+}

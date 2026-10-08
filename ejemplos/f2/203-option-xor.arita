@@ -1,0 +1,13 @@
+// ADR-172 std-option-xor — Some(1).xor(None) → Some(1)
+module std_option_xor
+
+fn main() -> Io<()> {
+  let a: Option<Int> = Some(1)
+  let b: Option<Int> = None
+  let c: Option<Int> = a.xor(b)
+  if let Some(n) = c {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,65 @@
+// ADR-253 companion — Measure external: dual bind("127.0.0.1", 0) + serve
+module ref_gw_port0
+
+async fn handle_up(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let resp: HttpResponse = HttpResponse.ok_text(body)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn handle_gw(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let path: Text = req.path()
+  let health: Text = "/health"
+  let is_h: Bool = path == health
+  match is_h {
+    true => {
+    let resp: HttpResponse = HttpResponse.ok_text("{\"ok\":true,\"service\":\"arita-ref-http-compose\"}")
+    let out: Result<HttpResponse, IoError> = Ok(resp)
+    out
+    }
+    false => {
+    let resp: HttpResponse = HttpResponse.status(404, "not_found")
+    let out: Result<HttpResponse, IoError> = Ok(resp)
+    out
+  }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s1: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s1 {
+    Err(e) => { print(e) }
+    Ok(up) => {
+      print(up.port())
+      let s2: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+      match s2 {
+        Err(e) => { print(e) }
+        Ok(gw) => {
+          print(gw.port())
+          print("ref-compose-port0-ready")
+          let p: ServicePolicy = ServicePolicy.default()
+          let sp: Result<HttpServer, IoError> = gw.set_policy(p)
+          match sp {
+            Err(e) => { print(e) }
+            Ok(gw2) => {
+              let r: Result<(), IoError> = gw2.serve(handle_gw)
+              match r {
+                Ok(_) => {}
+                Err(e) => { print(e) }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

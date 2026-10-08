@@ -1,0 +1,7 @@
+// ADR-102 neg — wrapping_add(0) vacuous → E0286
+module e0286_wrapping_add_zero
+
+fn main() -> Io<()> {
+  let x: Int = 5
+  print(x.wrapping_add(0))
+}

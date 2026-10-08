@@ -1,0 +1,12 @@
+// ADR-220 std-checked-next-pow2-overflow — i64::MAX → None
+module std_checked_next_pow2_overflow
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_next_power_of_two()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

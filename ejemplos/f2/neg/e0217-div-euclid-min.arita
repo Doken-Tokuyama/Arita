@@ -1,0 +1,7 @@
+// ADR-110 gate — MIN.div_euclid(-1) → E0217
+module e0217_div_euclid_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.div_euclid(-1))
+}

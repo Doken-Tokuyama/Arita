@@ -1,0 +1,7 @@
+// ADR-106 neg — String.is_positive → E0206
+module e0206_is_positive_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.is_positive())
+}

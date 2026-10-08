@@ -1,0 +1,9 @@
+[package]
+name = "bad"
+version = "0.1.0"
+
+[workspace]
+members = ["bin"]
+
+[dependencies]
+serde = "1.0"

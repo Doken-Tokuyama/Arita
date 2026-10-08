@@ -1,0 +1,8 @@
+// ADR-176 neg — String.dedup → E0206
+module e0206_dedup_string
+
+fn main() -> Io<()> {
+  let mut s: String = "aa"
+  s.dedup()
+  print(0)
+}

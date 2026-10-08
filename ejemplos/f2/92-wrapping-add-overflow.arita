@@ -1,0 +1,7 @@
+// ADR-096 std-wrapping-add-overflow — MAX+1 → MIN
+module std_wrapping_add_overflow
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  print(a.wrapping_add(1))
+}

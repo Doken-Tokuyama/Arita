@@ -1,0 +1,9 @@
+// ADR-076 std-vec-repeat-zero
+module std_vec_repeat_zero
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let w: Vec<Int> = v.repeat(0)
+  print(w.len())
+}

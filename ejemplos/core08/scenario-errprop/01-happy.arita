@@ -1,0 +1,28 @@
+// ADR-279 / CORE-0.8-SCENARIO-ERRPROP-20260926 — happy ? chain Ok → stdout fijo vía main match
+// oracle: core08-scen-errprop-happy
+module core08_scen_errprop_happy
+
+fn load(path: Text) -> Result<Text, Int> {
+  let t: Text = host.read_text(path)?
+  Ok(t)
+}
+
+fn pipeline(path: Text) -> Result<Text, Int> {
+  let a: Text = load(path)?
+  Ok(a)
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = pipeline("ejemplos/core08/scenario-errprop/fixture.txt")
+  match r {
+    Ok(t) => { print(t) }
+    Err(e) => {
+      print("errprop_failed")
+      print(e)
+    }
+  }
+}
+
+scenario errprop_happy {
+  acceptance "errprop-happy"
+}

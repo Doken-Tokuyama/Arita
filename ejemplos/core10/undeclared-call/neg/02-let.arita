@@ -1,0 +1,9 @@
+// ADR-293 / CORE-0.10-UNDECLARED-CALL-20261003 — neg: llamada a fn NO declarada en un `let` → E0347
+// Ofensor único: la línea del `let`. Control: inicializar con el literal `1` → build verde.
+// oracle: neg-core10-undeclared-call-let
+module core10_undeclared_call_let
+
+fn main() -> Io<()> {
+  let n: Int = ghost(1)
+  print(n)
+}

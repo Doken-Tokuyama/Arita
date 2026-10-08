@@ -1,0 +1,5 @@
+module bad_scen
+use lib::secret
+fn main() -> Io<()> {
+  print(secret(1))
+}

@@ -1,0 +1,21 @@
+// ADR-278 — main Io<()> match-convert sin ? → PASS (? only in helper Result)
+module core08_qmark_main_io_match
+
+fn load(path: Text) -> Result<Text, Int> {
+  let t: Text = host.read_text(path)?
+  Ok(t)
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = load("ejemplos/core08/qmark/fixture.txt")
+  match r {
+    Ok(t) => {
+      let _t: Text = t
+      print("main-io-qmark-ok")
+    }
+    Err(e) => {
+      print("qmark_failed")
+      print(e)
+    }
+  }
+}

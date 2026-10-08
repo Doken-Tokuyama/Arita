@@ -1,0 +1,19 @@
+// CUT CORE-0.2-SERVICE-POLICY-20260920 — ADR-246 oracle core02-policy-defaults
+// NOT measure PASS until Measure N/N. After bind, policy() == ServicePolicy.default().
+module core02_policy_defaults
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let p: ServicePolicy = srv.policy()
+      print(p.max_body_bytes)
+      print(p.max_header_bytes)
+      print(p.max_header_count)
+      print(p.idle_timeout_ms)
+      srv.shutdown()
+      print("policy-defaults-ok")
+    }
+  }
+}

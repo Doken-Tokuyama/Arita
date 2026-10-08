@@ -1,0 +1,15 @@
+// ADR-153 std-capacity-vec-after-push — portable capacity≥len
+module std_capacity_vec_after_push
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  let c: Int = v.capacity()
+  let n: Int = v.len()
+  if c >= n {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

@@ -1,0 +1,23 @@
+// ADR-286 / CORE-0.10-DEAD-SINK-20260927 — neg: auto-comparación `code == code` no es uso → E0272 (ADR-286 §2 L72; P4 auto-comparación ⚑2 L40; P7 L43)
+// Ofensor único: brazo Err L18–L21 (`let code: Int = e` + `if code == code { print("ok") }`).
+// Control: sustituir L20 por `print(code)` → build verde.
+// oracle: neg-core10-dead-sink-tautology
+module core10_dead_sink_tautology
+
+fn tally(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v[i] = 7
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match tally(99) {
+    Ok(n) => { print(n) }
+    Err(e) => {
+      let code: Int = e
+      if code == code { print("ok") }
+    }
+  }
+}

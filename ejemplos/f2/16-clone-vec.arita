@@ -1,0 +1,11 @@
+// ADR-058 std-clone-vec — clone; clear one, other intact
+module std_clone_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(7)
+  let mut w: Vec<Int> = v.clone()
+  v.clear()
+  print(v.len())
+  print(w.len())
+}

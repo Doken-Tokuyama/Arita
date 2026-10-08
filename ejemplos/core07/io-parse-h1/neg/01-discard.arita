@@ -1,0 +1,7 @@
+// ADR-272 — discard host.read_text Result → E0340
+module core07_io_h1_discard
+
+fn main() -> Io<()> {
+  host.read_text("ejemplos/core07/io-parse-h1/fixture.txt")
+  print("theater")
+}

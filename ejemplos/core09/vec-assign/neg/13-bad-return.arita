@@ -1,0 +1,17 @@
+// ADR-283 §2 neg-core09-vec-assign-bad-return (fixture de Measure) — fn → Result que muta con v[i] = x y retorna payload no-Result → E0342 (pin ADR-283 §2, sin reetiquetar).
+// Único ofensor: la cola `0` en vez de `Ok(0)`.
+module core09_vec_assign_neg_bad_return
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 1
+  0
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

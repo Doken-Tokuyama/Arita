@@ -1,0 +1,8 @@
+// ADR-184 neg — Int.flatten → E0206
+module e0206_flatten_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.flatten()
+  print(0)
+}

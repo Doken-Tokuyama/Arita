@@ -1,0 +1,33 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.6-SCENARIO-GP-20260926",
+  "adr": "267",
+  "slice": 3,
+  "happy_path": "ejemplos/core06/scenario-gp/01-happy.arita",
+  "happy_sha256": "cdc79c6e795a0ec5843997b5d190cace8738733d784233cc4eda26115402aa7d",
+  "oob_path": "ejemplos/core06/scenario-gp/02-oob.arita",
+  "oob_sha256": "c5f5ab1958f56f26cf11c660cb794cb6a029667cfc1a3814cdd907dc84621a26",
+  "neg_index_mut_path": "ejemplos/core06/scenario-gp/neg/01-index-mut.arita",
+  "neg_index_mut_sha256": "6c52ec17f2546e4e3f33c82659b8edf4c36403489c4f05bd9a1387f4806b862a",
+  "neg_set_path": "ejemplos/core06/scenario-gp/neg/02-set-neg.arita",
+  "neg_set_sha256": "e00409cf82cf46320d19eb2f6ab06a05ef6cdff35d4898fea5675a970ae6fae0",
+  "arita_toml_path": "ejemplos/core06/scenario-gp/arita.toml",
+  "arita_toml_sha256": "d12a482f97c5c6e2e8e2ac250bd5e0052990fce7da9d7653ee4cfb5c022386a3",
+  "scenarios": [
+    "core06-scen-gp-happy",
+    "core06-scen-gp-oob",
+    "neg-core06-scen-gp-index-mut",
+    "neg-core06-scen-gp-set-neg",
+    "core06-scen-gp-build"
+  ],
+  "codegen_smoke": {
+    "happy_stdout": "gp-happy",
+    "oob_stdout": "gp-oob",
+    "index_mut": "E0314",
+    "set_neg": "E0319",
+    "unit_adr267": "ok",
+    "clippy_arita_cli": "ok"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-267 SCENARIO-GP CUT CORE-0.6-SCENARIO-GP-20260926; ADR-273 collateral FIX CORE-0.7-CLI-ARGV-H2-FIX-E0341-CORE06-20260926: 01-happy.arita migrated unwrap_or(-99)\u2192match Some/None fail paths (cli-argv-h2); v.set under Stmt::If so emit still injects __arita_vec_set. Smoke: core06-scen-gp-happy+build+oob+negs accept; ADR-273 H2 6/6 accept. measure_pass stays false \u2014 awaiting Measure remasure ping (target \u2265739/739). HOLDs Mutex/IndexMut-assign/idle/TLS/WS/crates.io/repair intact. No ADR-268/274/275. Did NOT weaken E0341."
+}

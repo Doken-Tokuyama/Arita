@@ -1,0 +1,12 @@
+// ADR-082 std-checked-mul-none
+module std_checked_mul_none
+
+fn main() -> Io<()> {
+  let a: Int = 9223372036854775807
+  let o: Option<Int> = a.checked_mul(2)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "id": "contract-hello-attested",
+  "source": "ejemplos/01-hello.arita",
+  "source_sha256": "9bac094f245d20b42ef50bd3331803c394bf946c860fa5fcbccc3eacdf1fbc0e",
+  "expect_stdout": ["hello"]
+}

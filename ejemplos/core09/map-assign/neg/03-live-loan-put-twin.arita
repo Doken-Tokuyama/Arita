@@ -1,0 +1,15 @@
+// ADR-282 neg — gemelo put de 03-live-loan.arita (idéntico salvo la línea de assign) → E0202
+// oracle: neg-core09-map-assign-live-loan (gemelo put)
+module core09_map_assign_live_loan_twin
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  let r: Map<Text, Int> = borrow m
+  m.put("a", 1)
+  let o: Option<Int> = r["a"]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

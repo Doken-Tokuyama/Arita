@@ -1,0 +1,13 @@
+// ADR-085 std-vec-get-none-oob
+module std_vec_get_none_oob
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let o: Option<Int> = v.get(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

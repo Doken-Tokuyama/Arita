@@ -1,0 +1,20 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — regresión Ingeniero (ADR-282 intacto): Map-assign dentro de if, stdout NO vacío "2" y "7"
+module core09_vec_assign_map_in_if
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  let c: Bool = true
+  if c {
+    m["a"] = 7
+    m["b"] = 1
+  } else {
+    m["z"] = 0
+  }
+  print(m.len())
+  let q: Text = "a"
+  let o: Option<Int> = m[q]
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

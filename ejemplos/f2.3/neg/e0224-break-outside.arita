@@ -1,0 +1,9 @@
+// F2.3 neg — break inside if without enclosing while → E0224
+module bad_break
+
+fn main() -> Io<()> {
+  if true {
+    break
+  }
+  print("unreachable")
+}

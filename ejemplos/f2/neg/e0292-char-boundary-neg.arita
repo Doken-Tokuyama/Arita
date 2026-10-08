@@ -1,0 +1,7 @@
+// ADR-143 neg — is_char_boundary(-1) → E0292
+module e0292_char_boundary_neg
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.is_char_boundary(-1))
+}

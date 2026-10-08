@@ -1,0 +1,8 @@
+module edge_ok
+
+spec Graph { }
+
+fact edge(u, v)
+fact edge(v, w)
+
+query edge(u, v)

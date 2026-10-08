@@ -1,0 +1,12 @@
+// ADR-113 std-find-none
+module std_find_none
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<Int> = s.find("xyz")
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

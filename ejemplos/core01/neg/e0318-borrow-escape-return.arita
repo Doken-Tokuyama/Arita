@@ -1,0 +1,11 @@
+// ADR-235 neg E0318 — borrow as fn result (escape)
+module neg_e0318
+
+fn bad() -> Int {
+  let x: Int = 1
+  borrow x
+}
+
+fn main() -> Io<()> {
+  print(bad())
+}

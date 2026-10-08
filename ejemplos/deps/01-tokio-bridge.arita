@@ -1,0 +1,11 @@
+// ADR-029 DEPS-V0 — explicit [deps] tokio bridge; E2E async greet/print
+module tokio_bridge
+
+async fn greet() -> Io<()> {
+  print("hi")
+}
+
+async fn main() -> Io<()> {
+  await greet()
+  print("deps-ok")
+}

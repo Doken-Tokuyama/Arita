@@ -1,0 +1,12 @@
+// ADR-052 std-pop-some — push then pop → Some
+module std_pop_some
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(9)
+  let o: Option<Int> = v.pop()
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

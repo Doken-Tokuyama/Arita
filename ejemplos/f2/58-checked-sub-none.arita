@@ -1,0 +1,12 @@
+// ADR-081 std-checked-sub-none
+module std_checked_sub_none
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_sub(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

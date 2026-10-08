@@ -1,0 +1,8 @@
+// ADR-148 std-make-ascii-uppercase
+module std_make_ascii_upper
+
+fn main() -> Io<()> {
+  let mut s: String = "AbC"
+  s.make_ascii_uppercase()
+  print(s)
+}

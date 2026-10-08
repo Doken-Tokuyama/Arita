@@ -1,0 +1,10 @@
+// F2.2 neg — Int match without _ → E0222
+module bad_int_match
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  match n {
+    1 => { print("a") }
+    2 => { print("b") }
+  }
+}

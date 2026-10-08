@@ -1,0 +1,20 @@
+// ADR-274 — read Err y/o required miss → fail determinista (no panic) → io-fail
+module core07_scen_io_fail
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let r: Result<Text, Int> = host.read_text(p)
+      match r {
+        Ok(t) => { print(t) }
+        Err(_) => { print("io-fail") }
+      }
+    }
+    None => { print("io-fail") }
+  }
+}
+
+scenario io_fail {
+  acceptance "io-fail"
+}

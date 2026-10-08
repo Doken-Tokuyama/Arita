@@ -1,0 +1,8 @@
+// ADR-064 std-replace-hit
+module std_replace_hit
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let t: String = s.replace("l", "x")
+  print(t)
+}

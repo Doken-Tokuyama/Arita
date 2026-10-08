@@ -1,0 +1,18 @@
+// ADR-286 / CORE-0.10-DEAD-SINK-20260927 — positivo: brazo Err usa el payload de verdad (ADR-286 §2 L74; P3(i) L39)
+// stdout exacto: err / 1 · exit 0
+// oracle: core10-err-used
+module core10_err_used
+
+fn fail() -> Result<Int, Int> {
+  Err(1)
+}
+
+fn main() -> Io<()> {
+  match fail() {
+    Ok(v) => { print(v) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

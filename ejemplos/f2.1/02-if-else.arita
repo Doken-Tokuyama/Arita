@@ -1,0 +1,11 @@
+// F2.1 — if Path-Bool with else
+module if_else
+
+fn main() -> Io<()> {
+  let flag: Bool = false
+  if flag {
+    print("yes")
+  } else {
+    print("no")
+  }
+}

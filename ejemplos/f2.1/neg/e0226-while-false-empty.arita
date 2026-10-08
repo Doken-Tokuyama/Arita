@@ -1,0 +1,8 @@
+// F2.1 neg — while false empty body → E0226 (ADR-040; companion, measure uses e0226-while-false)
+module e0226_while_false_empty
+
+fn main() -> Io<()> {
+  while false {
+  }
+  print("ok")
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.4-REF-PKG-20260920",
+  "adr": "258",
+  "slice": 5,
+  "ref": "arita-ref-pkg-lib",
+  "lib_path": "ejemplos/core04/ref-pkg-lib/lib/lib.arita",
+  "lib_sha256": "d4783718b03a27fd7b4f57efb5c74ed499131cdd9ef074c37cff1900ca25d692",
+  "bin_path": "ejemplos/core04/ref-pkg-lib/bin/main.arita",
+  "bin_sha256": "bbabc69f102f508236b846534b02ecf19309fd86d70e47abf93c499e776bc072",
+  "edge_path": "ejemplos/core04/ref-pkg-lib/edge/bin/main.arita",
+  "edge_sha256": "b7ed813b69093a4c6cc12362db293be7f3f096651652d85634c709ad9477ff3d",
+  "scenarios": [
+    "core04-ref-lib-build",
+    "core04-ref-cli-happy",
+    "core04-ref-cli-edge",
+    "core04-ref-scenario-pkg",
+    "core04-ref-evidence",
+    "neg-core04-ref-private"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": "42",
+    "edge_stdout": "edge",
+    "neg_private": "E0331"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-258 smoke green; NOT CLOSED"
+}

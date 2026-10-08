@@ -1,0 +1,10 @@
+// ADR-050 option-02 — None path fixed stdout (non-theater absence msg)
+module option_none
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

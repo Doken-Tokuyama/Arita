@@ -1,0 +1,44 @@
+// CUT CORE-0.2-SCENARIO-HTTP-20260920 — ADR-247 oracle core02-scen-health
+// Fixed port (spawn fn must be param-empty MVP). Measure may rematch port.
+module core02_scen_health
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.ok_text("ok")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19871)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(200)
+  let url: Text = "http://127.0.0.1:19871/health"
+  let got: Result<HttpResponse, IoError> = HttpClient.get(url)
+  match got {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let body_r: Result<Text, IoError> = resp.body_text()
+      match body_r {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("scen-health-done")
+}

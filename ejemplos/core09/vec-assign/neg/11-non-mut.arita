@@ -1,0 +1,16 @@
+// ADR-283 §2 neg-core09-vec-assign-non-mut (fixture de Measure) — binding no-mut + v[i] = x en fn Result → E0202 (pin ADR-283 §0 Receptor/borrow, = v.set no-mut).
+// Único ofensor: falta `mut` en el binding (sin push, que también exigiría mut).
+module core09_vec_assign_neg_non_mut
+
+fn f() -> Result<Int, Int> {
+  let v: Vec<Int> = Vec::new()
+  v[0] = 1
+  Ok(0)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

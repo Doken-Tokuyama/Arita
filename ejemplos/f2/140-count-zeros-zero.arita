@@ -1,0 +1,7 @@
+// ADR-127 std-count-zeros-zero
+module std_count_zeros_zero
+
+fn main() -> Io<()> {
+  let a: Int = 0
+  print(a.count_zeros())
+}

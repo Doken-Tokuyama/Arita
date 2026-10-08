@@ -1,0 +1,10 @@
+// Expected: E0212 empty test not allowed
+module e0212_empty_test
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  // only comments — no assert
+}

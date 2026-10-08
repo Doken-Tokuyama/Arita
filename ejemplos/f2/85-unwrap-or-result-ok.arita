@@ -1,0 +1,7 @@
+// ADR-093 std-unwrap-or-result-ok
+module std_unwrap_or_result_ok
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(42)
+  print(r.unwrap_or(0))
+}

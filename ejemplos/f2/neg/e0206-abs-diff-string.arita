@@ -1,0 +1,8 @@
+// ADR-178 neg — String.abs_diff → E0206
+module e0206_abs_diff_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  let n: Int = s.abs_diff(1)
+  print(n)
+}

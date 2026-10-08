@@ -1,0 +1,10 @@
+// ADR-050 option-01 — Some path fixed stdout
+module option_some
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(7)
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

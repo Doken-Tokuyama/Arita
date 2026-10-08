@@ -1,0 +1,21 @@
+// ADR-134 std-to-le-be-rel (portable: to_le.swap_bytes == to_be)
+module std_to_le_be_rel
+
+fn le_swapped(n: Int) -> Int {
+  let le: Int = n.to_le()
+  let s: Int = le.swap_bytes()
+  s
+}
+
+fn be_of(n: Int) -> Int {
+  let be: Int = n.to_be()
+  be
+}
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert le_swapped(42) == be_of(42)
+}

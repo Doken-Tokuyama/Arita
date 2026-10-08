@@ -1,0 +1,36 @@
+// CUT CORE-0.2-HTTP-BINDINGS-20260920 — ADR-245 echo text (NOT measure PASS until Measure N/N)
+// Measure: curl POST body → response body roundtrip; then kill serve.
+// Valued handler: trailing Stmt match (codegen emit_match_stmt_as_expr).
+module core02_http_echo_text
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body: Result<Text, IoError> = req.body_text()
+  match body {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let port: Int = srv.port()
+      print(port)
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r {
+        Ok(_) => { print("done") }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

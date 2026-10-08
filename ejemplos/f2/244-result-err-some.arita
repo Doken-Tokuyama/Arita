@@ -1,0 +1,12 @@
+// ADR-202 std-result-err-some — Err("x").err() → Some("x")
+module std_result_err_some
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Err("x")
+  let o: Option<String> = r.err()
+  if let Some(e) = o {
+    print(e)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-144 std-floor-char-boundary
+module std_floor_char_boundary
+
+fn main() -> Io<()> {
+  let s: String = "niño"
+  print(s.floor_char_boundary(3))
+}

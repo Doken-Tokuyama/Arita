@@ -1,0 +1,7 @@
+// ADR-216 std-trailing-ones-seven — 7.trailing_ones() → 3
+module std_trailing_ones_seven
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.trailing_ones())
+}

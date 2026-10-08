@@ -1,0 +1,8 @@
+// ADR-180 neg — String.sort_unstable → E0206
+module e0206_sort_unstable_string
+
+fn main() -> Io<()> {
+  let mut s: String = "cba"
+  s.sort_unstable()
+  print(0)
+}

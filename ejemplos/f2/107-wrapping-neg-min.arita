@@ -1,0 +1,7 @@
+// ADR-107 std-wrapping-neg-min — MIN→MIN
+module std_wrapping_neg_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.wrapping_neg())
+}

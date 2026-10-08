@@ -1,0 +1,8 @@
+// ADR-282 — m[k] = v sobre binding no-mut → E0202 (≡ m.put(k, v); antes ADR-266 IndexMut E0314)
+module core06_map_index_mut
+
+fn main() -> Io<()> {
+  let m: Map<Text, Int> = Map::new()
+  m["a"] = 1
+  print(m.len())
+}

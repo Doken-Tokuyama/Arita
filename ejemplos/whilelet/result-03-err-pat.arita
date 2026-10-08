@@ -1,0 +1,11 @@
+// ADR-077 whilelet-result-03 — Err pat once then Ok
+module whilelet_result_err_pat
+
+fn main() -> Io<()> {
+  let mut r: Result<Int, Int> = Err(7)
+  while let Err(e) = r {
+    print(e)
+    r = Ok(0)
+  }
+  print("after")
+}

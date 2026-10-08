@@ -1,0 +1,6 @@
+// ADR-029 — paired with sibling arita.toml declaring non-whitelist crate
+module e0260_unknown_crate
+
+fn main() -> Io<()> {
+  print("should-not-run")
+}

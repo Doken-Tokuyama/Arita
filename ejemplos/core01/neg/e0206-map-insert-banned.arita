@@ -1,0 +1,8 @@
+// ADR-237 neg — surface insert banned (use put)
+module neg_map_insert
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.insert("a", 1)
+  print(m.len())
+}

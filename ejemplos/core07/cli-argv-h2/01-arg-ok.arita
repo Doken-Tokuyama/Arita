@@ -1,0 +1,10 @@
+// ADR-273 / CORE-0.7-CLI-ARGV-H2-20260926 — cli_arg Some → stdout expected
+module core07_io_h2_arg_ok
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => { print(p) }
+    None => { print("usage") }
+  }
+}

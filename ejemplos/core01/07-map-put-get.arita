@@ -1,0 +1,13 @@
+// ADR-237 / CUT CORE-0.1-LIST-MAP-NAMES — Map put + fallible get
+module map_put_get
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("a", 7)
+  let o: Option<Int> = m.get("a")
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

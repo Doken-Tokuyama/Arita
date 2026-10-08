@@ -1,0 +1,7 @@
+// ADR-214 neg — String.saturating_rem → E0206
+module e0206_saturating_rem_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.saturating_rem(2))
+}

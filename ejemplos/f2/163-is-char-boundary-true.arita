@@ -1,0 +1,7 @@
+// ADR-143 std-is-char-boundary-true
+module std_is_char_boundary_true
+
+fn main() -> Io<()> {
+  let s: String = "niño"
+  print(s.is_char_boundary(0))
+}

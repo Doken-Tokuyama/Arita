@@ -1,0 +1,15 @@
+// ADR-234 / CORE-0.1-ENUM-MATCH — unit enum + exhaustive match
+module core01_enum
+
+enum Color {
+  Red,
+  Green,
+}
+
+fn main() -> Io<()> {
+  let c: Color = Color::Red
+  match c {
+    Color::Red => { print(1) }
+    Color::Green => { print(2) }
+  }
+}

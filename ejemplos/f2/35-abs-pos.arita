@@ -1,0 +1,7 @@
+// ADR-069 std-abs-pos
+module std_abs_pos
+
+fn main() -> Io<()> {
+  let n: Int = 5
+  print(n.abs())
+}

@@ -1,0 +1,7 @@
+// ADR-151 std-wrapping-shr
+module std_wrapping_shr
+
+fn main() -> Io<()> {
+  let a: Int = 8
+  print(a.wrapping_shr(1))
+}

@@ -1,0 +1,11 @@
+// ADR-238 — host.cli_arg(0) always Some for binary
+module io_cli_arg0
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(0)
+  if let Some(_a) = o {
+    print("has-arg0")
+  } else {
+    print("missing")
+  }
+}

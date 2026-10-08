@@ -1,0 +1,14 @@
+// ADR-283 §2 neg-core09-vec-assign-outside-fn (fixture de Measure) — v[i] = x en fn NO-Result (`-> Int`) → E0344 (pin ADR-283 §0 Fuera de ámbito / §3).
+// Sin `v.push(1)`: la regla F2 prohíbe MethodCall en una fn no-main `-> Int` (daría E0006 por sí solo; triage Parser 23:52).
+// Sin literal Vec `[1, 2]`: también es E0006 por sí solo. Único ofensor: `v[0] = 2`.
+module core09_vec_assign_neg_outside_fn
+
+fn g() -> Int {
+  let mut v: Vec<Int> = Vec::new()
+  v[0] = 2
+  1
+}
+
+fn main() -> Io<()> {
+  print(g())
+}

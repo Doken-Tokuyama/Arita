@@ -1,0 +1,9 @@
+// ADR-184 std-option-flatten-none — outer None
+module std_option_flatten_none
+
+fn main() -> Io<()> {
+  let o: Option<Option<Int>> = None
+  let f: Option<Int> = o.flatten()
+  let gone: Bool = f.is_none()
+  print(gone)
+}

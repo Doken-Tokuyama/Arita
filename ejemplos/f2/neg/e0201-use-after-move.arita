@@ -1,0 +1,9 @@
+// Expected: E0201 use of moved value
+// String moves by value; print(s) after let t = s is a use of a moved place.
+module m
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  let t: String = s
+  print(s)
+}

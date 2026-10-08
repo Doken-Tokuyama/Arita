@@ -1,0 +1,11 @@
+// ADR-048 neg-e0272-underscore — Err(_) + default lit → E0272
+module result_err_swallow_underscore
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = Err(1)
+  let v: Int = match r {
+    Ok(x) => { x }
+    Err(_) => { 0 }
+  }
+  print(v)
+}

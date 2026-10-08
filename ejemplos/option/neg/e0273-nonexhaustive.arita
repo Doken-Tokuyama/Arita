@@ -1,0 +1,9 @@
+// ADR-050 neg-e0273 — Option match missing None arm
+module bad_option_match
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(1)
+  match o {
+    Some(x) => { print(x) }
+  }
+}

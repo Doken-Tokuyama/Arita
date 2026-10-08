@@ -1,0 +1,9 @@
+// ADR-058 std-clone-string — clone; both usable
+module std_clone_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  let t: String = s.clone()
+  print(s)
+  print(t)
+}

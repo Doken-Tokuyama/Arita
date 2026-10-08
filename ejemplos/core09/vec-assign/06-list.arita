@@ -1,0 +1,20 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — receptor List<Int> (≡ Vec, ADR-237); stdout "4"
+module core09_vec_assign_list
+
+fn f() -> Result<Int, Int> {
+  let mut l: List<Int> = List::new()
+  l.push(1)
+  l[0] = 4
+  let o: Option<Int> = l.get(0)
+  match o {
+    Some(x) => { Ok(x) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

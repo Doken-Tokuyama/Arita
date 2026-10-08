@@ -1,0 +1,8 @@
+// ADR-067 std-int-to-string
+module std_int_to_string
+
+fn main() -> Io<()> {
+  let n: Int = 42
+  let s: String = n.to_string()
+  print(s)
+}

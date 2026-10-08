@@ -1,0 +1,7 @@
+// ADR-111 neg — String.checked_div_euclid → E0206
+module e0206_checked_div_euclid_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.checked_div_euclid(2))
+}

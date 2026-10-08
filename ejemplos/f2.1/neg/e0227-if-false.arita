@@ -1,0 +1,9 @@
+// F2.1 neg — if LitBool false without else → E0227 vacuous if false (ADR-041)
+module e0227_if_false
+
+fn main() -> Io<()> {
+  if false {
+    print("x")
+  }
+  print("ok")
+}

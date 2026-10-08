@@ -1,0 +1,16 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — neg: índice literal negativo en fn Result → E0319 (≡ v.set(-1, n))
+module core09_vec_assign_neg_lit
+
+fn f(n: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[-1] = n
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match f(1) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

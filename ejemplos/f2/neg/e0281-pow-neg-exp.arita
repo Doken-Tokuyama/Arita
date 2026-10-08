@@ -1,0 +1,7 @@
+// ADR-079 neg — lit exp < 0 → E0281
+module e0281_pow_neg_exp
+
+fn main() -> Io<()> {
+  let n: Int = 2
+  print(n.pow(-1))
+}

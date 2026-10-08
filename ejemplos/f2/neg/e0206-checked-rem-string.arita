@@ -1,0 +1,7 @@
+// ADR-084 neg — String.checked_rem → E0206
+module e0206_checked_rem_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.checked_rem(1))
+}

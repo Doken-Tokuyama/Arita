@@ -1,0 +1,75 @@
+// CUT CORE-0.3-ERROR-PROP-20260920 — oracle core03-err-upstream-down
+// Gateway only (no upstream) → 502 upstream_unavailable
+module core03_err_down_smoke
+
+async fn handle_proxy(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let url: Text = HttpClient.url(19931, "/")
+      let cres: Result<HttpResponse, IoError> = HttpClient.post_text(url, body)
+      match cres {
+        Err(_e) => {
+          let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+          let out: Result<HttpResponse, IoError> = Ok(resp)
+          out
+        }
+        Ok(up) => {
+          let code: Int = up.status()
+          let br: Result<Text, IoError> = up.body_text()
+          match br {
+            Err(_e2) => {
+              let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+            Ok(t) => {
+              let resp: HttpResponse = HttpResponse.status(code, t)
+              let out: Result<HttpResponse, IoError> = Ok(resp)
+              out
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn run_gateway() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19930)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("gateway-up")
+      let r: Result<(), IoError> = srv.serve(handle_proxy)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_gateway())
+  delay(200)
+  let url: Text = HttpClient.url(19930, "/")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(url, "ping")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+  print("err-down-done")
+}

@@ -1,0 +1,8 @@
+// ADR-162 std-string-split-off
+module std_string_split_off
+
+fn main() -> Io<()> {
+  let mut s: String = "hello"
+  let t: String = s.split_off(2)
+  print(t)
+}

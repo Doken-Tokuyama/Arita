@@ -1,0 +1,8 @@
+// ADR-106 std-is-sign-zero-false — 0 → false ambos
+module std_is_sign_zero_false
+
+fn main() -> Io<()> {
+  let a: Int = 0
+  print(a.is_positive())
+  print(a.is_negative())
+}

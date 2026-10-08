@@ -1,0 +1,10 @@
+// ADR-224 std-vec-extend-empty — extend empty is no-op on a.len
+module std_vec_extend_empty
+
+fn main() -> Io<()> {
+  let mut a: Vec<Int> = Vec::new()
+  a.push(1)
+  let b: Vec<Int> = Vec::new()
+  a.extend(b)
+  print(a.len())
+}

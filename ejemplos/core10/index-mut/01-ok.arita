@@ -1,0 +1,55 @@
+// ADR-290 / CORE-0.10-INDEX-MUT-20261002 — IM-1 (CANDIDATO, no en ejemplos/): v[i] += x / -= / *= sobre Vec<Int> en fn → Result; rhs lee v (v.len()) y i/x por ident. stdout esperado: 15 13 90 12 24 (una línea cada uno)
+module core10_index_mut_ok
+
+fn run(k: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(10)
+  v.push(20)
+  v.push(30)
+  v[0] += 5
+  v[1] -= 7
+  v[2] *= 3
+  let o: Option<Int> = v.get(k)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn selfref(k: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(10)
+  v.push(20)
+  v[0] += v.len()
+  let i: Int = 1
+  let d: Int = 4
+  v[i] += d
+  let o: Option<Int> = v.get(k)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match run(0) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match run(1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match run(2) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match selfref(0) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+  match selfref(1) {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

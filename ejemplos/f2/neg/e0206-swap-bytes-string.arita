@@ -1,0 +1,7 @@
+// ADR-133 neg — String.swap_bytes → E0206
+module e0206_swap_bytes_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.swap_bytes())
+}

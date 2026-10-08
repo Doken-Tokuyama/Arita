@@ -1,0 +1,8 @@
+// ADR-060 neg — Vec.contains → E0206
+module e0206_contains_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.contains(1))
+}

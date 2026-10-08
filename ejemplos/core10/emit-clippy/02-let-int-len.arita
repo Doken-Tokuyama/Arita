@@ -1,0 +1,14 @@
+// ADR-288 / CORE-EMIT-CLIPPY-B282-20261001 — B-282-2: `let n: Int = m.len()` no debe emitir
+// `(m.len() as i64)` (rustc `unused_parens`); stdout `1` y `1`.
+module core10_emit_clippy_let_int_len
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["a"] = 7
+  let mut v: Vec<Int> = Vec::new()
+  let n: Int = m.len()
+  v.push(n)
+  let k: Int = v.len()
+  print(n)
+  print(k)
+}

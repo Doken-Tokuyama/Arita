@@ -1,0 +1,7 @@
+// Neg: method not in F2 std whitelist — Int.len → E0206 (ADR-026)
+module e0206_bad
+
+fn main() -> Io<()> {
+  let n: Int = 1
+  print(n.len())
+}

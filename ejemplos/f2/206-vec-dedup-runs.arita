@@ -1,0 +1,46 @@
+// ADR-176 std-vec-dedup-runs — consecutive dups removed
+module std_vec_dedup_runs
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(1)
+  v.push(2)
+  v.push(2)
+  v.push(2)
+  v.push(3)
+  v.dedup()
+  let a: Option<Int> = v.get(0)
+  let b: Option<Int> = v.get(1)
+  let c: Option<Int> = v.get(2)
+  let n: Int = v.len()
+  if n == 3 {
+    if let Some(x) = a {
+      if let Some(y) = b {
+        if let Some(z) = c {
+          if x == 1 {
+            if y == 2 {
+              if z == 3 {
+                print("ok")
+              } else {
+                print("bad")
+              }
+            } else {
+              print("bad")
+            }
+          } else {
+            print("bad")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

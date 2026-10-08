@@ -1,0 +1,6 @@
+# ADR-029 DEPS-V0 — whitelist tokio bridge (formalizes ADR-027)
+[package]
+name = "deps_tokio_bridge"
+
+[deps]
+tokio = { bridge = "async-runtime" }

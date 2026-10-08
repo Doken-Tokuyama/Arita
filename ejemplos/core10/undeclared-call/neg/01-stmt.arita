@@ -1,0 +1,10 @@
+// ADR-293 / CORE-0.10-UNDECLARED-CALL-20261003 — neg: llamada a fn NO declarada como SENTENCIA → E0347
+// Hoy parser y HIR la aceptan, Codegen emite la llamada y el fallo llega tarde (rustc/cargo envuelto).
+// Ofensor único: la línea de la llamada. Control: sustituirla por `print(1)` → build verde.
+// oracle: neg-core10-undeclared-call-stmt
+module core10_undeclared_call_stmt
+
+fn main() -> Io<()> {
+  ghost(1)
+  print("after")
+}

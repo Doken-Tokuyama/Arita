@@ -1,0 +1,93 @@
+// ADR-285 / CORE-0.9-REF-MUT-20260926 — arita-ref-mut pub surface: 3 pub fn → Result<Int, Int>
+// Map local vía m[k] = v (282) · Vec local vía v[i] = x (283; OOB → Err(0)) · composición con ? (278)
+// params solo fn_param v0 (Int/Text; sin Vec/Map ni &mut — HOLD ADR-281 D1); sin HTTP/Mutex/unwrap
+// Códigos Err: 0 = Vec-assign OOB (283) · 1 = lectura interna ausente · 2 = clave JSON ausente · 3 = read_text falla
+module lib
+
+/// Map insert/overwrite + Vec in-bounds: v[0] ← m["hits"] (2 tras overwrite) · v[i] = x · v[2] ← m.len() (2) → Ok(v[sel]).
+/// v[i] = x con i fuera de rango → Err(0) (≡ v.set(i, x)?) antes de cualquier lectura.
+pub fn apply(i: Int, x: Int, sel: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  m["hits"] = 2
+  m["seen"] = x
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  v.push(0)
+  let q: Text = "hits"
+  let h: Option<Int> = m[q]
+  match h {
+    Some(n) => {
+      v[0] = n
+    }
+    None => {
+      v[0] = 0
+    }
+  }
+  v[i] = x
+  v[2] = m.len()
+  let o: Option<Int> = v.get(sel)
+  match o {
+    Some(y) => { Ok(y) }
+    None => { Err(1) }
+  }
+}
+
+/// Composición con ?: apply(i, x, 0)? y apply(i, x, i)? (el primer Err corta), commit en un Map local
+/// (insert + overwrite) y lectura de "hits" → Ok(2) en el camino feliz.
+pub fn run(i: Int, x: Int) -> Result<Int, Int> {
+  let a: Int = apply(i, x, 0)?
+  let b: Int = apply(i, x, i)?
+  let mut out: Map<Text, Int> = Map::new()
+  out["hits"] = a
+  out["slot"] = 0
+  out["slot"] = b
+  let q: Text = "hits"
+  let o: Option<Int> = out[q]
+  match o {
+    Some(z) => { Ok(z) }
+    None => { Err(1) }
+  }
+}
+
+/// CLI + JSON mínimo (ADR-238/240): cli_arg(1) = ruta JSON (sin arg → `dflt`); devuelve el entero `key`.
+/// read_text falla → Err(3) (≠ Err(0) de OOB) · clave ausente → Err(2).
+pub fn load_arg(dflt: Text, key: Text) -> Result<Int, Int> {
+  let key2: Text = key.clone()
+  let arg: Option<Text> = host.cli_arg(1)
+  match arg {
+    Some(p) => {
+      let rp: Result<Text, Int> = host.read_text(p)
+      match rp {
+        Ok(doc) => {
+          let o: Option<Int> = host.json_get_int(doc, key)
+          match o {
+            Some(n) => { Ok(n) }
+            None => { Err(2) }
+          }
+        }
+        Err(e) => {
+          let _c: Int = e
+          Err(3)
+        }
+      }
+    }
+    None => {
+      let rd: Result<Text, Int> = host.read_text(dflt)
+      match rd {
+        Ok(doc) => {
+          let o: Option<Int> = host.json_get_int(doc, key2)
+          match o {
+            Some(n) => { Ok(n) }
+            None => { Err(2) }
+          }
+        }
+        Err(e) => {
+          let _c: Int = e
+          Err(3)
+        }
+      }
+    }
+  }
+}

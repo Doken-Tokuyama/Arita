@@ -1,0 +1,19 @@
+// ADR-279 neg — invent unwrap / check-then-unwrap theater → reject (E0206 whitelist; DOC emit-ban 241)
+// oracle: neg-core08-scen-unwrap-theater · NO reopen E0291
+module core08_scen_errprop_unwrap_theater
+
+fn load(path: Text) -> Result<Text, Int> {
+  let t: Text = host.read_text(path)?
+  Ok(t)
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = load("ejemplos/core08/scenario-errprop/fixture.txt")
+  let ok: Bool = r.is_ok()
+  if ok {
+    let t: Text = r.unwrap()
+    print(t)
+  } else {
+    print("theater-fail")
+  }
+}

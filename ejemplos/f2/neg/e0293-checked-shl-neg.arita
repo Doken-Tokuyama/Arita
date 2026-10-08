@@ -1,0 +1,8 @@
+// ADR-150 neg — checked_shl(-1) → E0293
+module e0293_checked_shl_neg
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.checked_shl(-1)
+  print(0)
+}

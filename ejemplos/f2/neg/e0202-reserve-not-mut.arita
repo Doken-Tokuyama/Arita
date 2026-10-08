@@ -1,0 +1,8 @@
+// ADR-154 neg — reserve without mut → E0202
+module e0202_reserve_not_mut
+
+fn main() -> Io<()> {
+  let s: String = ""
+  s.reserve(8)
+  print(0)
+}

@@ -1,0 +1,11 @@
+// Expected: E0214 vacuous length assert
+// ADR-030 / CUT TRAPS-LEN-THEATER-20260914 — assert <recv>.is_empty() || !<recv>.is_empty()
+module e0214_is_empty_taut
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert v.is_empty() || !v.is_empty()
+}

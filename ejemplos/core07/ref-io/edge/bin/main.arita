@@ -1,0 +1,27 @@
+// ADR-275 — CLI fail: lib from_args_fail Err; stdout io-ref-fail + payload (0 fichero ausente · 2 sin arg; no panic)
+// ADR-286 §3 fila 12: el brazo Err imprime la etiqueta y el payload (print(e)); sin sumidero ni auto-comparación
+module arita_ref_io_fail
+
+use lib::State
+use lib::load_missing
+use lib::from_args_fail
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = from_args_fail()
+  match r {
+    Ok(n) => {
+      let s: State = State { n: n }
+      let got: Int = s.n
+      print(got)
+    }
+    Err(e) => {
+      print("io-ref-fail")
+      print(e)
+    }
+  }
+}
+
+scenario ref_io_fail {
+  acceptance "io-ref-fail"
+  acceptance "2"
+}

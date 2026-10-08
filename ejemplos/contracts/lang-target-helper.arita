@@ -1,0 +1,15 @@
+// CONTRACT-TARGET-FN (ADR-020) — contract targets helper; main prints something else
+module lang_target_helper
+
+fn helper() -> Io<()> {
+  print("from-helper")
+}
+
+fn main() -> Io<()> {
+  print("from-main")
+}
+
+contract helper_c {
+  target helper
+  expect_stdout "from-helper"
+}

@@ -1,0 +1,9 @@
+// ADR-078 neg — while let Ok = Err(lit) → E0282
+module e0282_ok_on_err
+
+fn main() -> Io<()> {
+  while let Ok(x) = Err(0) {
+    print(x)
+  }
+  print("ok")
+}

@@ -1,0 +1,7 @@
+// ADR-210 std-saturating-div-normal — 10.saturating_div(3) → 3
+module std_saturating_div_normal
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.saturating_div(3))
+}

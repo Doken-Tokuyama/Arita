@@ -1,0 +1,15 @@
+// ADR-290 §D2 / IM-4 (PROPOSED): Vec<Text> + `+=`. El ADR dice E0333 (tipo de elemento no soportado) pero la gramática solo admite Vec<Int>/List<Int>: hoy falla en el parser con E0006 en la línea del `let`. E0333 solo es alcanzable desde HIR (tests de arita-hir).
+module core10_index_mut_neg_vec_text
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Text> = Vec::new()
+  v[0] += 1
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

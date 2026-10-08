@@ -1,0 +1,7 @@
+// ADR-128 neg — String.leading_zeros → E0206
+module e0206_leading_zeros_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.leading_zeros())
+}

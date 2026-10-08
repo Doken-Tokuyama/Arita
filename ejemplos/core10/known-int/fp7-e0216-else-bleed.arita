@@ -1,0 +1,16 @@
+// ADR-294 KNOWN-INT-SCOPE (oraculo core10-known-int-fp7-e0216-else): programa VALIDO que debe compilar y ejecutar.
+// `d = 0` solo en la rama `then`; el `else` hermano divide por `d` y no se ejecuta. Sin ADR-294: E0216 falso (division by zero).
+// stdout (medido con rustc por el Parser, 2026-10-04): ok; rustc avisa unused_assignments (warn; aceptado por el Ingeniero).
+module core10_known_int_fp7_e0216_else
+fn main() -> Io<()> {
+  let mut d: Int = 1
+  let n: Int = 3
+  let x: Int = 7
+  if n < 5 {
+    d = 0
+  } else {
+    let q: Int = x.div_euclid(d)
+    print(q)
+  }
+  print("ok")
+}

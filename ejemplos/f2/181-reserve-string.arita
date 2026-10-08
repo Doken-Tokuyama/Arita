@@ -1,0 +1,13 @@
+// ADR-154 std-reserve-string — capacity ≥ n after reserve
+module std_reserve_string
+
+fn main() -> Io<()> {
+  let mut s: String = ""
+  s.reserve(8)
+  let c: Int = s.capacity()
+  if c >= 8 {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

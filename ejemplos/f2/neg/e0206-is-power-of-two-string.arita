@@ -1,0 +1,7 @@
+// ADR-218 neg — String.is_power_of_two → E0206
+module e0206_is_power_of_two_string
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  print(s.is_power_of_two())
+}

@@ -1,0 +1,24 @@
+// ADR-286 / CORE-0.10-DEAD-SINK-20260927 — neg: sumidero muerto transitivo → E0272 (ADR-286 §2 L71; P2(d) L38; P4 recursivo L40)
+// Ofensor único: brazo Err L18–L22 (`let _c: Int = e` + `let _d: Int = _c` + `print("ok")`).
+// Control: sustituir L19–L20 por `print(e)` → build verde.
+// oracle: neg-core10-dead-sink-transitive
+module core10_dead_sink_transitive
+
+fn tally(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v[i] = 7
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match tally(99) {
+    Ok(n) => { print(n) }
+    Err(e) => {
+      let _c: Int = e
+      let _d: Int = _c
+      print("ok")
+    }
+  }
+}

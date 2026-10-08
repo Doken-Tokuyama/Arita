@@ -1,0 +1,7 @@
+// ADR-094 std-is-ok-true
+module std_is_ok_true
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(1)
+  print(r.is_ok())
+}

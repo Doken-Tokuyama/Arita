@@ -1,0 +1,4 @@
+module lib
+fn internal_tag(x: Int) -> Int {
+  x
+}

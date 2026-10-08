@@ -1,0 +1,18 @@
+// ADR-200 std-transpose-option-ok — Some(Ok(7)).transpose() → Ok(Some(7))
+module std_transpose_option_ok
+
+fn main() -> Io<()> {
+  let inner: Result<Int, String> = Ok(7)
+  let o: Option<Result<Int, String>> = Some(inner)
+  let t: Result<Option<Int>, String> = o.transpose()
+  match t {
+    Ok(opt) => {
+      if let Some(n) = opt {
+        print(n)
+      } else {
+        print("none")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}

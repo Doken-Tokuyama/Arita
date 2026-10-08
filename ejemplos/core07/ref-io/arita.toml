@@ -1,0 +1,10 @@
+# ADR-275 / CORE-0.7-REF-IO — arita-ref-io (closes Core 0.7 after Measure)
+[package]
+name = "arita_ref_io"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

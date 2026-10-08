@@ -1,0 +1,7 @@
+// ADR-261 Fase B: E0310 retired for String sugar; IndexMut OUT → E0314
+module e0310_index_string
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s[0] = "x"
+}

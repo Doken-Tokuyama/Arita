@@ -1,0 +1,11 @@
+// ADR-052 — pop without mut → E0202
+module e0202_pop_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  let o: Option<Int> = v.pop()
+  match o {
+    Some(x) => { print(x) }
+    None => { print("none") }
+  }
+}

@@ -1,0 +1,11 @@
+// ADR-066 std-parse-int-err
+module std_parse_int_err
+
+fn main() -> Io<()> {
+  let s: String = "x"
+  let r: Result<Int, String> = s.parse_int()
+  match r {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

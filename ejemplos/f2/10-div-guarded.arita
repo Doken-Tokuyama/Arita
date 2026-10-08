@@ -1,0 +1,11 @@
+// F2 clean — guarded div: if b != 0 { print(div(10, b)) } must NOT E0216 (ADR-044)
+module div_guarded
+
+fn div(a: Int, b: Int) -> Int { a / b }
+
+fn main() -> Io<()> {
+  let b: Int = 2
+  if b != 0 {
+    print(div(10, b))
+  }
+}

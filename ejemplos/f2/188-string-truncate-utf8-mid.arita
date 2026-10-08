@@ -1,0 +1,8 @@
+// ADR-160 std-string-truncate-utf8-mid — mid ñ → floor boundary (no panic)
+module std_string_truncate_utf8_mid
+
+fn main() -> Io<()> {
+  let mut s: String = "niño"
+  s.truncate(3)
+  print(s)
+}

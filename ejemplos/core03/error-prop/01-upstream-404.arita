@@ -1,0 +1,24 @@
+// CUT CORE-0.3-ERROR-PROP-20260920 — upstream :19931 always 404
+module core03_upstream_404
+
+async fn handle(_req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let resp: HttpResponse = HttpResponse.status(404, "nope")
+  let out: Result<HttpResponse, IoError> = Ok(resp)
+  out
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19931)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("upstream-404-ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

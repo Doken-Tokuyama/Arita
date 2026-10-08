@@ -1,0 +1,7 @@
+// ADR-075 neg — repeat(-1) → E0280
+module e0280_repeat_neg
+
+fn main() -> Io<()> {
+  let s: String = "ab"
+  print(s.repeat(-1))
+}

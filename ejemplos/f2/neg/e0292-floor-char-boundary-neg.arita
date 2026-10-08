@@ -1,0 +1,7 @@
+// ADR-144 neg — floor_char_boundary(-1) → E0292
+module e0292_floor_char_boundary_neg
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.floor_char_boundary(-1))
+}

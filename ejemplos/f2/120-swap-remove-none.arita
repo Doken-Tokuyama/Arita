@@ -1,0 +1,13 @@
+// ADR-114 std-swap-remove-none
+module std_swap_remove_none
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let o: Option<Int> = v.swap_remove(5)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,362 @@
+// ARITA F1.1 + F2 + F2.1 + F2.2 + F2.3 + LANG-CONTRACT + ASYNC-V0 + RESULT-V0 pest (ADR-019 / ADR-027 / ADR-047)
+// Canonical F1.1:
+//   module <ident>
+//   fn main() -> Io<()> { print("<lit-str>")* }
+// F2 slice:
+//   let [mut] name: Int = <int-lit | binary_expr | ident>
+//   let [mut] name: String = <lit-str>
+//   let [mut] name: Bool = true|false | cmp_expr
+//   let [mut] name: Vec<Int> = Vec::new()
+//   <ident>.push(<int-lit|ident>)
+//   print(<ident> | <int-lit> | <lit-str> | <bool_lit> | <ident>.len() | <ident>.is_empty() | user_call)
+//   fn name(x: Int, …) -> Int { binary_expr | ident }
+//   user_call: name(args…) in print / stmt / assert_side
+//   test <ident> { assert <side> == <side> }+   (Assert only in Test, not main)
+// F2.1:
+//   if BoolExpr { stmts } [else { stmts }]
+//   while BoolExpr { stmts }
+//   BoolExpr = cmp_expr | bool_lit | ident
+//   cmp_expr = primary (==|!=|<|>|<=|>=) primary  → Bool
+//   assign: ident = <rhs>  (mut place; while counters)
+// F2.2 + ADR-025:
+//   match Scrutinee { pat => { stmts }+ }  (stmt form)
+//   match Scrutinee { pat => { value_expr }+ } as Expr (let init / assign_rhs)
+//   Scrutinee = bool_lit | int_lit | ident  (typed Bool|Int|Result in HIR)
+// ADR-047: pat Ok(ident)|Err(ident); Result match must have both arms (E0270)
+//   pat = bool_lit | int_lit | _
+//   match_expr arm value v0: int|bool|ident|binary|cmp|string|user_call (HIR: Bool|Int only)
+// F2.3:
+//   break / continue (unlabeled) inside while body only (HIR E0224 otherwise)
+// LANG-CONTRACT (ADR-019):
+//   contract <ident> { [target <ident>] expect_stdout "…"+ | expect_reject "E0xxx" }  (top-level; not emitted; ADR-020 target)
+// ADR-033 host-border: host.<fn>(…) reserved surface → [host-bridges] crate
+// Anti-theater E021x (ADR-006):
+//   E0210 todo!/unimplemented!/todo  E0211 assert true  E0212 empty test  E0213 stub fn
+//   E0214 vacuous length assert (ADR-030 / TRAPS-LEN-THEATER-20260914)
+//   E0215 vacuous comparison assert (ADR-038 / TRAPS-CMP-THEATER-20260915)
+//   E0216 integer division by zero (ADR-044 / TRAPS-INT-DIV0-20260915; HIR not pest)
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT = _{ "//" ~ (!"\n" ~ ANY)* }
+
+ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+// Valid escapes only; anything else fails string_lit matching → E0005
+escape = @{ "\\" ~ ("n" | "t" | "r" | "\\" | "\"") }
+string_char = @{ (!("\"" | "\\") ~ ANY) | escape }
+string_lit = ${ "\"" ~ string_char* ~ "\"" }
+
+// Unclosed / broken string attempt (for recovery classification)
+broken_string = ${ "\"" ~ (!("\"" | "\n") ~ ANY)* }
+
+int_lit = @{ "-"? ~ ASCII_DIGIT+ }
+bool_lit = @{ ("true" | "false") ~ !(ASCII_ALPHANUMERIC | "_") }
+
+ty_unit = { "(" ~ ")" }
+ty_io_unit = { "Io" ~ "<" ~ ty_unit ~ ">" }
+ty_int = @{ "Int" ~ !(ASCII_ALPHANUMERIC | "_") }
+ty_string = @{ "String" ~ !(ASCII_ALPHANUMERIC | "_") }
+// ADR-236: Text ≡ String; Bytes ≡ Vec<u8>
+ty_text = @{ "Text" ~ !(ASCII_ALPHANUMERIC | "_") }
+ty_bytes = @{ "Bytes" ~ !(ASCII_ALPHANUMERIC | "_") }
+ty_bool = @{ "Bool" ~ !(ASCII_ALPHANUMERIC | "_") }
+ty_vec_int = { "Vec" ~ "<" ~ ty_int ~ ">" }
+// ADR-237: List ≡ Vec; Map<Text|String, Int>
+ty_list_int = { "List" ~ "<" ~ ty_int ~ ">" }
+ty_map_text_int = { "Map" ~ "<" ~ (ty_text | ty_string) ~ "," ~ ty_int ~ ">" }
+// ADR-047/198/200 Result: T,E ∈ {Int,Bool,String,(),Result<…>,Option<…>} (flatten + transpose nest)
+ty_result_arg = { ty_result | ty_option | ty_int | ty_bool | ty_text | ty_bytes | ty_string | ty_unit | ty_named }
+ty_result = { "Result" ~ "<" ~ ty_result_arg ~ "," ~ ty_result_arg ~ ">" }
+// ADR-050/184/200 Option: T ∈ {Int,Bool,String,(),Option<…>,Result<…>} (flatten + transpose nest)
+ty_option_arg = { ty_option | ty_result | ty_int | ty_bool | ty_text | ty_bytes | ty_string | ty_unit | ty_named }
+ty_option = { "Option" ~ "<" ~ ty_option_arg ~ ">" }
+// ADR-233 Core 0.1 record: user type name in let annotations
+ty_named = { ident }
+unit_lit = { "(" ~ ")" }
+result_payload = { unit_lit | string_lit | bool_lit | int_lit | ident }
+ok_expr = { "Ok" ~ "(" ~ result_payload ~ ")" }
+err_expr = { "Err" ~ "(" ~ result_payload ~ ")" }
+some_expr = { "Some" ~ "(" ~ result_payload ~ ")" }
+none_expr = @{ "None" ~ !(ASCII_ALPHANUMERIC | "_") }
+// Any other return-type token stream (for E0004 detection)
+ty_other = { ident ~ ("<" ~ (!">" ~ ANY)* ~ ">")? | ty_unit | ident }
+
+fn_param = { ident ~ ":" ~ (ty_result | ty_option | ty_int | ty_bool | ty_text | ty_string | ty_bytes | ty_unit | ty_named) }
+fn_params = { "(" ~ (fn_param ~ ("," ~ fn_param)*)? ~ ")" }
+
+mut_kw = @{ "mut" ~ !(ASCII_ALPHANUMERIC | "_") }
+
+// &ident | &mut ident (let init only in v0)
+borrow_expr = { "&" ~ mut_kw? ~ ident }
+// ADR-235: AI-native keyword form (canonical)
+borrow_kw = @{ "borrow" ~ !(ASCII_ALPHANUMERIC | "_") }
+borrow_kw_expr = { borrow_kw ~ mut_kw? ~ ident }
+
+vec_new_call = { "Vec" ~ "::" ~ "new" ~ "(" ~ ")" }
+list_new_call = { "List" ~ "::" ~ "new" ~ "(" ~ ")" }
+map_new_call = { "Map" ~ "::" ~ "new" ~ "(" ~ ")" }
+
+// primary / binary — no left-recursion (single op; operands ident|int_lit)
+// arith separate from cmp so assert `lhs == rhs` is not swallowed as Binary Eq
+arith_op = { "+" | "-" | "*" | "/" | "%" }
+cmp_op = { "==" | "!=" | "<=" | ">=" | "<" | ">" }
+primary = { int_lit | ident }
+binary_expr = { primary ~ arith_op ~ primary }
+cmp_expr = { primary ~ cmp_op ~ primary }
+
+// Bool condition for if/while (and usable as Bool let init via cmp_expr)
+bool_expr = { cmp_expr | bool_lit | ident }
+
+// let [mut] name: Int|String|Bool|Vec<Int> = <init>
+// cmp_expr / binary_expr before int_lit|ident so `a < b` / `a + b` are not truncated
+let_stmt = {
+    "let" ~ mut_kw? ~ ident ~ ":" ~ (ty_option | ty_result | ty_map_text_int | ty_list_int | ty_vec_int | ty_task | ty_int | ty_text | ty_bytes | ty_string | ty_bool | ty_named)
+    ~ "=" ~ (borrow_kw_expr | borrow_expr | match_expr | enum_path | record_lit | some_expr | none_expr | ok_expr | err_expr | spawn_call | map_new_call | list_new_call | vec_new_call | host_call_try | host_call | method_call_len | method_call_is_empty | method_call_other | index_expr | field_access | cmp_expr | binary_expr | user_call_try | user_call | string_lit | bool_lit | int_lit | ident_try | ident)
+}
+
+method_push_arg = { string_lit | int_lit | ident }
+method_call_push = { ident ~ "." ~ "push" ~ "(" ~ method_push_arg ~ ")" }
+// len / is_empty: optional args so HIR can emit E0203 on bad arity (ADR-026)
+method_call_len = { ident ~ "." ~ "len" ~ "(" ~ (print_arg_ok ~ ("," ~ print_arg_ok)*)? ~ ")" }
+method_call_is_empty = { ident ~ "." ~ "is_empty" ~ "(" ~ (print_arg_ok ~ ("," ~ print_arg_ok)*)? ~ ")" }
+// unknown zero/N-arg method → AST MethodCall → HIR E0206 (after whitelist forms)
+method_call_other = { ident ~ "." ~ ident ~ "(" ~ (method_push_arg ~ ("," ~ method_push_arg)*)? ~ ")" }
+
+// ADR-033 host-border: reserved `host.<fn>(…)` → emit maps to declared [host-bridges] crate
+host_call = { "host" ~ "." ~ ident ~ "(" ~ (print_arg_ok ~ ("," ~ print_arg_ok)*)? ~ ")" }
+// ADR-278: postfix `?` on host/user call / Result binding (dedicated rules — avoid bare `?` collision)
+host_call_try = { host_call ~ "?" }
+
+// ADR-233: shared field get `x.field` (not Index; not method call — reject trailing "(")
+field_access = { ident ~ "." ~ ident ~ !("(") }
+// ADR-261 Fase B + ADR-266: v[i]/s[i]/m[k] desugar to get; IndexMut→E0314 (not panic Index)
+index_expr = { ident ~ "[" ~ (int_lit | string_lit | ident) ~ "]" }
+
+// ADR-233: record construct `Name { field: expr, ... }`
+record_init_expr = { index_expr | field_access | string_lit | bool_lit | int_lit | ident }
+record_field_init = { ident ~ ":" ~ record_init_expr }
+record_lit = { ident ~ "{" ~ (record_field_init ~ ("," ~ record_field_init)*)? ~ ","? ~ "}" }
+
+// ADR-233: `record Name { field: Type, ... }` module-level
+record_field_ty = { ty_int | ty_text | ty_bytes | ty_string | ty_bool }
+record_field_decl = { ident ~ ":" ~ record_field_ty }
+pub_vis = { "pub" }
+record_item = { pub_vis? ~ "record" ~ ident ~ "{" ~ (record_field_decl ~ ("," ~ record_field_decl)*)? ~ ","? ~ "}" }
+
+// ADR-234: user enum (unit variants only)
+enum_variant = { ident }
+enum_item = { "enum" ~ ident ~ "{" ~ (enum_variant ~ ("," ~ enum_variant)*)? ~ ","? ~ "}" }
+enum_path = { ident ~ "::" ~ ident ~ !("(") }
+
+// user fn call — not print, not Vec::new (those have dedicated rules)
+// print_arg_ok before recurse; user_call before bare ident in print_arg_ok
+user_call = { ident ~ "(" ~ (print_arg_ok ~ ("," ~ print_arg_ok)*)? ~ ")" }
+user_call_try = { user_call ~ "?" }
+ident_try = { ident ~ "?" }
+
+// print with exactly one LitStr | LitInt | LitBool | Path | len | is_empty | user_call
+// method_call_len / is_empty before method_call_other before ident; user_call before ident
+print_arg_ok = { string_lit | int_lit | bool_lit | host_call | method_call_len | method_call_is_empty | method_call_other | index_expr | field_access | user_call | ident }
+print_ok = { "print" ~ "(" ~ print_arg_ok ~ ")" }
+
+// print with wrong arity / bad args (E0010)
+print_arg = { string_lit | int_lit | bool_lit | host_call | method_call_len | method_call_is_empty | method_call_other | index_expr | field_access | user_call | ident | broken_string }
+print_bad = { "print" ~ "(" ~ (print_arg ~ ("," ~ print_arg)* ~ ","?)? ~ ")" }
+
+call_other = { ident ~ "(" ~ (print_arg ~ ("," ~ print_arg)* ~ ","?)? ~ ")" }
+
+// E0210: todo! / unimplemented! / bare todo keyword (anti-theater)
+todo_bang = { "todo" ~ "!" ~ ("(" ~ (!")" ~ ANY)* ~ ")")? }
+unimplemented_bang = { "unimplemented" ~ "!" ~ ("(" ~ (!")" ~ ANY)* ~ ")")? }
+todo_kw_stmt = @{ "todo" ~ !(ASCII_ALPHANUMERIC | "_" | "!") }
+
+
+// E0231 / ADR-022: unsafe / FFI not allowed in ARITA surface
+unsafe_block = { "unsafe" ~ block }
+unsafe_fn_item = { "unsafe" ~ "fn" ~ ident ~ fn_params ~ (fn_ret_ok | fn_ret_bad)? ~ block }
+extern_block = { "extern" ~ string_lit? ~ block }
+extern_fn_item = { "extern" ~ string_lit? ~ "fn" ~ ident ~ (!"{" ~ ANY)* ~ "{" ~ (!"}" ~ ANY)* ~ "}" }
+unsafe_kw_stmt = @{ "unsafe" ~ !(ASCII_ALPHANUMERIC | "_") }
+extern_kw_stmt = @{ "extern" ~ !(ASCII_ALPHANUMERIC | "_") }
+
+// F2.1 control flow
+// ADR-053/054: if let Some|Ok|Err(x) = … { … } else { … } — else required (E0275 in HIR)
+if_let_stmt = { "if" ~ "let" ~ (match_pat_some | match_pat_ok | match_pat_err) ~ "=" ~ match_scrutinee ~ block ~ ("else" ~ block)? }
+if_stmt = { "if" ~ bool_expr ~ block ~ ("else" ~ block)? }
+// ADR-055: while let Some(x) = … { … } — re-eval; no else v0
+while_let_scrutinee = { method_call_other | none_expr | some_expr | ok_expr | err_expr | ident | bool_lit | int_lit }
+while_let_stmt = { "while" ~ "let" ~ (match_pat_some | match_pat_ok | match_pat_err) ~ "=" ~ while_let_scrutinee ~ block }
+while_stmt = { "while" ~ bool_expr ~ block }
+
+// F2.2 match (stmt form): match Scrutinee { pat => { stmts }+ }
+// ADR-025 match_expr: match Scrutinee { pat => { value }+ } (expr form; let/assign)
+// wildcard before ident would matter if wildcard were in ident alts; here dedicated rule
+wildcard = @{ "_" ~ !(ASCII_ALPHANUMERIC | "_") }
+match_scrutinee = { host_call | user_call | bool_lit | int_lit | ident }
+match_pat_ok = { "Ok" ~ "(" ~ ident ~ ")" }
+match_pat_err = { "Err" ~ "(" ~ ident ~ ")" }
+match_pat_some = { "Some" ~ "(" ~ ident ~ ")" }
+match_pat_none = @{ "None" ~ !(ASCII_ALPHANUMERIC | "_") }
+match_pat = { match_pat_ok | match_pat_err | match_pat_some | match_pat_none | enum_path | bool_lit | int_lit | wildcard | ident }
+match_arm = { match_pat ~ "=>" ~ block }
+match_stmt = { "match" ~ match_scrutinee ~ "{" ~ match_arm+ ~ "}" }
+
+// match-as-expr (ADR-025 MVP): arm body = { single value expr }
+// binary/cmp/user_call before lit|ident so `a + b` / `f(x)` not truncated
+match_expr_value = { ok_expr | err_expr | some_expr | none_expr | binary_expr | cmp_expr | host_call | user_call | string_lit | bool_lit | int_lit | ident }
+match_expr_arm = { match_pat ~ "=>" ~ "{" ~ match_expr_value ~ "}" }
+match_expr = { "match" ~ match_scrutinee ~ "{" ~ match_expr_arm+ ~ "}" }
+
+// F2.3 break / continue (unlabeled; legal only inside while — checked in HIR)
+break_stmt = @{ "break" ~ !(ASCII_ALPHANUMERIC | "_") }
+continue_stmt = @{ "continue" ~ !(ASCII_ALPHANUMERIC | "_") }
+
+// mut assign (while counters): ident = rhs
+assign_rhs = { match_expr | enum_path | record_lit | some_expr | none_expr | ok_expr | err_expr | host_call_try | host_call | method_call_len | method_call_is_empty | method_call_other | index_expr | field_access | cmp_expr | binary_expr | user_call_try | user_call | string_lit | bool_lit | int_lit | ident_try | ident }
+assign_stmt = { ident ~ "=" ~ assign_rhs }
+// ADR-261/266: IndexMut OUT — v[i]= / m[k]= → E0314
+// ADR-290 slice A: `v[i] op= rhs` with op ∈ {+=, -=, *=}; other compound ops stay E0006 (not in grammar).
+op_assign = { "+=" | "-=" | "*=" }
+index_assign_stmt = { ident ~ "[" ~ (int_lit | string_lit | ident) ~ "]" ~ (op_assign | "=") ~ assign_rhs }
+
+// Illegal in-body constructs (E0006) — if/while/match/break/continue removed (F2.1–F2.3 IN)
+illegal_stmt = {
+    ("spec" | "const" | "var" | "for" | "return" | "assert" | "test")
+    ~ (!("}" | "\n") ~ ANY)*
+}
+
+// binary_expr / ident: Stmt::Expr for non-main body `x + x` / path
+// anti-theater bangs before user_call/ident; todo_kw before ident
+// match_stmt before assign (no conflict) and before illegal
+stmt = {
+    unsafe_block
+    | unsafe_kw_stmt
+    | extern_block
+    | extern_kw_stmt
+    | todo_bang
+    | unimplemented_bang
+    | todo_kw_stmt
+    | let_stmt
+    | if_let_stmt
+    | if_stmt
+    | while_let_stmt
+    | while_stmt
+    | break_stmt
+    | continue_stmt
+    | match_stmt
+    | index_assign_stmt
+    | assign_stmt
+    | print_ok
+    | method_call_push
+    | host_call_try
+    | host_call
+    | method_call_other
+    | print_bad
+    | await_expr
+    | async_illegal_stmt
+    | ok_expr
+    | err_expr
+    | some_expr
+    | none_expr
+    | user_call_try
+    | user_call
+    | borrow_kw_expr
+    | borrow_expr
+    | binary_expr
+    | call_other
+    | illegal_stmt
+    | int_lit
+    | ident_try
+    | ident
+}
+
+block = { "{" ~ stmt* ~ "}" }
+
+// Ok returns: Io<()> (main) or Int (helper) — distinguished in lowering
+fn_ret_ok = { "->" ~ (ty_io_unit | ty_result | ty_int | ty_unit | ty_named) }
+fn_ret_bad = { "->" ~ ty_other }
+
+// ADR-027 async v0
+async_kw = @{ "async" ~ !(ASCII_ALPHANUMERIC | "_") }
+await_expr = { "await" ~ (join_call | user_call) }
+// ADR-243: curated spawn/join (no tokio:: in surface)
+spawn_call = { "spawn" ~ "(" ~ user_call ~ ")" }
+join_call = { "join" ~ "(" ~ ident ~ ")" }
+ty_task = @{ "Task" ~ !(ASCII_ALPHANUMERIC | "_") }
+// Legal: async fn … ; illegal async elsewhere → E0241 in lowering
+async_function = {
+    "async" ~ "fn" ~ ident ~ fn_params ~ (fn_ret_ok | fn_ret_bad)? ~ block
+}
+async_illegal_top = { "async" ~ (!("fn") ~ ANY) }
+async_illegal_stmt = { "async" ~ (!("fn") ~ ANY) }
+
+function = {
+    pub_vis? ~ "fn" ~ ident ~ fn_params ~ (fn_ret_ok | fn_ret_bad)? ~ block
+}
+
+module_decl = { "module" ~ ident }
+
+// ADR-254 / CORE-0.4-MULTI-MODULE: `use mod::item` (path/workspace only; no crates.io)
+use_item = { "use" ~ ident ~ "::" ~ ident }
+
+// `let` removed from illegal_top (F2 IN inside fn; top-level let → parse fail / E0006)
+illegal_top = {
+    ("spec" | "const" | "struct" | "enum" | "trait" | "impl" | "deps" | "mod")
+    ~ (!"\n" ~ ANY)*
+}
+
+// assert / test (F2) — Assert only inside test_item, not in main body
+// method_call_len/is_empty before user_call/ident; binary_expr before int_lit|ident
+// NOTE: cmp_expr intentionally NOT in assert_side — assert keeps its own `==` separator
+// E0214 vacuous forms are dedicated rules (like assert_true) ahead of assert_stmt
+assert_side = { binary_expr | method_call_len | method_call_is_empty | user_call | int_lit | bool_lit | ident }
+assert_stmt = { "assert" ~ assert_side ~ "==" ~ assert_side }
+// E0211: assert true / assert(true) without comparison evidence
+assert_true = {
+    "assert" ~ "(" ~ "true" ~ ")"
+    | "assert" ~ "true" ~ !("=")
+}
+// E0214: vacuous len theater — Int length always >= 0 / > -1 (ADR-030)
+assert_vacuous_len = {
+    "assert" ~ method_call_len ~ ">=" ~ "0"
+    | "assert" ~ method_call_len ~ ">" ~ "-1"
+}
+// E0214: is_empty tautology — P || !P (same recv)
+assert_is_empty_taut = {
+    "assert" ~ ident ~ "." ~ "is_empty" ~ "(" ~ ")" ~ "||" ~ "!" ~ ident ~ "." ~ "is_empty" ~ "(" ~ ")"
+    | "assert" ~ "!" ~ ident ~ "." ~ "is_empty" ~ "(" ~ ")" ~ "||" ~ ident ~ "." ~ "is_empty" ~ "(" ~ ")"
+}
+// E0215: vacuous rel theater — assert <side> (<=|>=|!=) <side> (identical → reject; else E0006)
+// Keep AFTER assert_vacuous_len so `len() >= 0` stays E0214.
+assert_vacuous_rel = { "assert" ~ assert_side ~ ("<=" | ">=" | "!=") ~ assert_side }
+// E0212: empty test (zero asserts) coded in lowering — use * not +
+test_body_elem = {
+    assert_vacuous_len
+    | assert_is_empty_taut
+    | assert_vacuous_rel
+    | assert_true
+    | assert_stmt
+    | unsafe_block
+    | unsafe_kw_stmt
+    | extern_block
+    | extern_kw_stmt
+    | todo_bang
+    | unimplemented_bang
+    | todo_kw_stmt
+}
+test_item = { "test" ~ ident ~ "{" ~ test_body_elem* ~ "}" }
+
+// LANG-CONTRACT (ADR-019) + CONTRACT-TARGET-FN (ADR-020): top-level contract; one expect kind per block; optional target
+contract_target = { "target" ~ ident }
+contract_expect_stdout = { "expect_stdout" ~ string_lit }
+contract_expect_reject = { "expect_reject" ~ string_lit }
+contract_body_elem = { contract_target | contract_expect_stdout | contract_expect_reject }
+contract_item = { "contract" ~ ident ~ "{" ~ contract_body_elem+ ~ "}" }
+// ADR-239: scenario / acceptance → same runtime as expect_stdout contract
+acceptance_elem = { "acceptance" ~ string_lit }
+scenario_body_elem = { contract_target | acceptance_elem }
+scenario_item = { "scenario" ~ ident ~ "{" ~ scenario_body_elem+ ~ "}" }
+
+item = { module_decl | use_item | record_item | enum_item | unsafe_fn_item | extern_fn_item | extern_block | async_function | async_illegal_top | function | test_item | contract_item | scenario_item | illegal_top }
+
+file = { SOI ~ item* ~ EOI }

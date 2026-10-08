@@ -1,0 +1,26 @@
+// ADR-284 §2 neg-core09-scen-unwrap-theater (fixture de Measure) — escenario Map+Vec con UN solo ofensor:
+// dentro del helper `fn tally(...) -> Result<Int, Int>`, el Result del set se liga primero con let
+// (`let r: Result<(), Int> = v.set(i, x)`) y se inventa `r.unwrap()` (no encadenado) → EXACTO E0206
+// (criterio Orquestador/Ingeniero 05:27; emit-ban 241; no E0291 reopen).
+// Control: sin la línea `r.unwrap()` el programa compila y corre (verificado por Measure en /tmp).
+module core09_scen_mut_neg_unwrap_theater
+
+fn tally(i: Int, x: Int) -> Result<Int, Int> {
+  let mut m: Map<Text, Int> = Map::new()
+  m["hits"] = 1
+  m["hits"] = 2
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v.push(0)
+  let r: Result<(), Int> = v.set(i, x)
+  r.unwrap()
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match tally(1, 9) {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

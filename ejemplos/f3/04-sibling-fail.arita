@@ -1,0 +1,11 @@
+module sibling_fail
+
+spec Kinship { }
+
+fact parent(mom, alice)
+fact parent(mom, bob)
+fact parent(dad, charlie)
+
+rule sibling(X, Y) :- parent(P, X), parent(P, Y)
+
+query sibling(alice, charlie)

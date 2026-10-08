@@ -1,0 +1,26 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.7-IO-PARSE-H1-20260926",
+  "adr": "272",
+  "slice": 1,
+  "ok_path": "ejemplos/core07/io-parse-h1/01-read-ok.arita",
+  "err_path": "ejemplos/core07/io-parse-h1/02-read-err.arita",
+  "neg_discard_path": "ejemplos/core07/io-parse-h1/neg/01-discard.arita",
+  "neg_default_path": "ejemplos/core07/io-parse-h1/neg/02-default.arita",
+  "scenarios": [
+    "core07-io-h1-read-ok",
+    "core07-io-h1-read-err",
+    "neg-core07-io-h1-discard",
+    "neg-core07-io-h1-default",
+    "core07-io-h1-emit-ban"
+  ],
+  "codegen_smoke": {
+    "read_ok_stdout": "hello-io-h1",
+    "read_err_stdout": "read_failed",
+    "discard": "E0340",
+    "default": "E0340",
+    "emit_ban": "no unwrap/expect/panic"
+  },
+  "measure_pass": true,
+  "notes": "Lex Measure+Ingeniero ADR-272 CLOSED 733/733; measure_pass:true"
+}

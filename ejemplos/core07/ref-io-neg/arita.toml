@@ -1,0 +1,6 @@
+# ADR-275 REF-IO local negs E0340/E0341 (host 238 only; no workspace)
+[package]
+name = "core07_ref_io_neg"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

@@ -1,0 +1,11 @@
+// ADR-202 std-ok-or-none — None.ok_or("x") → Err("x")
+module std_ok_or_none
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  let r: Result<Int, String> = o.ok_or("x")
+  match r {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

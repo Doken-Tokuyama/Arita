@@ -1,0 +1,10 @@
+// ADR-077 whilelet-result-02 — Err skip body
+module whilelet_result_err_skip
+
+fn main() -> Io<()> {
+  let mut r: Result<Int, Int> = Err(9)
+  while let Ok(x) = r {
+    print(x)
+  }
+  print("after")
+}

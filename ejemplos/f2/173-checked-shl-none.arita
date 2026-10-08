@@ -1,0 +1,12 @@
+// ADR-150 std-checked-shl-none
+module std_checked_shl_none
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.checked_shl(64)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

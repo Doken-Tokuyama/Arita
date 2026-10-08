@@ -1,0 +1,14 @@
+// ADR-234 neg E0316
+module neg_e0316
+
+enum Color {
+  Red,
+  Green,
+}
+
+fn main() -> Io<()> {
+  let c: Color = Color::Red
+  match c {
+    Color::Red => { print(1) }
+  }
+}

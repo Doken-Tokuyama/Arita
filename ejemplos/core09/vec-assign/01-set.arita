@@ -1,0 +1,21 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — v[i] = x en fn Result ≡ v.set(i, x)?; stdout "9"
+module core09_vec_assign_set
+
+fn f() -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v[1] = 9
+  let o: Option<Int> = v.get(1)
+  match o {
+    Some(x) => { Ok(x) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

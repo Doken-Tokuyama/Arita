@@ -1,0 +1,15 @@
+// ADR-156 std-shrink-to-fit-string — portable capacity≥len after reserve+shrink
+module std_shrink_to_fit_string
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s.reserve(64)
+  s.shrink_to_fit()
+  let c: Int = s.capacity()
+  let n: Int = s.len()
+  if c >= n {
+    print("ok")
+  } else {
+    print("bad")
+  }
+}

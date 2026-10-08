@@ -1,0 +1,8 @@
+// ADR-263 — IndexMut OUT → E0314 (suite may also live under 261/262)
+module core05_ref_coll_index_mut
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 2
+}

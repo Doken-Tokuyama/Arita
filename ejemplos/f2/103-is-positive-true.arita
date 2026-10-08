@@ -1,0 +1,7 @@
+// ADR-106 std-is-positive-true
+module std_is_positive_true
+
+fn main() -> Io<()> {
+  let a: Int = 7
+  print(a.is_positive())
+}

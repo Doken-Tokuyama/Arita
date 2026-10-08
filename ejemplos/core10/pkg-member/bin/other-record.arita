@@ -1,0 +1,10 @@
+// ADR-287 — NON-member (same shape as core04 main-record): record + print, own module
+module pkg_member_other_rec
+
+use lib::Point
+use lib::add
+
+fn main() -> Io<()> {
+  let p: Point = Point { x: 100, y: 200 }
+  print(add(p.x, p.y))
+}

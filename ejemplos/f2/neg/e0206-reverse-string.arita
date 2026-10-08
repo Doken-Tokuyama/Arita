@@ -1,0 +1,8 @@
+// ADR-182 neg — String.reverse → E0206
+module e0206_reverse_string
+
+fn main() -> Io<()> {
+  let mut s: String = "abc"
+  s.reverse()
+  print(0)
+}

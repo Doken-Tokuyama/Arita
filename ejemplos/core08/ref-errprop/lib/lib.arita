@@ -1,0 +1,44 @@
+// ADR-280 — arita-ref-errprop pub surface (≥2 pub fn→Result using ? on host 238 / helpers)
+// dominio tipado State {n: Int}; sin HTTP/Mutex/unwrap; E0340 discard OUT; Option? HOLD
+module lib
+
+pub record State {
+  n: Int,
+}
+
+/// read_text via ? + json_get_int required; Ok(n) or Err on read fail / key miss.
+pub fn load_required(path: Text, key: Text) -> Result<Int, Int> {
+  let doc: Text = host.read_text(path)?
+  let o: Option<Int> = host.json_get_int(doc, key)
+  match o {
+    Some(n) => {
+      let ok: Result<Int, Int> = Ok(n)
+      ok
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(1)
+      bad
+    }
+  }
+}
+
+/// ? chain over load_required with key "n".
+pub fn process(path: Text) -> Result<Int, Int> {
+  let n: Int = load_required(path, "n")?
+  Ok(n)
+}
+
+/// cli_arg(1) required path → process (? chain inside Some).
+pub fn from_args() -> Result<Int, Int> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let n: Int = process(p)?
+      Ok(n)
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(2)
+      bad
+    }
+  }
+}

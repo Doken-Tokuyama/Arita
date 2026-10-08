@@ -1,0 +1,7 @@
+// ADR-143 neg — Vec.is_char_boundary → E0206
+module e0206_char_boundary_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  print(v.is_char_boundary(0))
+}

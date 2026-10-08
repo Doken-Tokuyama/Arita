@@ -1,0 +1,12 @@
+// ADR-174 std-result-and — Ok(1).and(Ok(2)) → Ok(2)
+module std_result_and
+
+fn main() -> Io<()> {
+  let a: Result<Int, String> = Ok(1)
+  let b: Result<Int, String> = Ok(2)
+  let c: Result<Int, String> = a.and(b)
+  match c {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

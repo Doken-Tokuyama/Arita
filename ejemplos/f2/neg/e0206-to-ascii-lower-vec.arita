@@ -1,0 +1,7 @@
+// ADR-140 neg — Vec.to_ascii_lowercase → E0206
+module e0206_to_ascii_lower_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  print(v.to_ascii_lowercase())
+}

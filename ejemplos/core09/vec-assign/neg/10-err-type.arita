@@ -1,0 +1,17 @@
+// ADR-283 §2 neg-core09-vec-assign-err-type (fixture de Measure) — fn → Result<Int, Text> (E ≠ Int) con v[i] = x → E0203 (pin ADR-283 §0 Compat E; Ingeniero decisión 2).
+// Único ofensor: el tipo de error Text de la fn; índice y valor son Int válidos.
+module core09_vec_assign_neg_err_type
+
+fn f() -> Result<Int, Text> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v[0] = 1
+  Ok(0)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

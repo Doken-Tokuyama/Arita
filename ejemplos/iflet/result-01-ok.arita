@@ -1,0 +1,11 @@
+// ADR-054 iflet-result-01 — Ok path
+module iflet_result_ok
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(42)
+  if let Ok(x) = r {
+    print(x)
+  } else {
+    print("fail")
+  }
+}

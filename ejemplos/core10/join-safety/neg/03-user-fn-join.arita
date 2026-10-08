@@ -1,0 +1,15 @@
+// ADR-286 §0.1d (c) / CORE-0.10-JOIN-SAFETY-20260927 — neg: fn de usuario con nombre de builtin (`join`) → E0007
+// Hoy la llamada `await join()` desaparece del Rust emitido (codegen `None => {}`) y build/run salen 0.
+// Ofensor único: la declaración `async fn join()`.
+// Control: renombrar a `jn` con `-> Io<()>` y cuerpo `print("j")` → build verde.
+// oracle: neg-core10-user-fn-join
+module core10_join_safety_user_fn_join
+
+async fn join() -> Result<Int, Int> {
+  Err(7)
+}
+
+async fn main() -> Io<()> {
+  await join()
+  print("done")
+}

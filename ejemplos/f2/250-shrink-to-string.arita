@@ -1,0 +1,19 @@
+// ADR-208 std-shrink-to-string — capacity ≥ max(len, min_cap) after reserve+shrink_to
+module std_shrink_to_string
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s.reserve(64)
+  s.shrink_to(8)
+  let c: Int = s.capacity()
+  let n: Int = s.len()
+  if c >= 8 {
+    if c >= n {
+      print("ok")
+    } else {
+      print("bad")
+    }
+  } else {
+    print("bad")
+  }
+}

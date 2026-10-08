@@ -1,0 +1,15 @@
+// ADR-290 §D6 / IM-5: `n[0] += 1` con n Int (ident no-colección) => E0314
+module core10_index_mut_neg_int
+
+fn f() -> Result<Int, Int> {
+  let mut n: Int = 5
+  n[0] += 1
+  Ok(1)
+}
+
+fn main() -> Io<()> {
+  match f() {
+    Ok(a) => { print(a) }
+    Err(e) => { print(e) }
+  }
+}

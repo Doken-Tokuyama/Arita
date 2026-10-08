@@ -1,0 +1,8 @@
+// ADR-073 std-trim-end
+module std_trim_end
+
+fn main() -> Io<()> {
+  let s: String = "hi  "
+  let t: String = s.trim_end()
+  print(t)
+}

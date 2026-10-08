@@ -1,0 +1,12 @@
+// ADR-086 std-vec-first-none
+module std_vec_first_none
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  let o: Option<Int> = v.first()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

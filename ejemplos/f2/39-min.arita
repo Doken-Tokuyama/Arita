@@ -1,0 +1,7 @@
+// ADR-071 std-min
+module std_min
+
+fn main() -> Io<()> {
+  let a: Int = 3
+  print(a.min(5))
+}

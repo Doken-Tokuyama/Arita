@@ -1,0 +1,12 @@
+// ADR-274 — scenario-context unwrap_or tras cli_arg required → E0341
+module core07_scen_io_h2
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  let p: Text = o.unwrap_or("")
+  let r: Result<Text, Int> = host.read_text(p)
+  match r {
+    Ok(t) => { print(t) }
+    Err(_) => { print("read_failed") }
+  }
+}

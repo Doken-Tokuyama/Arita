@@ -1,0 +1,10 @@
+module twohop_ok
+
+spec Graph { }
+
+fact edge(a, b)
+fact edge(b, c)
+
+rule hop2(X, Z) :- edge(X, Y), edge(Y, Z)
+
+query hop2(a, c)

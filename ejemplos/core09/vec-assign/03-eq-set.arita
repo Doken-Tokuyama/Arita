@@ -1,0 +1,25 @@
+// ADR-283 / CORE-0.9-VEC-ASSIGN-20260926 — eq-set (azúcar): Ok e índice OOB → Err(0) propagado; stdout "6" y "0"
+module core09_vec_assign_eq_set
+
+fn f(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  v[i] = 6
+  let o: Option<Int> = v.get(i)
+  match o {
+    Some(x) => { Ok(x) }
+    None => { Err(1) }
+  }
+}
+
+fn main() -> Io<()> {
+  match f(1) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+  match f(5) {
+    Ok(x) => { print(x) }
+    Err(e) => { print(e) }
+  }
+}

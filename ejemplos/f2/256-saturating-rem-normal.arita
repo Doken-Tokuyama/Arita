@@ -1,0 +1,7 @@
+// ADR-214 std-saturating-rem-normal — 10.saturating_rem(3) → 1
+module std_saturating_rem_normal
+
+fn main() -> Io<()> {
+  let a: Int = 10
+  print(a.saturating_rem(3))
+}

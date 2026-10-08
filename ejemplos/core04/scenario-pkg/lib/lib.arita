@@ -1,0 +1,10 @@
+// ADR-257 — pub API for scenario-pkg
+module lib
+
+pub fn double(x: Int) -> Int {
+  x + x
+}
+
+fn secret(x: Int) -> Int {
+  x
+}

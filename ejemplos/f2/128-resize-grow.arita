@@ -1,0 +1,9 @@
+// ADR-119 std-resize-grow
+module std_resize_grow
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.resize(3, 9)
+  print(v.len())
+}

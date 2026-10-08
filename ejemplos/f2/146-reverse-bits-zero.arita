@@ -1,0 +1,7 @@
+// ADR-130 std-reverse-bits-zero
+module std_reverse_bits_zero
+
+fn main() -> Io<()> {
+  let a: Int = 0
+  print(a.reverse_bits())
+}

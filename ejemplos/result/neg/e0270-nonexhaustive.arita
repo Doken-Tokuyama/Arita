@@ -1,0 +1,9 @@
+// ADR-047 neg-e0270 — Result match missing Err arm
+module bad_result_match
+
+fn main() -> Io<()> {
+  let r: Result<Int, String> = Ok(1)
+  match r {
+    Ok(x) => { print(x) }
+  }
+}

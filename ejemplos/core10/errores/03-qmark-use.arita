@@ -1,0 +1,21 @@
+// oracle: core10-qmark-use
+// cause: ADR-295 P4: `?` operand is a use
+// offender: -
+// control: -
+module core10_qmark_use
+fn f(x: Int) -> Result<Int, Int> {
+  Ok(x)
+}
+fn g() -> Result<Int, Int> {
+  let v: Int = f(1)?
+  Ok(v)
+}
+fn main() -> Io<()> {
+  match g() {
+    Ok(v) => { print(v) }
+    Err(e) => {
+      print("err")
+      print(e)
+    }
+  }
+}

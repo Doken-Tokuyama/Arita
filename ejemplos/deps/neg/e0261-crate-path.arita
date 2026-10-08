@@ -1,0 +1,6 @@
+// Expected: E0261 external crate path not allowed in surface
+module e0261_crate_path
+
+fn main() -> Io<()> {
+  tokio::spawn()
+}

@@ -1,0 +1,23 @@
+// ADR-260 — insert OOB → Err(0); vec intact len=1
+module core05_insert_err_oob
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  let r: Result<(), Int> = v.insert(99, 0)
+  match r {
+    Ok(u) => { print("bad-ok") }
+    Err(e) => {
+      let n: Int = v.len()
+      if e == 0 {
+        if n == 1 {
+          print("err")
+        } else {
+          print("bad-len")
+        }
+      } else {
+        print(e)
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+// ADR-122 std-ilog10-some — 100→2
+module std_ilog10_some
+
+fn main() -> Io<()> {
+  let a: Int = 100
+  let o: Option<Int> = a.ilog10()
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-141 neg — Vec.eq_ignore_ascii_case → E0206
+module e0206_eq_ignore_ascii_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  print(v.eq_ignore_ascii_case("a"))
+}

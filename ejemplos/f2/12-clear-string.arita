@@ -1,0 +1,8 @@
+// ADR-049 std-clear-string — clear then len==0
+module std_clear_string
+
+fn main() -> Io<()> {
+  let mut s: String = "hi"
+  s.clear()
+  print(s.len())
+}

@@ -1,0 +1,7 @@
+// ADR-028 PERF-V0 — CLI negative: `arita build --profile fantasma <this>` → E0250
+// (profile is CLI-only; this file is a valid program used as the path argument)
+module e0250_bad_profile
+
+fn main() -> Io<()> {
+  print("should-not-run")
+}

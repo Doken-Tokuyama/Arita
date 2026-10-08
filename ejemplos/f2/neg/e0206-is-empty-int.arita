@@ -1,0 +1,7 @@
+// ADR-137 neg — Int.is_empty → E0206
+module e0206_is_empty_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.is_empty())
+}

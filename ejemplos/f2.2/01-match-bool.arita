@@ -1,0 +1,10 @@
+// F2.2 — match Bool true/false arms
+module match_bool
+
+fn main() -> Io<()> {
+  let flag: Bool = true
+  match flag {
+    true => { print("yes") }
+    false => { print("no") }
+  }
+}

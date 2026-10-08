@@ -1,0 +1,45 @@
+// ADR-275 — fail lib: load_missing / from_args_fail → Err on miss
+module lib
+
+pub record State {
+  n: Int,
+}
+
+/// Missing path → read Err.
+pub fn load_missing(path: Text) -> Result<Int, Int> {
+  let r: Result<Text, Int> = host.read_text(path)
+  match r {
+    Ok(doc) => {
+      let o: Option<Int> = host.json_get_int(doc, "n")
+      match o {
+        Some(n) => {
+          let bad: Result<Int, Int> = Ok(n)
+          bad
+        }
+        None => {
+          let bad: Result<Int, Int> = Err(1)
+          bad
+        }
+      }
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// cli_arg required → load_missing (fail when path missing or arg None).
+pub fn from_args_fail() -> Result<Int, Int> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let r: Result<Int, Int> = load_missing(p)
+      r
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(2)
+      bad
+    }
+  }
+}

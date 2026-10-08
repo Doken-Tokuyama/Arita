@@ -1,0 +1,10 @@
+// ADR-272 / CORE-0.7-IO-PARSE-H1-20260926 — missing file → Err arm fail determinista (no panic)
+module core07_io_h1_read_err
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = host.read_text("ejemplos/core07/io-parse-h1/missing-no-such-file.txt")
+  match r {
+    Ok(t) => { print(t) }
+    Err(_) => { print("read_failed") }
+  }
+}

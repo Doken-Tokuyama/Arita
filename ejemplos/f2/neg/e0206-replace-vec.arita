@@ -1,0 +1,8 @@
+// ADR-064 neg — Vec.replace → E0206
+module e0206_replace_vec
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  print(v.replace(1, 2))
+}

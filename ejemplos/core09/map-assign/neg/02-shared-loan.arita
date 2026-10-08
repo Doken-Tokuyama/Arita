@@ -1,0 +1,10 @@
+// ADR-282 neg — loan compartida: let mut m; r = borrow m; m[k] = v; uso de r después → E0202 (≡ gemelo put)
+// oracle: neg-core09-map-assign-shared-loan
+module core09_map_assign_shared_loan
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  let r: Map<Text, Int> = borrow m
+  m["a"] = 1
+  print(r.len())
+}

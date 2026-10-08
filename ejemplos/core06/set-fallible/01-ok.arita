@@ -1,0 +1,38 @@
+// ADR-265 / CORE-0.6-SET-FALLIBLE-20260926 — in-bounds set → Ok + value via get
+module core06_set_ok
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(2)
+  let r: Result<(), Int> = v.set(1, 9)
+  match r {
+    Ok(u) => {
+      let a: Option<Int> = v.get(0)
+      let b: Option<Int> = v.get(1)
+      let n: Int = v.len()
+      if let Some(x) = a {
+        if let Some(y) = b {
+          if x == 1 {
+            if y == 9 {
+              if n == 2 {
+                print("ok")
+              } else {
+                print("bad-len")
+              }
+            } else {
+              print("bad-y")
+            }
+          } else {
+            print("bad-x")
+          }
+        } else {
+          print("bad")
+        }
+      } else {
+        print("bad")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}

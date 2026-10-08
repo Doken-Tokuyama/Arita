@@ -1,0 +1,6 @@
+# ADR-273 CORE-0.7-CLI-ARGV-H2 — host ADR-238 surface only
+[package]
+name = "core07_cli_argv_h2"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

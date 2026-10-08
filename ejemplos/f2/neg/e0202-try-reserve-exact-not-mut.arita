@@ -1,0 +1,8 @@
+// ADR-206 neg — try_reserve_exact without mut → E0202
+module e0202_try_reserve_exact_not_mut
+
+fn main() -> Io<()> {
+  let s: String = ""
+  let r: Result<(), Int> = s.try_reserve_exact(8)
+  print(0)
+}

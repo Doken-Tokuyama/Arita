@@ -1,0 +1,17 @@
+// ADR-282 / CORE-0.9-MAP-ASSIGN-20260926 — self-ref m["b"] = m.len(): len se evalúa ANTES del insert (R2) → 1; sin E0502
+// oracle: core09-map-assign-self-ref (positivo; sin gemelo put: m.put("b", m.len()) = E0006 gramatical, no heredado)
+module core09_map_assign_self_ref
+
+fn main() -> Io<()> {
+  let mut m: Map<Text, Int> = Map::new()
+  m.put("x", 5)
+  m["b"] = m.len()
+  // Lectura con clave ident: m["a"] literal emite get(&"a".to_string()) (ADR-266) → clippy unnecessary_to_owned (preexistente, fuera de 282).
+  let q: Text = "b"
+  let o: Option<Int> = m[q]
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print(0)
+  }
+}

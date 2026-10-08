@@ -1,0 +1,40 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.5-REF-COLL-20260920",
+  "adr": "263",
+  "slice": 4,
+  "ref": "arita-ref-collections",
+  "lib_path": "ejemplos/core05/ref-collections/lib/lib.arita",
+  "lib_sha256": "e6cbb1d80d8d8444ff9f17f9c877d52a5721d3b3878c44138c165f61f55dc66b",
+  "bin_path": "ejemplos/core05/ref-collections/bin/main.arita",
+  "bin_sha256": "0ce734e51b7016ecc797f9812f93029c4cd4448c95ed63155b185e4bec3edd8e",
+  "edge_path": "ejemplos/core05/ref-collections/edge/bin/main.arita",
+  "edge_sha256": "d7129f1a4890e6eea41057a43416a7a8f03e631f85953c4ea38f8033d5c90ad6",
+  "neg_index_mut_path": "ejemplos/core05/ref-coll-neg/01-index-mut.arita",
+  "neg_index_mut_sha256": "a722d299f33b638ce83bac52fd1ea2958009fb5d6ae148cd15a23d52cd77d064",
+  "scenarios": [
+    "core05-ref-coll-build",
+    "core05-ref-coll-cli-happy",
+    "core05-ref-coll-cli-oob",
+    "core05-ref-coll-scenario",
+    "core05-ref-coll-evidence",
+    "core05-ref-coll-emit-ban",
+    "neg-core05-ref-coll-index-mut"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": "coll-ref-happy",
+    "oob_stdout": "coll-ref-oob",
+    "index_mut": "E0314",
+    "emit_helper": "__arita_vec_insert",
+    "emit_index": "v.get(",
+    "lib_insert_get": true,
+    "lib_pub": [
+      "BagSpec",
+      "build_mid",
+      "peek_mid"
+    ]
+  },
+  "measure_pass": true,
+  "notes": "CLOSED Lex 705/705 (2026-09-25); Core 0.5 CLOSED; HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair untouched"
+}

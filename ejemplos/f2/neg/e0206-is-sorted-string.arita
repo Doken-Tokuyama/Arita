@@ -1,0 +1,8 @@
+// ADR-186 neg — String.is_sorted → E0206
+module e0206_is_sorted_string
+
+fn main() -> Io<()> {
+  let s: String = "abc"
+  let b: Bool = s.is_sorted()
+  print(b)
+}

@@ -1,0 +1,12 @@
+// ADR-080 std-checked-add-some
+module std_checked_add_some
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  let o: Option<Int> = a.checked_add(2)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

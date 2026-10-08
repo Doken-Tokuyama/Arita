@@ -1,0 +1,8 @@
+// ADR-208 neg — shrink_to without mut → E0202
+module e0202_shrink_to_not_mut
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  s.shrink_to(8)
+  print(0)
+}

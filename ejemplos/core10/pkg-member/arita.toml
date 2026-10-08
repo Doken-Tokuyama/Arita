@@ -1,0 +1,7 @@
+# ADR-287 / CORE-PKG-MEMBER — workspace with members lib + bin and non-member .arita files
+[package]
+name = "pkg_member"
+version = "0.1.0"
+
+[workspace]
+members = ["lib", "bin"]

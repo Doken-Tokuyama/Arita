@@ -1,0 +1,11 @@
+// ADR-053 iflet-01 — Some path
+module iflet_some
+
+fn main() -> Io<()> {
+  let o: Option<Int> = Some(3)
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print("none")
+  }
+}

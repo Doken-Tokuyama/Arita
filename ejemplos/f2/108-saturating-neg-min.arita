@@ -1,0 +1,7 @@
+// ADR-107 std-saturating-neg-min — MIN→MAX
+module std_saturating_neg_min
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  print(a.saturating_neg())
+}

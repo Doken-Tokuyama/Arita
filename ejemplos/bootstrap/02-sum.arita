@@ -1,0 +1,16 @@
+// ADR-042 BOOTSTRAP-02-20260915 — dual-oracle pure fn (sum-lite)
+// Golden: sum5() = 15 (same constant as Rust reference in arita-cli::bootstrap)
+// Int helpers: Expr/Let only (no while) — unrolled 1+2+3+4+5.
+module bootstrap_sum
+
+fn sum5() -> Int {
+  let a: Int = 1 + 2
+  let b: Int = a + 3
+  let c: Int = b + 4
+  let d: Int = c + 5
+  d
+}
+
+fn main() -> Io<()> {
+  print(sum5())
+}

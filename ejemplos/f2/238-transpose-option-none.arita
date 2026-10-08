@@ -1,0 +1,14 @@
+// ADR-200 std-transpose-option-none — None.transpose() → Ok(None)
+module std_transpose_option_none
+
+fn main() -> Io<()> {
+  let o: Option<Result<Int, String>> = None
+  let t: Result<Option<Int>, String> = o.transpose()
+  match t {
+    Ok(opt) => {
+      let gone: Bool = opt.is_none()
+      print(gone)
+    }
+    Err(e) => { print(e) }
+  }
+}

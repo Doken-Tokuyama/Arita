@@ -1,0 +1,12 @@
+// ADR-113 std-rfind-some
+module std_rfind_some
+
+fn main() -> Io<()> {
+  let s: String = "hello"
+  let o: Option<Int> = s.rfind("l")
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

@@ -1,0 +1,7 @@
+// ADR-245 neg: free http_listen → E0206 (not in surface)
+module core02_http_listen_freefn_neg
+
+async fn main() -> Io<()> {
+  let s: Result<Int, String> = http_listen(0)
+  print("should-not-run")
+}

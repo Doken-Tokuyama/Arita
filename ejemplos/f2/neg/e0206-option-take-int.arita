@@ -1,0 +1,8 @@
+// ADR-168 neg — Int.take → E0206
+module e0206_option_take_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  let t: Option<Int> = a.take()
+  print(0)
+}

@@ -1,0 +1,8 @@
+// ADR-160 neg — Int.truncate → E0206
+module e0206_string_truncate_int
+
+fn main() -> Io<()> {
+  let mut a: Int = 1
+  a.truncate(0)
+  print(0)
+}

@@ -1,0 +1,52 @@
+// ADR-263 — arita-ref-collections pub surface (≥2 pub: fallible insert + get/[] Option reads)
+module lib
+
+pub record BagSpec {
+  seed: Int,
+}
+
+/// Build bag with fallible insert; Ok(mid) or Err(code).
+pub fn build_mid(seed: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(3)
+  let r: Result<(), Int> = v.insert(1, 9)
+  match r {
+    Ok(u) => {
+      let o: Option<Int> = v.get(1)
+      match o {
+        Some(x) => {
+          let ok: Result<Int, Int> = Ok(x)
+          ok
+        }
+        None => {
+          let bad: Result<Int, Int> = Err(0)
+          bad
+        }
+      }
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// Peek mid via [] sugar → Option read as Result (Ok value / Err if None).
+pub fn peek_mid(seed: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.push(9)
+  v.push(3)
+  let o: Option<Int> = v[1]
+  match o {
+    Some(x) => {
+      let ok: Result<Int, Int> = Ok(x)
+      ok
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(0)
+      bad
+    }
+  }
+}

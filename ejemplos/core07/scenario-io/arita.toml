@@ -1,0 +1,6 @@
+# ADR-274 CORE-0.7-SCENARIO-IO — host ADR-238 surface only (H1+H2 compose)
+[package]
+name = "core07_scenario_io"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

@@ -1,0 +1,13 @@
+// ADR-274 — scenario-context discard host.read_text Result → E0340
+module core07_scen_io_h1
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(_p) => {
+      host.read_text("ejemplos/core07/scenario-io/fixture.json")
+      print("theater")
+    }
+    None => { print("usage") }
+  }
+}

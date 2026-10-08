@@ -1,0 +1,11 @@
+// ADR-242 / CORE-0.2-ASYNC-SURFACE — async + Text (Core 0.1)
+module core02_async_text
+
+async fn greet() -> Io<()> {
+  let t: Text = "hi"
+  print(t)
+}
+
+async fn main() -> Io<()> {
+  await greet()
+}

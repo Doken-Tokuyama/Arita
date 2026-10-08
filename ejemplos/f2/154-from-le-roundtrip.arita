@@ -1,0 +1,16 @@
+// ADR-135 std-from-le-roundtrip (portable: to_le.from_le == id)
+module std_from_le_roundtrip
+
+fn from_le_rt(n: Int) -> Int {
+  let le: Int = n.to_le()
+  let back: Int = le.from_le()
+  back
+}
+
+fn main() -> Io<()> {
+  print("ok")
+}
+
+test t {
+  assert from_le_rt(42) == 42
+}

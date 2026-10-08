@@ -1,0 +1,15 @@
+// ADR-258 — edge package bin
+module arita_ref_pkg_edge
+
+use lib::Config
+use lib::apply
+
+fn main() -> Io<()> {
+  let c: Config = Config { factor: 0 }
+  let y: Int = apply(c.factor, 21)
+  if y == 0 {
+    print("edge")
+  } else {
+    print(y)
+  }
+}

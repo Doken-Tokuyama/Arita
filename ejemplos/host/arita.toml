@@ -1,0 +1,6 @@
+# ADR-035 HOST-BORDER-HELLO — [host-bridges] separate from [deps]
+[package]
+name = "host_bridge_hello"
+
+[host-bridges]
+demo = { crate = "arita-host-demo", path = "crates/arita-host-demo" }

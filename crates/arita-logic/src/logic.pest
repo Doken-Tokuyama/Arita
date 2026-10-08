@@ -1,0 +1,35 @@
+// ARITA F3 v0 positive-Datalog surface (ADR-012 / LOGIC-ENGINE-V0)
+// module / optional empty spec / fact / rule / query
+// NO fn/main/test/negation/aggregation in same file.
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT = _{ "//" ~ (!"\n" ~ ANY)* }
+
+ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+// Terms: uppercase-leading = Var; otherwise Const (Datalog convention).
+term = { ident }
+
+atom = { ident ~ "(" ~ (term ~ ("," ~ term)*)? ~ ")" }
+
+fact_item = { "fact" ~ atom }
+rule_body = { atom ~ ("," ~ atom)* }
+rule_item = { "rule" ~ atom ~ ":-" ~ rule_body }
+query_item = { "query" ~ atom }
+
+// Optional empty (or comment-only) spec block.
+spec_item = { "spec" ~ ident ~ "{" ~ "}" }
+
+module_header = { "module" ~ ident }
+
+// Forbidden F1/F2 constructs in logic files → classified as E0304 after parse fail.
+forbidden_kw = @{ ("fn" | "main" | "test" | "let" | "print" | "assert" | "not" | "forall" | "exists") ~ !(ASCII_ALPHANUMERIC | "_") }
+
+item = { spec_item | fact_item | rule_item | query_item }
+
+logic_file = {
+    SOI
+    ~ module_header
+    ~ item*
+    ~ EOI
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.8-REF-ERRPROP-20260926",
+  "adr": "280",
+  "slice": 4,
+  "ref": "arita-ref-errprop",
+  "lib_path": "ejemplos/core08/ref-errprop/lib/lib.arita",
+  "lib_sha256": "9fddfadbfaf4c5cf3d042b37f3a10c05df3b4b0393a11b59125057ebe83423fb",
+  "bin_path": "ejemplos/core08/ref-errprop/bin/main.arita",
+  "bin_sha256": "54abe2ef70fcbfb883ee7affb599d356d8c737ab92b6a3cd7199382bee2a9e3f",
+  "edge_path": "ejemplos/core08/ref-errprop/edge/bin/main.arita",
+  "edge_sha256": "c965cf5ca4cbb80f1a5ea528a9a6a047d3ed111a7b7e9f9ee6f44174baeca169",
+  "edge_lib_path": "ejemplos/core08/ref-errprop/edge/lib/lib.arita",
+  "edge_lib_sha256": "626c48756854ffe585c4997afd7e4c6ecc9e47e048e35d108ee561ed51ff25dd",
+  "arita_toml_path": "ejemplos/core08/ref-errprop/arita.toml",
+  "arita_toml_sha256": "e301ddc331a691242a26888149e53c595bf992b4b185117eb693102649895526",
+  "edge_arita_toml_path": "ejemplos/core08/ref-errprop/edge/arita.toml",
+  "edge_arita_toml_sha256": "45fd442b5b34a2c0caa7acf98c909cb3be245711fc20b1bc0ac40f23a61cb454",
+  "fixture_path": "ejemplos/core08/ref-errprop/fixture.json",
+  "fixture_sha256": "69069b5297ad9deb9910e5eb5991d141a6dbc04263719db3083af1713af083c8",
+  "scenarios": [
+    "core08-ref-errprop-build",
+    "core08-ref-errprop-cli-happy",
+    "core08-ref-errprop-cli-fail",
+    "core08-ref-errprop-scenario",
+    "core08-ref-errprop-evidence",
+    "core08-ref-errprop-emit-ban",
+    "neg-core08-ref-qmark-outside",
+    "neg-core08-ref-fn-theater"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": "errprop-ref-happy",
+    "fail_stdout": "errprop-ref-fail\n2",
+    "emit_ban": "zero unwrap/expect/panic; zero ? in main Io; E0340 discard OUT",
+    "lib_pub": [
+      "State",
+      "load_required",
+      "process",
+      "from_args"
+    ],
+    "host": "ADR-238",
+    "qmark_in_lib": true,
+    "qmark_in_main_io": false
+  },
+  "measure_pass": true,
+  "notes": "Core 0.8 CLOSED Lex 778/778 (ADR-276/280 REF-ERRPROP). measure_pass:true \u00b7 Veyra ACCEPTED .veyra/evidence/20260926T153538Z/ (trail: 153102Z rustfmt-diff \u2192 cargo fmt \u2192 153538Z). Emit unchanged (reuse 277/278/238/?/packages 0.4). HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair/I/O-new/String.set/threads/Option?/unwrap-surface/?-in-Io-main/E0340 intact. Post-0.8: HOLD invent Core 0.9 pins hasta GO expl\u00edcito <person>. skip\u2260PASS."
+}

@@ -1,0 +1,30 @@
+// CUT CORE-0.3-SCENARIO-COMPOSE-20260920 — port-0 companion for Measure harness
+module core03_scen_port0_companion
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 0)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("port0-ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}

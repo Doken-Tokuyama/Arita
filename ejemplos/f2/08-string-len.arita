@@ -1,0 +1,7 @@
+// F2 std-min — String.len() → Int (bytes as i64); ADR-026 / CUT STD-MIN-20260913
+module string_len
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.len())
+}

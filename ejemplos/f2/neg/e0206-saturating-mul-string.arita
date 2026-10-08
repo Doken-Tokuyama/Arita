@@ -1,0 +1,7 @@
+// ADR-092 neg — String.saturating_mul → E0206
+module e0206_saturating_mul_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.saturating_mul(2))
+}

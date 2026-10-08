@@ -1,0 +1,47 @@
+// ADR-275 — arita-ref-io pub surface (≥2 pub: load_required path+JSON + from_args cli)
+// host 238 only; match Err/None→fail; domain Text/Int; no HTTP/Mutex
+// State is domain record; fallible APIs return Result<Int, Int> (n or Err code) — same pattern as ADR-268 PatchSpec+Result<Int,Int>
+module lib
+
+pub record State {
+  n: Int,
+}
+
+/// read_text + json_get_int required; Ok(n) or Err on read fail / key miss.
+pub fn load_required(path: Text, key: Text) -> Result<Int, Int> {
+  let r: Result<Text, Int> = host.read_text(path)
+  match r {
+    Ok(doc) => {
+      let o: Option<Int> = host.json_get_int(doc, key)
+      match o {
+        Some(n) => {
+          let ok: Result<Int, Int> = Ok(n)
+          ok
+        }
+        None => {
+          let bad: Result<Int, Int> = Err(1)
+          bad
+        }
+      }
+    }
+    Err(e) => {
+      let bad: Result<Int, Int> = Err(e)
+      bad
+    }
+  }
+}
+
+/// cli_arg(1) required path → load_required with key "n".
+pub fn from_args() -> Result<Int, Int> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => {
+      let r: Result<Int, Int> = load_required(p, "n")
+      r
+    }
+    None => {
+      let bad: Result<Int, Int> = Err(2)
+      bad
+    }
+  }
+}

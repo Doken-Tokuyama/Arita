@@ -1,0 +1,6 @@
+// ADR-028 PERF-V0 — E2E build+run under --profile release
+module release_run
+
+fn main() -> Io<()> {
+  print("release-ok")
+}

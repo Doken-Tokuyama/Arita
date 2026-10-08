@@ -1,0 +1,8 @@
+// ADR-208 neg — shrink_to(-1) → E0298
+module e0298_shrink_to_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.shrink_to(-1)
+  print(0)
+}

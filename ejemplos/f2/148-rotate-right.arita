@@ -1,0 +1,7 @@
+// ADR-131 std-rotate-right
+module std_rotate_right
+
+fn main() -> Io<()> {
+  let a: Int = 2
+  print(a.rotate_right(1))
+}

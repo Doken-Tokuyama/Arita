@@ -1,0 +1,25 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.4-LIB-API-20260920",
+  "adr": "256",
+  "slice": 3,
+  "level": "tested",
+  "lib_path": "ejemplos/core04/lib-api/lib/lib.arita",
+  "lib_sha256": "0c5169663de5be763504a80108c2494316c2151e587f00364c56edda26e187ef",
+  "bin_path": "ejemplos/core04/lib-api/bin/main.arita",
+  "bin_sha256": "de2c2d68c61ab4561c8993a2fbbe87abcbe9f651e7ba35eb87c61b50b0c7c523",
+  "scenarios": [
+    "core04-lib-call-from-bin",
+    "core04-lib-pub-record",
+    "neg-core04-lib-private",
+    "core04-lib-build-workspace",
+    "core04-lib-evidence"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "run_stdout": "3",
+    "neg_private": "E0331"
+  },
+  "measure_pass": false,
+  "notes": "Lex 2026-09-20 Codegen: pub fn/record; private→E0331; NOT CLOSED"
+}

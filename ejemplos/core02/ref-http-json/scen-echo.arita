@@ -1,0 +1,46 @@
+// ADR-248 oracle core02-ref-echo
+module core02_ref_echo
+
+async fn handle(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(t) => {
+      let resp: HttpResponse = HttpResponse.ok_text(t)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn run_server() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19912)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      print(srv.port())
+      print("ready")
+      let r: Result<(), IoError> = srv.serve(handle)
+      match r { Ok(_) => {} Err(e) => { print(e) } }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(run_server())
+  delay(200)
+  let ue: Text = HttpClient.url(19912, "/echo")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(ue, "ref-echo-payload")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br { Ok(b) => { print(b) } Err(e) => { print(e) } }
+    }
+  }
+  print("ref-echo-done")
+}

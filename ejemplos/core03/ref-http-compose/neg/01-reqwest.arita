@@ -1,0 +1,7 @@
+// ADR-253 neg — reqwest surface → E0321
+module neg_ref_reqwest
+
+async fn main() -> Io<()> {
+  let _r: Int = reqwest_get("http://127.0.0.1/")
+  print("should-not")
+}

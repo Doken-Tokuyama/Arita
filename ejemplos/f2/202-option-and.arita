@@ -1,0 +1,13 @@
+// ADR-172 std-option-and — Some(1).and(Some(2)) → Some(2)
+module std_option_and
+
+fn main() -> Io<()> {
+  let a: Option<Int> = Some(1)
+  let b: Option<Int> = Some(2)
+  let c: Option<Int> = a.and(b)
+  if let Some(n) = c {
+    print(n)
+  } else {
+    print("none")
+  }
+}

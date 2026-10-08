@@ -1,0 +1,10 @@
+// ADR-258 — CLI happy: Config{2} → apply → 42
+module arita_ref_pkg_lib
+
+use lib::Config
+use lib::apply
+
+fn main() -> Io<()> {
+  let c: Config = Config { factor: 2 }
+  print(apply(c.factor, 21))
+}

@@ -1,0 +1,7 @@
+// ADR-117 neg — String.is_multiple_of → E0206
+module e0206_is_multiple_of_string
+
+fn main() -> Io<()> {
+  let s: String = "hi"
+  print(s.is_multiple_of(2))
+}

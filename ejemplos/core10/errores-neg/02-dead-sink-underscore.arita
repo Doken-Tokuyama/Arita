@@ -1,0 +1,23 @@
+// ADR-286 / CORE-0.10-DEAD-SINK-20260927 — neg: `let _: Int = e` en brazo Err → E0272 (ADR-286 §2 L70; P2(d) L38; ⚑1 L31)
+// Ofensor único: brazo Err L18–L21 (`let _: Int = e` + `print("ok")`).
+// Control: sustituir L19 por `print(e)` → build verde (quitar L19 a secas deja E0272 v1).
+// oracle: neg-core10-dead-sink-underscore
+module core10_dead_sink_underscore
+
+fn tally(i: Int) -> Result<Int, Int> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(0)
+  v[i] = 7
+  let n: Int = v.len()
+  Ok(n)
+}
+
+fn main() -> Io<()> {
+  match tally(99) {
+    Ok(n) => { print(n) }
+    Err(e) => {
+      let _: Int = e
+      print("ok")
+    }
+  }
+}

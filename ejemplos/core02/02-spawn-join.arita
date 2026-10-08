@@ -1,0 +1,12 @@
+// ADR-243 / CORE-0.2-TASK-SPAWN — curated spawn + await join
+module core02_spawn_join
+
+async fn worker() -> Io<()> {
+  print("w")
+}
+
+async fn main() -> Io<()> {
+  let t: Task = spawn(worker())
+  await join(t)
+  print("done")
+}

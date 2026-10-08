@@ -1,0 +1,9 @@
+// F2 Int binary — let + arith + print(Path)
+module arith
+
+fn main() -> Io<()> {
+  let a: Int = 2
+  let b: Int = 3
+  let c: Int = a + b
+  print(c)
+}

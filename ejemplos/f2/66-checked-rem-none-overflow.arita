@@ -1,0 +1,12 @@
+// ADR-084 std-checked-rem-none-overflow
+module std_checked_rem_none_overflow
+
+fn main() -> Io<()> {
+  let a: Int = -9223372036854775808
+  let o: Option<Int> = a.checked_rem(-1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

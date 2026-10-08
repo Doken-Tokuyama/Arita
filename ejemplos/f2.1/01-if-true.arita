@@ -1,0 +1,8 @@
+// F2.1 — if LitBool
+module if_true
+
+fn main() -> Io<()> {
+  if true {
+    print("yes")
+  }
+}

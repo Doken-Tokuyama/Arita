@@ -1,0 +1,10 @@
+// ADR-273 / CORE-0.7-CLI-ARGV-H2-20260926 — required miss → None arm fail determinista
+module core07_io_h2_arg_miss
+
+fn main() -> Io<()> {
+  let o: Option<Text> = host.cli_arg(1)
+  match o {
+    Some(p) => { print(p) }
+    None => { print("usage") }
+  }
+}

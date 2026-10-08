@@ -1,0 +1,29 @@
+// ADR-279 — read Err → ? early return → main match fail; sin panic
+// oracle: core08-scen-errprop-err
+module core08_scen_errprop_err
+
+fn load(path: Text) -> Result<Text, Int> {
+  let t: Text = host.read_text(path)?
+  Ok(t)
+}
+
+fn pipeline(path: Text) -> Result<Text, Int> {
+  let a: Text = load(path)?
+  Ok(a)
+}
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = pipeline("ejemplos/core08/scenario-errprop/missing-no-such-file.txt")
+  match r {
+    Ok(t) => { print(t) }
+    Err(e) => {
+      print("errprop-err")
+      print(e)
+    }
+  }
+}
+
+scenario errprop_err {
+  acceptance "errprop-err"
+  acceptance "0"
+}

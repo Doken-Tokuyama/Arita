@@ -1,0 +1,81 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.9-REF-MUT-20260926",
+  "adr": "285",
+  "slice": 4,
+  "ref": "arita-ref-mut",
+  "lib_path": "ejemplos/core09/ref-mut/lib/lib.arita",
+  "lib_sha256": "3504078d98dbfe9b2efeb61e420056819c6c38ad58c2ad5f6d53e96a084eddab",
+  "bin_path": "ejemplos/core09/ref-mut/bin/main.arita",
+  "bin_sha256": "34b421740e2506afdea90c592c736e609e896d958c07a51dd8c8195c018ae17a",
+  "edge_path": "ejemplos/core09/ref-mut/edge/bin/main.arita",
+  "edge_sha256": "4b92c0babdfeac0c33c92bef78181b953e8b976445865841fa7531ba4de395ea",
+  "edge_lib_path": "ejemplos/core09/ref-mut/edge/lib/lib.arita",
+  "edge_lib_sha256": "3504078d98dbfe9b2efeb61e420056819c6c38ad58c2ad5f6d53e96a084eddab",
+  "arita_toml_path": "ejemplos/core09/ref-mut/arita.toml",
+  "arita_toml_sha256": "775c514946a49ddbac28234871a6e67d3159150e0313784f22510b344456902a",
+  "edge_arita_toml_path": "ejemplos/core09/ref-mut/edge/arita.toml",
+  "edge_arita_toml_sha256": "e83141f64c4b8f9f66808c406cb62318fa713f939dcf9d94d4749fb5b71a5dd3",
+  "fixture_path": "ejemplos/core09/ref-mut/fixture.json",
+  "fixture_sha256": "c9e216b289bfe77c2d29c677100cd1254cbe9352fe6da329de680bb3b2ce1642",
+  "edge_fixture_path": "ejemplos/core09/ref-mut/edge/fixture.json",
+  "edge_fixture_sha256": "d19d346c926df066280da9d6ccf40104ab23c5b82a2eedd349e74fbaa656b504",
+  "emit": {
+    "note": "arita build <bin/main.arita> (packages 0.4 workspace); emit determinista (2 builds → mismo sha256); el Cargo.toml emitido lleva ruta absoluta al host bridge y no se hashea",
+    "lib_rs_path": "ejemplos/core09/ref-mut/target/arita-pkg/crates/lib_arita_ref_mut/src/lib.rs",
+    "lib_rs_sha256": "ce0d81622d734cdd6ba9dfe95dfa14987349a54d9341f2384e595075ab8b1d6b",
+    "main_rs_path": "ejemplos/core09/ref-mut/target/arita-pkg/crates/bin_arita_ref_mut/src/main.rs",
+    "main_rs_sha256": "2e2925b6cf947dd3490fc41bdf9c19435e0625126bfa2f4aea560562b28eb03a",
+    "edge_lib_rs_path": "ejemplos/core09/ref-mut/edge/target/arita-pkg/crates/lib_arita_ref_mut_oob/src/lib.rs",
+    "edge_lib_rs_sha256": "ce0d81622d734cdd6ba9dfe95dfa14987349a54d9341f2384e595075ab8b1d6b",
+    "edge_main_rs_path": "ejemplos/core09/ref-mut/edge/target/arita-pkg/crates/bin_arita_ref_mut_oob/src/main.rs",
+    "edge_main_rs_sha256": "da32dcdd22cff0a9fa9bb5ce7aad14d6b5814c9a2a683218fec48db207afdb0f"
+  },
+  "scenario_contracts": [
+    {
+      "scenario": "ref_mut_happy",
+      "source_path": "ejemplos/core09/ref-mut/bin/main.arita",
+      "source_sha256": "34b421740e2506afdea90c592c736e609e896d958c07a51dd8c8195c018ae17a",
+      "command": "cargo run -q -p arita-cli -- contract ejemplos/core09/ref-mut/bin/main.arita",
+      "contract_exit": 0,
+      "stdout": ["2", "9", "3", "ref-mut-happy"]
+    },
+    {
+      "scenario": "ref_mut_err",
+      "source_path": "ejemplos/core09/ref-mut/edge/bin/main.arita",
+      "source_sha256": "4b92c0babdfeac0c33c92bef78181b953e8b976445865841fa7531ba4de395ea",
+      "command": "cargo run -q -p arita-cli -- contract ejemplos/core09/ref-mut/edge/bin/main.arita",
+      "contract_exit": 0,
+      "stdout": ["ref-mut-err", "0"]
+    }
+  ],
+  "scenarios": [
+    "core09-ref-mut-build",
+    "core09-ref-mut-cli-happy",
+    "core09-ref-mut-cli-oob",
+    "core09-ref-mut-scenario",
+    "core09-ref-mut-evidence",
+    "core09-ref-mut-emit-ban",
+    "neg-core09-ref-vec-assign-outside",
+    "neg-core09-ref-map-assign-non-mut",
+    "neg-core09-ref-vec-assign-neg-lit"
+  ],
+  "codegen_smoke": {
+    "build": "ok",
+    "happy_stdout": ["2", "9", "3", "ref-mut-happy"],
+    "oob_stdout": ["ref-mut-err", "0"],
+    "cli_args": "cli_arg(1) = ruta JSON; sin arg → fixture por defecto; happy bin + edge/fixture.json → [\"ref-mut-err\",\"0\"]; edge bin + fixture.json → happy",
+    "emit_ban": "zero IndexMut / Rust x[..] = / unwrap / expect / panic! / let _ = __arita_vec_set; zero ? in both main.rs; ? only in lib Result fns",
+    "lib_pub": ["apply", "run", "load_arg"],
+    "host": "ADR-238 (cli_arg, read_text, json_get_int)",
+    "map_assign_in_lib": true,
+    "vec_assign_in_lib": true,
+    "map_assign_in_main_io": true,
+    "vec_assign_in_main_io": false,
+    "qmark_in_lib": true,
+    "qmark_in_main_io": false,
+    "codegen_changed": false
+  },
+  "measure_pass": true,
+  "notes": "ADR-285 CLOSED Lex 834/834 (Ingeniero 2026-09-27; gate DOC/GATE-CORE09-REF-MUT-20260926.md; Veyra 20260927T063410Z ACCEPTED). Core 0.9 CLOSED. Sin API nueva; crates/arita-codegen sin cambios. HOLDs Mutex/threads/idle/TLS/WS/crates.io/repair/I/O-new/String.set/IndexMut residual/?-in-Io-main/Option?/unwrap-surface/params colección (D1) intactos. skip≠PASS."
+}

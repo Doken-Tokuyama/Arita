@@ -1,0 +1,8 @@
+// ADR-119 neg — resize(-1, 0) → E0288
+module e0288_resize_neg
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.resize(-1, 0)
+  print(0)
+}

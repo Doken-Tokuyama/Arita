@@ -1,0 +1,17 @@
+// CUT CORE-0.2-TIMEOUT-CANCEL-20260920 — pos: exceeds ms → Err("timeout")
+// Body uses curated delay(ms) (tokio::time::sleep bridge) — NOT busy-spin
+// NOT wired to measure; skip ≠ PASS
+module core02_timeout_err_elapsed
+
+async fn slow() -> Io<()> {
+  delay(50)
+  print("slow-done")
+}
+
+async fn main() -> Io<()> {
+  let r: Result<(), String> = timeout(1, slow())
+  match r {
+    Ok(_) => { print("unexpected-ok") }
+    Err(e) => { print(e) }
+  }
+}

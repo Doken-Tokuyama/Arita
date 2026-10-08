@@ -1,0 +1,10 @@
+// ADR-238 — host.read_text
+module io_read_text
+
+fn main() -> Io<()> {
+  let r: Result<Text, Int> = host.read_text("ejemplos/core01/io/fixture.txt")
+  match r {
+    Ok(t) => { print(t) }
+    Err(e) => { print(e) }
+  }
+}

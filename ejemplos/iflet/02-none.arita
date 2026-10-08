@@ -1,0 +1,11 @@
+// ADR-053 iflet-02 — None → else
+module iflet_none
+
+fn main() -> Io<()> {
+  let o: Option<Int> = None
+  if let Some(x) = o {
+    print(x)
+  } else {
+    print("none")
+  }
+}

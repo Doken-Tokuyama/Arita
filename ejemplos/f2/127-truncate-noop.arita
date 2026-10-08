@@ -1,0 +1,9 @@
+// ADR-118 std-truncate-noop — n >= len
+module std_truncate_noop
+
+fn main() -> Io<()> {
+  let mut v: Vec<Int> = Vec::new()
+  v.push(1)
+  v.truncate(5)
+  print(v.len())
+}

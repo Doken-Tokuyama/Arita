@@ -1,0 +1,6 @@
+# ADR-267 SCENARIO-GP — CLI/JSON host surface (238/240) + set/Map (265/266)
+[package]
+name = "core06_scenario_gp"
+
+[host-bridges]
+core01 = { crate = "arita-host-core01", path = "crates/arita-host-core01" }

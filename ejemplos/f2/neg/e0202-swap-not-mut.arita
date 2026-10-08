@@ -1,0 +1,8 @@
+// ADR-158 neg — swap without mut → E0202
+module e0202_swap_not_mut
+
+fn main() -> Io<()> {
+  let v: Vec<Int> = Vec::new()
+  v.swap(0, 1)
+  print(0)
+}

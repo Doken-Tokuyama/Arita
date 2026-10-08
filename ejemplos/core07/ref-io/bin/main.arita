@@ -1,0 +1,26 @@
+// ADR-275 — CLI happy: lib from_args Ok + State n==7; stdout io-ref-happy
+module arita_ref_io
+
+use lib::State
+use lib::load_required
+use lib::from_args
+
+fn main() -> Io<()> {
+  let r: Result<Int, Int> = from_args()
+  match r {
+    Ok(n) => {
+      let s: State = State { n: n }
+      let got: Int = s.n
+      if got == 7 {
+        print("io-ref-happy")
+      } else {
+        print("bad-n")
+      }
+    }
+    Err(e) => { print(e) }
+  }
+}
+
+scenario ref_io_happy {
+  acceptance "io-ref-happy"
+}

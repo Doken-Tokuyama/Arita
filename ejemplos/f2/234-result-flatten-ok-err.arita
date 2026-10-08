@@ -1,0 +1,12 @@
+// ADR-198 std-result-flatten-ok-err — Ok(Err("x")).flatten() → Err("x")
+module std_result_flatten_ok_err
+
+fn main() -> Io<()> {
+  let inner: Result<Int, String> = Err("x")
+  let r: Result<Result<Int, String>, String> = Ok(inner)
+  let f: Result<Int, String> = r.flatten()
+  match f {
+    Ok(n) => { print(n) }
+    Err(e) => { print(e) }
+  }
+}

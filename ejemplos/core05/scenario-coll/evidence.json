@@ -1,0 +1,31 @@
+{
+  "schema_version": "arita.evidence.v1",
+  "cut_id": "CORE-0.5-SCENARIO-COLL-20260920",
+  "adr": "262",
+  "slice": 3,
+  "happy_path": "ejemplos/core05/scenario-coll/01-happy.arita",
+  "happy_sha256": "d2a0493a75b1efb35414c37c6539904add1fecd0158216fa4ce4529560195f1d",
+  "oob_path": "ejemplos/core05/scenario-coll/02-oob.arita",
+  "oob_sha256": "be1cfa2f7b79fbcee7b7f5b3f16cfb8eed91cc22d6b95c825903863aa4507371",
+  "neg_index_mut_path": "ejemplos/core05/scenario-coll/neg/01-index-mut.arita",
+  "neg_index_mut_sha256": "060e38dcf5ac9d2a00c0f035e47da48e70b6bd0baa22bac2469b921d02768cd0",
+  "neg_insert_path": "ejemplos/core05/scenario-coll/neg/02-insert-neg.arita",
+  "neg_insert_sha256": "f7417f3c60830ae7ca28d497bcb997b18f068ce908240dd0bdcbb9eeb20cf578",
+  "scenarios": [
+    "core05-scen-coll-happy",
+    "core05-scen-coll-oob",
+    "neg-core05-scen-coll-index-mut",
+    "neg-core05-scen-coll-insert-neg",
+    "core05-scen-coll-build"
+  ],
+  "codegen_smoke": {
+    "happy_stdout": "coll-happy",
+    "oob_stdout": "coll-oob",
+    "index_mut": "E0314",
+    "insert_neg": "E0311",
+    "contract_happy": "ok",
+    "contract_oob": "ok"
+  },
+  "measure_pass": false,
+  "notes": "Lex Codegen ADR-262 SCENARIO-COLL; NOT CLOSED"
+}

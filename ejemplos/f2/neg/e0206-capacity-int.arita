@@ -1,0 +1,7 @@
+// ADR-153 neg — Int.capacity → E0206
+module e0206_capacity_int
+
+fn main() -> Io<()> {
+  let a: Int = 1
+  print(a.capacity())
+}

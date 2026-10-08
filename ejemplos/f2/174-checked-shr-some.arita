@@ -1,0 +1,12 @@
+// ADR-150 std-checked-shr-some
+module std_checked_shr_some
+
+fn main() -> Io<()> {
+  let a: Int = 8
+  let o: Option<Int> = a.checked_shr(1)
+  if let Some(n) = o {
+    print(n)
+  } else {
+    print("none")
+  }
+}

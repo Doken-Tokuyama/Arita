@@ -1,0 +1,141 @@
+// ADR-253 oracle core03-ref-fail-b — A ok, B down → 502
+module scen_ref_fail_b
+
+async fn handle_a(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let body_r: Result<Text, IoError> = req.body_text()
+  match body_r {
+    Err(e) => {
+      let out: Result<HttpResponse, IoError> = Err(e)
+      out
+    }
+    Ok(body) => {
+      let resp: HttpResponse = HttpResponse.ok_text(body)
+      let out: Result<HttpResponse, IoError> = Ok(resp)
+      out
+    }
+  }
+}
+
+async fn handle_gw(req: HttpRequest) -> Result<HttpResponse, IoError> {
+  let path: Text = req.path()
+  let health: Text = "/health"
+  let is_h: Bool = path == health
+  match is_h {
+    true => {
+    let resp: HttpResponse = HttpResponse.ok_text("{\"ok\":true}")
+    let out: Result<HttpResponse, IoError> = Ok(resp)
+    out
+    }
+    false => {
+    let body_r: Result<Text, IoError> = req.body_text()
+    match body_r {
+      Err(e) => {
+        let out: Result<HttpResponse, IoError> = Err(e)
+        out
+      }
+      Ok(in_body) => {
+        let url_a: Text = HttpClient.url(19971, "/step-a")
+        let a_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_a, in_body)
+        match a_res {
+          Err(_e) => {
+            let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+            let out: Result<HttpResponse, IoError> = Ok(resp)
+            out
+          }
+          Ok(a) => {
+            let br: Result<Text, IoError> = a.body_text()
+            match br {
+              Err(_e2) => {
+                let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                let out: Result<HttpResponse, IoError> = Ok(resp)
+                out
+              }
+              Ok(ta) => {
+                let url_b: Text = HttpClient.url(19972, "/step-b")
+                let b_res: Result<HttpResponse, IoError> = HttpClient.post_text(url_b, ta)
+                match b_res {
+                  Err(_e3) => {
+                    let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                    let out: Result<HttpResponse, IoError> = Ok(resp)
+                    out
+                  }
+                  Ok(b) => {
+                    let br2: Result<Text, IoError> = b.body_text()
+                    match br2 {
+                      Ok(tb) => {
+                        let resp: HttpResponse = HttpResponse.ok_text(tb)
+                        let out: Result<HttpResponse, IoError> = Ok(resp)
+                        out
+                      }
+                      Err(_e4) => {
+                        let resp: HttpResponse = HttpResponse.status(502, "upstream_unavailable")
+                        let out: Result<HttpResponse, IoError> = Ok(resp)
+                        out
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  }
+}
+
+async fn run_a() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19971)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let r: Result<(), IoError> = srv.serve(handle_a)
+      match r {
+        Ok(_) => {}
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}
+
+async fn run_gw() -> Io<()> {
+  let s: Result<HttpServer, IoError> = HttpServer.bind("127.0.0.1", 19970)
+  match s {
+    Err(e) => { print(e) }
+    Ok(srv) => {
+      let p: ServicePolicy = ServicePolicy.default()
+      let sp: Result<HttpServer, IoError> = srv.set_policy(p)
+      match sp {
+        Err(e) => { print(e) }
+        Ok(srv2) => {
+          let r: Result<(), IoError> = srv2.serve(handle_gw)
+          match r {
+            Ok(_) => {}
+            Err(e) => { print(e) }
+          }
+        }
+      }
+    }
+  }
+}
+
+async fn main() -> Io<()> {
+  let ta: Task = spawn(run_a())
+  delay(200)
+  let tg: Task = spawn(run_gw())
+  delay(250)
+  let up: Text = HttpClient.url(19970, "/pipeline")
+  let pe: Result<HttpResponse, IoError> = HttpClient.post_text(up, "fail-b")
+  match pe {
+    Err(e) => { print(e) }
+    Ok(resp) => {
+      print(resp.status())
+      let br: Result<Text, IoError> = resp.body_text()
+      match br {
+        Ok(b) => { print(b) }
+        Err(e) => { print(e) }
+      }
+    }
+  }
+}

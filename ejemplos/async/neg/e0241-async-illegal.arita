@@ -1,0 +1,6 @@
+// Expected: E0241 async feature not allowed here
+module e0241_async_illegal
+
+fn main() -> Io<()> {
+  async print("x")
+}
