@@ -6,6 +6,8 @@ ARITA is a general-purpose language **designed to be written by AIs** that **com
 
 **Estado:** Core 0.9 cerrado (834/834 oráculos). Core 0.10 (ERRORES, fase 1) en curso: once etapas de la fase 1 están cerradas, todas las previstas para la versión 1 (barra actual 889/889); siguen las comprobaciones previas a la versión 1. Ver [`../ROADMAP.md`](../ROADMAP.md).
 
+> **ADR translations in progress / Traducciones de ADR en curso:** subset (b) linked ADRs are being translated into sibling `.en.md` / `.es.md` files; until that work finishes, some ADR links still point at the normative original. Los ADR enlazados del subconjunto (b) se están traduciendo a hermanos `.en.md` / `.es.md`; hasta terminar, algunos enlaces de ADR siguen apuntando al original normativo.
+
 ## Start here
 
 | Document | Contents |
