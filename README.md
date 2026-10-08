@@ -72,7 +72,7 @@ The logic island (modules with `fact` / `rule` / `query`, evaluated by an in-hou
 ./target/debug/arita logic ejemplos/f3/01-path-ok.arita   # prints: true (exit code 0)
 ```
 
-All CLI subcommands and the local continuous-integration gate (`bash scripts/ci.sh`) are described in [`BUILD.md`](BUILD.md). The verification guide for AIs is in [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md).
+All CLI subcommands and the local continuous-integration gate (`bash scripts/ci.sh`) are described in [`BUILD.md`](BUILD.en.md). The verification guide for AIs is in [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.en.md).
 
 ## Example oracles
 
@@ -91,12 +91,12 @@ The programs in `ejemplos/` are end-to-end oracles (build, run and compare the o
 
 ## Recommended reading
 
-- Short vision: [`DOC/00-VISION.md`](DOC/00-VISION.md) and [`DOC/PRODUCT-VISION.md`](DOC/PRODUCT-VISION.md)
-- Thesis and model: [`DOC/RFC-AINATIVE-VERIFIED-MODEL.md`](DOC/RFC-AINATIVE-VERIFIED-MODEL.md)
-- Semantics and pipeline: [`DOC/SEMANTICS-V0.1.md`](DOC/SEMANTICS-V0.1.md)
-- How to program in ARITA with an AI: [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md)
-- Threat model and evidence: [`DOC/THREAT_MODEL.md`](DOC/THREAT_MODEL.md)
-- Full index: [`DOC/README.md`](DOC/README.md)
+- Short vision: [`DOC/00-VISION.md`](DOC/00-VISION.en.md) and [`DOC/PRODUCT-VISION.md`](DOC/PRODUCT-VISION.en.md)
+- Thesis and model: [`DOC/RFC-AINATIVE-VERIFIED-MODEL.md`](DOC/RFC-AINATIVE-VERIFIED-MODEL.en.md)
+- Semantics and pipeline: [`DOC/SEMANTICS-V0.1.md`](DOC/SEMANTICS-V0.1.en.md)
+- How to program in ARITA with an AI: [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.en.md)
+- Threat model and evidence: [`DOC/THREAT_MODEL.md`](DOC/THREAT_MODEL.en.md)
+- Full index: [`DOC/README.md`](DOC/README.en.md)
 
 ## Security
 

@@ -2,7 +2,7 @@ English | [Español](ROADMAP.es.md)
 
 # ARITA — Roadmap
 
-ARITA is a general-purpose language designed to be written by AIs that compiles to safe Rust (no `unsafe`). This roadmap summarizes what is done and where the project is heading. It is a product document: the design detail is in [`DOC/`](DOC/README.md).
+ARITA is a general-purpose language designed to be written by AIs that compiles to safe Rust (no `unsafe`). This roadmap summarizes what is done and where the project is heading. It is a product document: the design detail is in [`DOC/`](DOC/README.en.md).
 
 ## Current status
 
@@ -60,7 +60,7 @@ Each core version adds a vertical capability and is only considered closed when 
 ## Later (no date)
 
 - Extend the core with new vertical capabilities, always with oracles before declaring them closed.
-- Compiler-guided repair (the compiler as a structured error oracle): today it is a design proposal, see [`DOC/REPAIR-ORACLE.md`](DOC/REPAIR-ORACLE.md).
+- Compiler-guided repair (the compiler as a structured error oracle): today it is a design proposal, see [`DOC/REPAIR-ORACLE.md`](DOC/REPAIR-ORACLE.en.md).
 - Integration with editors and development tools.
 
 ## Out of current scope
@@ -69,4 +69,4 @@ System threads, open crates.io dependencies, TLS/WebSocket, idle shutdown of ser
 
 ## How to verify it
 
-From the repository root: `cargo test --workspace -- --test-threads=1` and `cargo run -p arita-cli -- measure`. More detail in [`BUILD.md`](BUILD.md) and [`DOC/CI.md`](DOC/CI.md).
+From the repository root: `cargo test --workspace -- --test-threads=1` and `cargo run -p arita-cli -- measure`. More detail in [`BUILD.md`](BUILD.en.md) and [`DOC/CI.md`](DOC/CI.md).

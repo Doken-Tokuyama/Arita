@@ -13,7 +13,7 @@ Vertical **0.2 CLOSED** (perfil `service`). No es el techo del lenguaje GP.
 | HTTP + policy + scenarios | 614 / 622 / 627 |
 | Ref daemon + evidence | **632/632** ADR-248 |
 
-Gate final: [`GATE-CORE02-REF-HTTP-DAEMON`](../../DOC/GATE-CORE02-REF-HTTP-DAEMON-20260920.md).
+Gate final: `GATE-CORE02-REF-HTTP-DAEMON` (not included in the public tree / no incluido en el árbol público).
 
 ```bash
 ./target/release/arita measure   # SoT; skip ≠ PASS

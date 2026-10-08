@@ -69,4 +69,4 @@ Hilos de sistema, dependencias abiertas de crates.io, TLS/WebSocket, cierre por 
 
 ## Cómo verificarlo
 
-Desde la raíz del repositorio: `cargo test --workspace -- --test-threads=1` y `cargo run -p arita-cli -- measure`. Más detalle en [`BUILD.md`](BUILD.md) y [`DOC/CI.md`](DOC/CI.md).
+Desde la raíz del repositorio: `cargo test --workspace -- --test-threads=1` y `cargo run -p arita-cli -- measure`. Más detalle en [`BUILD.md`](BUILD.md) y [`DOC/CI.md`](DOC/CI.es.md).

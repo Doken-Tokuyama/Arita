@@ -76,7 +76,7 @@ Todos los subcomandos de la CLI y la puerta de integración continua local (`bas
 
 ## Oráculos de ejemplo
 
-Los programas de `ejemplos/` son oráculos de extremo a extremo (compilar, ejecutar y comparar la salida). Por ejemplo, la isla lógica F3 tiene **12 oráculos** (`f3-01` … `f3-12`) en [`ejemplos/f3/`](ejemplos/f3/): casos que deben cumplirse y casos negativos con códigos de error exactos (`E0301`, `E0303`, `E0304`). Índice completo en [`ejemplos/README.md`](ejemplos/README.md).
+Los programas de `ejemplos/` son oráculos de extremo a extremo (compilar, ejecutar y comparar la salida). Por ejemplo, la isla lógica F3 tiene **12 oráculos** (`f3-01` … `f3-12`) en [`ejemplos/f3/`](ejemplos/f3/): casos que deben cumplirse y casos negativos con códigos de error exactos (`E0301`, `E0303`, `E0304`). Índice completo en [`ejemplos/README.md`](ejemplos/README.es.md).
 
 ## Estructura del repositorio
 
