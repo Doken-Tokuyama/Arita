@@ -1,47 +1,52 @@
+English | [Español](README.es.md)
+
 # ARITA
 
-**ARITA** es un lenguaje de programación de propósito general **pensado para que lo escriban las IAs** y que **compila a Rust seguro**. La IA escribe ficheros `.arita`; el compilador los traduce, de forma determinista, a proyectos Rust reales (código *safe*, sin `unsafe`) que se compilan con `cargo` y funcionan sin depender de la IA que los escribió.
+**ARITA** is a general-purpose programming language **designed to be written by AIs** that **compiles to safe Rust**. The AI writes `.arita` files; the compiler translates them, deterministically, into real Rust projects (*safe* code, no `unsafe`) that build with `cargo` and run without depending on the AI that wrote them.
 
-## Qué es (y qué no es)
+## What it is (and what it is not)
 
-- **Es** un lenguaje nuevo, con una semántica pequeña, total y canónica: pocas formas equivalentes de escribir lo mismo, semántica local, errores estructurados y reparables, y nada de "compila pero sorprende".
-- **Es** un compilador que emite Rust real: `.arita` → análisis → representación intermedia tipada → emisión determinista → Rust → `cargo`.
-- **No es** un dialecto de Rust ni un envoltorio de `cargo` donde "la IA edita Rust".
-- **No es** una plataforma de herramientas para IAs ni un lenguaje de contratos de verificación formal.
+- **It is** a new language with a small, total and canonical semantics: few equivalent ways to write the same thing, local semantics, structured and repairable errors, and no "it compiles but surprises you".
+- **It is** a compiler that emits real Rust: `.arita` → parsing → typed intermediate representation → deterministic emission → Rust → `cargo`.
+- **It is not** a Rust dialect or a `cargo` wrapper where "the AI edits Rust".
+- **It is not** a tooling platform for AIs or a formal-verification contract language.
 
-## Principio de diseño: nada de teatro
+## Design principle: no theater
 
-Una pieza de código solo se considera aceptada cuando **oráculos declarados y reproducibles** lo demuestran sobre el artefacto exacto: compilar, ejecutar y comparar la salida esperada, además de pasar `clippy`. Compilar, tener tests verdes o producir una demo no basta. Una prueba omitida nunca cuenta como superada.
+A piece of code is only considered accepted when **declared, reproducible oracles** prove it on the exact artifact: build, run and compare the expected output, plus pass `clippy`. Building, having green tests or producing a demo is not enough. A skipped test never counts as passed.
 
-## Estado
+## Status
 
-- **Core 0.9 CERRADO 834/834.** Escritura en colecciones por índice (`m[k] = v`, `v[i] = x`) sin pánico.
-- **Core 0.10 en curso** (ERRORES, fase 1). <!-- BARRA-CORE-0.10 -->Barra actual: 889/889 (cerradas todas las etapas previstas para la versión 1; siguen las comprobaciones previas a la versión 1). Ver [`ROADMAP.md`](ROADMAP.md).
+- **ARITA v1 published on 2026-10-08.**
+- **Core 0.9 CLOSED 834/834.** Index-based writes to collections (`m[k] = v`, `v[i] = x`) without panics.
+- **Core 0.10** (ERRORS, phase 1). <!-- BARRA-CORE-0.10 -->Current bar: 889/889 (all stages planned for version 1 are closed). See [`ROADMAP.md`](ROADMAP.md).
+- Prebuilt binaries will come with the v0.1.1 release.
 
-Las versiones anteriores del núcleo (0.1 a 0.8) están cerradas; la escalera completa está en la [hoja de ruta](ROADMAP.md).
+Earlier core versions (0.1 to 0.8) are closed; the full ladder is in the [roadmap](ROADMAP.md).
 
-## Limitaciones conocidas de v1
+## Known limitations of v1
 
-Huecos de diagnóstico conocidos de esta versión:
+Known diagnostic gaps in this version:
 
-- **B-286-3** (P0 de v1.1): en el brazo `Err(e)` de un `match` sobre una lectura del host (`host.read_text`), pasar el payload del error a una variable que no se usa (`let _c: Int = e`) no produce diagnóstico y el programa se acepta. La misma forma sobre una función propia que devuelve `Result` sí da E0272.
-- **B-286-4** (P0 de v1.1): ese mismo binding muerto del payload `Err` dentro de `if let Err(e) = …` o de `while let Err(e) = …` tampoco se diagnostica.
-- **B-286-6** (P0 de v1.1): un `await h()` suelto (en el Rust generado, `h().await;`), cuando `h` devuelve `Result`, descarta el resultado sin diagnóstico.
-- **B-286-6a** (P0 de v1.1): `arita build` no muestra los avisos de rustc sobre el Rust generado; por ejemplo, el `unused_must_use` del caso anterior.
-- **B-286-6b** (P0 de v1.1): el `Result` de un `async fn` propio todavía no se puede consumir: `let r = await h()` da E0203 y `match await h()` no se analiza.
+- **B-286-3** (v1.1 P0): in the `Err(e)` arm of a `match` on a host read (`host.read_text`), passing the error payload to a variable that is never used (`let _c: Int = e`) produces no diagnostic and the program is accepted. The same form on a user function that returns `Result` does give E0272.
+- **B-286-4** (v1.1 P0): that same dead binding of the `Err` payload inside `if let Err(e) = …` or `while let Err(e) = …` is not diagnosed either.
+- **B-286-6** (v1.1 P0): a bare `await h()` (in the generated Rust, `h().await;`), when `h` returns `Result`, discards the result without a diagnostic.
+- **B-286-6a** (v1.1 P0): `arita build` does not show rustc warnings about the generated Rust; for example, the `unused_must_use` of the previous case.
+- **B-286-6b** (v1.1 P0): the `Result` of a user `async fn` cannot be consumed yet: `let r = await h()` gives E0203 and `match await h()` is not parsed.
+- **B-297-1** (v1.1 P1): a keyword used as a value (e.g. `let x: Int = return`) is not diagnosed: the program compiles and exits early. In other cases of unbound identifiers the error comes from rustc instead of ARITA.
 
-En B-286-3, B-286-4 y B-286-6 el programa se acepta y el Rust generado es seguro y hace lo que dice el código, pero el error se pierde sin aviso.
+In B-286-3, B-286-4 and B-286-6 the program is accepted and the generated Rust is safe and does what the code says, but the error is lost without warning.
 
-### Pautas para escribir ARITA v1 (IA o humano)
+### Guidelines for writing ARITA v1 (AI or human)
 
-- En v1, un `async fn` no debe devolver `Result`: su error no se puede consumir y se pierde en silencio. Maneja el error dentro de la fn.
-- v1 no diagnostica el descarte del `Err` en `if let` / `while let` (tampoco en un `if let Ok(..)` cuyo `else` ignora el Err) ni en `match` sobre `host.read_text`. En `match` sobre fns propias sí salta E0272.
+- In v1, an `async fn` should not return `Result`: its error cannot be consumed and is silently lost. Handle the error inside the fn.
+- v1 does not diagnose discarding the `Err` in `if let` / `while let` (nor in an `if let Ok(..)` whose `else` ignores the Err) or in a `match` on `host.read_text`. In a `match` on user fns, E0272 does fire.
 
-## Cómo compilar y probar
+## How to build and test
 
-Requisitos: toolchain estable de Rust (`cargo`). Para el veredicto completo de aceptación hace falta además `clippy`.
+Requirements: stable Rust toolchain (`cargo`). The full acceptance verdict also needs `clippy`.
 
-Desde la raíz del repositorio:
+From the repository root:
 
 ```bash
 cargo test --workspace -- --test-threads=1
@@ -49,9 +54,9 @@ cargo build -p arita-cli
 ./target/debug/arita build ejemplos/01-hello.arita
 ```
 
-`arita build` imprime una línea `ok: target/arita-out/hello_<hash>` (el nombre lleva un sufijo con un hash). Ejecuta la ruta que imprime `ok:`, por ejemplo `./target/arita-out/hello_*`, y verás `hello`.
+`arita build` prints a line `ok: target/arita-out/hello_<hash>` (the name carries a hash suffix). Run the path that `ok:` prints, for example `./target/arita-out/hello_*`, and you will see `hello`.
 
-Ejemplo mínimo (`ejemplos/01-hello.arita`):
+Minimal example (`ejemplos/01-hello.arita`):
 
 ```arita
 module hello
@@ -61,48 +66,48 @@ fn main() -> Io<()> {
 }
 ```
 
-La isla lógica (módulos con `fact` / `rule` / `query`, evaluados con un motor Datalog propio, no con `rustc`) se ejecuta así:
+The logic island (modules with `fact` / `rule` / `query`, evaluated by an in-house Datalog engine, not by `rustc`) runs like this:
 
 ```bash
-./target/debug/arita logic ejemplos/f3/01-path-ok.arita   # imprime: true (código de salida 0)
+./target/debug/arita logic ejemplos/f3/01-path-ok.arita   # prints: true (exit code 0)
 ```
 
-Todos los subcomandos de la CLI y la puerta de integración continua local (`bash scripts/ci.sh`) están descritos en [`BUILD.md`](BUILD.md). La guía de verificación para IAs está en [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md).
+All CLI subcommands and the local continuous-integration gate (`bash scripts/ci.sh`) are described in [`BUILD.md`](BUILD.md). The verification guide for AIs is in [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md).
 
-## Oráculos de ejemplo
+## Example oracles
 
-Los programas de `ejemplos/` son oráculos de extremo a extremo (compilar, ejecutar y comparar la salida). Por ejemplo, la isla lógica F3 tiene **12 oráculos** (`f3-01` … `f3-12`) en [`ejemplos/f3/`](ejemplos/f3/): casos que deben cumplirse y casos negativos con códigos de error exactos (`E0301`, `E0303`, `E0304`). Índice completo en [`ejemplos/README.md`](ejemplos/README.md).
+The programs in `ejemplos/` are end-to-end oracles (build, run and compare the output). For example, the F3 logic island has **12 oracles** (`f3-01` … `f3-12`) in [`ejemplos/f3/`](ejemplos/f3/): cases that must hold and negative cases with exact error codes (`E0301`, `E0303`, `E0304`). Full index in [`ejemplos/README.md`](ejemplos/README.md).
 
-## Estructura del repositorio
+## Repository layout
 
-| Ruta | Contenido |
+| Path | Contents |
 |------|-----------|
-| `crates/` | Workspace de Rust: sintaxis, representación intermedia tipada (HIR), generación de código, motor de la isla lógica, CLI (`arita-cli`) y crates de apoyo para ejemplos con host |
-| `ejemplos/` | Programas `.arita` que sirven de oráculos, organizados por fase y por versión del núcleo (`f2`, `f2.2`, `f3`, `async`, `core01` … `core10`, etc.) |
-| `DOC/` | Documentación: visión, arquitectura, semántica, modelo de amenazas, guías, paquetes de ejemplos para IAs y decisiones de diseño (`DOC/ADR/`) |
-| `scripts/` | Puerta de integración continua local |
-| `ROADMAP.md` | Hoja de ruta del producto |
-| `BUILD.md` | Instrucciones de compilación y uso de la CLI |
+| `crates/` | Rust workspace: syntax, typed intermediate representation (HIR), code generation, logic-island engine, CLI (`arita-cli`) and support crates for host examples |
+| `ejemplos/` | `.arita` programs that serve as oracles, organized by phase and by core version (`f2`, `f2.2`, `f3`, `async`, `core01` … `core10`, etc.) |
+| `DOC/` | Documentation: vision, architecture, semantics, threat model, guides, example packs for AIs and design decisions (`DOC/ADR/`) |
+| `scripts/` | Local continuous-integration gate |
+| `ROADMAP.md` | Product roadmap |
+| `BUILD.md` | Build instructions and CLI usage |
 
-## Documentación recomendada
+## Recommended reading
 
-- Visión corta: [`DOC/00-VISION.md`](DOC/00-VISION.md) y [`DOC/PRODUCT-VISION.md`](DOC/PRODUCT-VISION.md)
-- Tesis y modelo: [`DOC/RFC-AINATIVE-VERIFIED-MODEL.md`](DOC/RFC-AINATIVE-VERIFIED-MODEL.md)
-- Semántica y pipeline: [`DOC/SEMANTICS-V0.1.md`](DOC/SEMANTICS-V0.1.md)
-- Cómo programar en ARITA con una IA: [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md)
-- Modelo de amenazas y evidencia: [`DOC/THREAT_MODEL.md`](DOC/THREAT_MODEL.md)
-- Índice completo: [`DOC/README.md`](DOC/README.md)
+- Short vision: [`DOC/00-VISION.md`](DOC/00-VISION.md) and [`DOC/PRODUCT-VISION.md`](DOC/PRODUCT-VISION.md)
+- Thesis and model: [`DOC/RFC-AINATIVE-VERIFIED-MODEL.md`](DOC/RFC-AINATIVE-VERIFIED-MODEL.md)
+- Semantics and pipeline: [`DOC/SEMANTICS-V0.1.md`](DOC/SEMANTICS-V0.1.md)
+- How to program in ARITA with an AI: [`DOC/09-AI-PROGRAMMING.md`](DOC/09-AI-PROGRAMMING.md)
+- Threat model and evidence: [`DOC/THREAT_MODEL.md`](DOC/THREAT_MODEL.md)
+- Full index: [`DOC/README.md`](DOC/README.md)
 
-## Seguridad
+## Security
 
-Los avisos de seguridad se envían a **security@exyonq.org**. Consulta [`SECURITY.md`](SECURITY.md).
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
-## Licencia
+## License
 
-Licencia: Apache-2.0, ver [`LICENSE`](LICENSE).
+License: Apache-2.0, see [`LICENSE`](LICENSE).
 
-## Autor y contacto
+## Author and contact
 
-Autor / Author: Antonio Cantallops Alba
+Author: Antonio Cantallops Alba
 
-Contacto general: **contact@exyonq.org**
+General contact: **contact@exyonq.org**

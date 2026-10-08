@@ -1,60 +1,72 @@
-# ARITA — Hoja de ruta
+English | [Español](ROADMAP.es.md)
 
-ARITA es un lenguaje de propósito general pensado para que lo escriban las IAs y que compila a Rust seguro (sin `unsafe`). Esta hoja de ruta resume qué está hecho y hacia dónde va el proyecto. Es un documento de producto: el detalle de diseño está en [`DOC/`](DOC/README.md).
+# ARITA — Roadmap
 
-## Estado actual
+ARITA is a general-purpose language designed to be written by AIs that compiles to safe Rust (no `unsafe`). This roadmap summarizes what is done and where the project is heading. It is a product document: the design detail is in [`DOC/`](DOC/README.md).
 
-- **Core 0.9: CERRADO — 834/834 oráculos superados.**
-- **Core 0.10 (ERRORES, fase 1): en curso.** Ya están cerradas once etapas de la fase 1: eliminación de resultados de error descartados en rutas muertas, seguridad de las operaciones de tareas (`spawn`/`join`), comprobación de que `arita build` solo compila ficheros que pertenecen al paquete, limpieza de avisos de Clippy en el Rust emitido, eliminación de paréntesis innecesarios en el Rust emitido, asignación compuesta por índice sobre vectores de enteros (`v[i] += x`, `-=`, `*=`; un índice fuera de rango o un desbordamiento devuelven un error en lugar de provocar un pánico), aritmética entera con desbordamiento detectado en tiempo de ejecución (`+`, `-`, `*` sobre enteros no literales terminan con un fallo controlado, tanto en builds de depuración como de release, en lugar de envolver el valor en silencio), diagnóstico de llamadas a funciones no declaradas (una llamada a una función que no es del lenguaje, ni está declarada en el módulo, ni se importa con `use` se rechaza con un error propio, E0347, antes de generar Rust), alcance de los enteros conocidos (los valores enteros que el compilador conoce de antemano ya no se arrastran a través de ramas, bucles y bloques, de modo que programas válidos dejan de recibir falsos errores de desbordamiento o de división por cero), rechazo, con diagnóstico propio (E0346), de la concurrencia con Mutex en esta versión (el Mutex real llegará en la 1.1) y resultados descartados (un `Result` ignorado, ya sea una llamada suelta, `let _` o una variable que no se usa, es un error de compilación, E0272). Con esto están cerradas todas las etapas previstas para la versión 1. Lo siguiente: las comprobaciones previas a la versión 1 y, después, la declaración de la versión 1.
-<!-- BARRA-CORE-0.10 --> **Core 0.10 en curso — barra actual 889/889 (cerradas todas las etapas previstas para la versión 1).**
+## Current status
 
-Un oráculo es una prueba reproducible (compilar, ejecutar y comparar el resultado esperado, más `clippy`). Una prueba omitida nunca cuenta como superada.
+- **ARITA v1: published on 2026-10-08.**
+- **Core 0.9: CLOSED — 834/834 oracles passed.**
+- **Core 0.10 (ERRORS, phase 1):** eleven stages of phase 1 are closed: elimination of error results discarded in dead paths, safety of task operations (`spawn`/`join`), a check that `arita build` only compiles files that belong to the package, cleanup of Clippy warnings in the emitted Rust, removal of unnecessary parentheses in the emitted Rust, index-based compound assignment on integer vectors (`v[i] += x`, `-=`, `*=`; an out-of-range index or an overflow returns an error instead of causing a panic), integer arithmetic with overflow detected at run time (`+`, `-`, `*` on non-literal integers end with a controlled failure, in both debug and release builds, instead of silently wrapping the value), diagnosis of calls to undeclared functions (a call to a function that is not part of the language, not declared in the module and not imported with `use` is rejected with its own error, E0347, before generating Rust), scope of known integers (integer values the compiler knows in advance are no longer carried across branches, loops and blocks, so valid programs no longer get false overflow or division-by-zero errors), rejection, with its own diagnostic (E0346), of Mutex concurrency in this version (the real Mutex will arrive in 1.1) and discarded results (an ignored `Result`, whether a bare call, `let _` or an unused variable, is a compile error, E0272). With this, all stages planned for version 1 are closed.
+<!-- BARRA-CORE-0.10 --> **Core 0.10 — current bar 889/889 (all stages planned for version 1 are closed).**
 
-## Escalera de versiones del núcleo ("Core")
+An oracle is a reproducible test (build, run and compare the expected result, plus `clippy`). A skipped test never counts as passed.
 
-Cada versión del núcleo añade una capacidad vertical y se da por cerrada solo cuando todos sus oráculos pasan.
+## Next: version 1.1
 
-| Versión | Capacidad | Estado |
+- Close the known limitations of version 1: first B-286-6b, B-296-2, B-297-1 and B-297-3; then B-286-3, B-286-4, B-286-6 and B-286-6a.
+  - B-286-3, B-286-4, B-286-6, B-286-6a, B-286-6b and B-297-1 are described in the README's [known limitations of v1](README.md#known-limitations-of-v1).
+  - B-296-2: `Io` fns other than `main` cannot take parameters yet (the parser rejects them with E0006).
+  - B-297-3: `true`, `false`, `None` or `"hola"` in a `let` typed `Int` pass ARITA's check and fail in rustc with E0308.
+- A real Mutex (proposed).
+- Extension of the async surface (proposed).
+
+## Core version ladder ("Core")
+
+Each core version adds a vertical capability and is only considered closed when all of its oracles pass.
+
+| Version | Capability | Status |
 |---------|-----------|--------|
-| Core 0.1 | Vertical base: registros, enumeraciones, `match`, tipos básicos, `Result`, propiedad simple, ficheros/JSON/CLI, escenarios ejecutables | Cerrado (603/603) |
-| Core 0.2 | Perfil `service`: tareas, temporizadores y cancelación, enlaces HTTP, servicio de referencia | Cerrado (632/632) |
-| Core 0.3 | Composición cliente + servidor, propagación de errores, pipelines secuenciales | Cerrado (658/658) |
-| Core 0.4 | Paquetes y bibliotecas (manifiesto, API de biblioteca, varios módulos) | Cerrado (683/683) |
-| Core 0.5 | Colecciones con operaciones falibles (`insert` → `Result`, acceso por índice como `Option`) | Cerrado (705/705) |
-| Core 0.6 | Programas de propósito general de extremo a extremo (conjuntos, mapas, escenarios) | Cerrado (728/728) |
-| Core 0.7 | Entrada/salida sin teatro (lectura y *parsing* con errores exactos, argumentos de CLI) | Cerrado (752/752) |
-| Core 0.8 | Propagación de errores: funciones que devuelven `Result` y operador `?` | Cerrado (778/778) |
-| Core 0.9 | Escritura en colecciones por índice (`m[k] = v`, `v[i] = x`) sin pánico | Cerrado (834/834) |
-| Core 0.10 | Errores, fase 1 (sumideros muertos, seguridad de `spawn`/`join`, pertenencia al paquete, Rust emitido sin avisos de Clippy ni paréntesis innecesarios, asignación compuesta por índice, aritmética entera con desbordamiento detectado, llamadas a funciones no declaradas, alcance de enteros conocidos, rechazo de Mutex en la versión 1 y resultados descartados) | En curso (once etapas cerradas; siguen las comprobaciones previas a la versión 1) |
+| Core 0.1 | Base vertical: records, enums, `match`, basic types, `Result`, simple ownership, files/JSON/CLI, executable scenarios | Closed (603/603) |
+| Core 0.2 | `service` profile: tasks, timers and cancellation, HTTP bindings, reference service | Closed (632/632) |
+| Core 0.3 | Client + server composition, error propagation, sequential pipelines | Closed (658/658) |
+| Core 0.4 | Packages and libraries (manifest, library API, multiple modules) | Closed (683/683) |
+| Core 0.5 | Collections with fallible operations (`insert` → `Result`, index access as `Option`) | Closed (705/705) |
+| Core 0.6 | End-to-end general-purpose programs (sets, maps, scenarios) | Closed (728/728) |
+| Core 0.7 | Input/output without theater (reading and *parsing* with exact errors, CLI arguments) | Closed (752/752) |
+| Core 0.8 | Error propagation: functions that return `Result` and the `?` operator | Closed (778/778) |
+| Core 0.9 | Index-based writes to collections (`m[k] = v`, `v[i] = x`) without panics | Closed (834/834) |
+| Core 0.10 | Errors, phase 1 (dead sinks, `spawn`/`join` safety, package membership, emitted Rust without Clippy warnings or unnecessary parentheses, index-based compound assignment, integer arithmetic with overflow detection, calls to undeclared functions, scope of known integers, rejection of Mutex in version 1 and discarded results) | Eleven stages closed (all those planned for version 1) |
 
-## Fases del lenguaje
+## Language phases
 
-| Fase | Contenido | Estado |
+| Phase | Contents | Status |
 |------|-----------|--------|
-| 0 | Documentación base y decisiones de diseño | Hecho |
-| 1 | Esqueleto de la cadena de herramientas: análisis, generación de Rust, CLI, `arita measure` | Hecho |
-| 2 | Subconjunto de propiedad (ownership), biblioteca estándar mínima y *std* de métodos | Hecho |
-| 3 | Isla lógica (`spec` / `fact` / `rule` / `query`) con motor propio; 12 oráculos | Hecho |
-| 4 | Multiplataforma (Linux, macOS, Windows; x86_64 y ARM), `async`, rendimiento y dependencias Rust acotadas | Hecho en su alcance actual |
-| 5 | Auto-alojamiento (opcional) | Primeros pasos (ejemplos de arranque) |
+| 0 | Base documentation and design decisions | Done |
+| 1 | Toolchain skeleton: parsing, Rust generation, CLI, `arita measure` | Done |
+| 2 | Ownership subset, minimal standard library and method *std* | Done |
+| 3 | Logic island (`spec` / `fact` / `rule` / `query`) with an in-house engine; 12 oracles | Done |
+| 4 | Cross-platform (Linux, macOS, Windows; x86_64 and ARM), `async`, performance and bounded Rust dependencies | Done within its current scope |
+| 5 | Self-hosting (optional) | First steps (bootstrap examples) |
 
-## Principios que no cambian
+## Principles that do not change
 
-1. **Seguro por construcción:** el Rust emitido no usa `unsafe`.
-2. **Sin teatro:** nada se acepta por parecer correcto; solo si lo demuestran oráculos reproducibles sobre el artefacto exacto.
-3. **Pocas formas de escribir lo mismo:** sintaxis canónica y errores estructurados con códigos estables (`E0xxx`).
-4. **Independiente de la IA:** el proyecto Rust emitido funciona sin la IA que escribió el `.arita`.
+1. **Safe by construction:** the emitted Rust does not use `unsafe`.
+2. **No theater:** nothing is accepted for looking correct; only if reproducible oracles prove it on the exact artifact.
+3. **Few ways to write the same thing:** canonical syntax and structured errors with stable codes (`E0xxx`).
+4. **Independent of the AI:** the emitted Rust project works without the AI that wrote the `.arita`.
 
-## Más adelante (sin fecha)
+## Later (no date)
 
-- Ampliar el núcleo con nuevas capacidades verticales, siempre con oráculos antes de declararlas cerradas.
-- Corrección guiada por el compilador (el compilador como oráculo estructurado de errores): hoy es una propuesta de diseño, ver [`DOC/REPAIR-ORACLE.md`](DOC/REPAIR-ORACLE.md).
-- Integración con editores y herramientas de desarrollo.
+- Extend the core with new vertical capabilities, always with oracles before declaring them closed.
+- Compiler-guided repair (the compiler as a structured error oracle): today it is a design proposal, see [`DOC/REPAIR-ORACLE.md`](DOC/REPAIR-ORACLE.md).
+- Integration with editors and development tools.
 
-## Fuera del alcance actual
+## Out of current scope
 
-Hilos y exclusión mutua, dependencias abiertas de crates.io, TLS/WebSocket, cierre por inactividad de servicios y *bindings* de E/S adicionales no forman parte del lenguaje por ahora.
+System threads, open crates.io dependencies, TLS/WebSocket, idle shutdown of services and additional I/O *bindings* are not part of the language for now. System threads remain out of current scope; mutual exclusion between tasks (a real Mutex) is proposed for v1.1.
 
-## Cómo verificarlo
+## How to verify it
 
-Desde la raíz del repositorio: `cargo test --workspace -- --test-threads=1` y `cargo run -p arita-cli -- measure`. Más detalle en [`BUILD.md`](BUILD.md) y [`DOC/CI.md`](DOC/CI.md).
+From the repository root: `cargo test --workspace -- --test-threads=1` and `cargo run -p arita-cli -- measure`. More detail in [`BUILD.md`](BUILD.md) and [`DOC/CI.md`](DOC/CI.md).
