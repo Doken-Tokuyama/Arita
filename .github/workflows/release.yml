@@ -98,6 +98,7 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
+          name: arita-${{ matrix.triple }}
           path: ${{ env.ASSET_PATH }}
           if-no-files-found: error
           compression-level: 0
