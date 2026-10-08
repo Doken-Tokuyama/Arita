@@ -100,7 +100,6 @@ jobs:
         with:
           path: ${{ env.ASSET_PATH }}
           if-no-files-found: error
-          archive: false
           compression-level: 0
 
   checksums:
