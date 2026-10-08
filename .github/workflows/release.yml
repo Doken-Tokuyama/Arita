@@ -92,7 +92,8 @@ jobs:
             tar -C "$STAGE" -a -cf "$OUT" "$BINNAME" LICENSE NOTICE README.md README.es.md
             tar -tf "$OUT"
           fi
-          echo "ASSET_PATH=${OUT}" >> "$GITHUB_ENV"
+          # upload-artifact on Windows does not accept a Git-bash /d/ path.
+          echo "ASSET_PATH=dist/arita-${VERSION}-${TRIPLE}.${PACK}" >> "$GITHUB_ENV"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
