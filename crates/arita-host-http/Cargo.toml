@@ -1,6 +1,6 @@
 [package]
 name = "arita-host-http"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "Apache-2.0"
 description = "ADR-245 curated HTTP server bindings (Core 0.2 slice 4) — host border"

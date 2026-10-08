@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "arita-cli"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "arita-codegen",
  "arita-hir",
@@ -18,32 +18,32 @@ dependencies = [
 
 [[package]]
 name = "arita-codegen"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "arita-syntax",
 ]
 
 [[package]]
 name = "arita-hir"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "arita-syntax",
 ]
 
 [[package]]
 name = "arita-host-core01"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
 ]
 
 [[package]]
 name = "arita-host-demo"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "arita-host-http"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "bytes",
  "http",
@@ -56,7 +56,7 @@ dependencies = [
 
 [[package]]
 name = "arita-logic"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "pest",
  "pest_derive",
@@ -64,7 +64,7 @@ dependencies = [
 
 [[package]]
 name = "arita-syntax"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "pest",
  "pest_derive",
