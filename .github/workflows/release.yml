@@ -69,7 +69,10 @@ jobs:
           cargo build --release --locked -p arita-cli --target "$TRIPLE"
           STAGE="${RUNNER_TEMP}/arita-stage"
           rm -rf "$STAGE"
-          mkdir -p "$STAGE" "${GITHUB_WORKSPACE}/dist"
+          # pwd is a Unix path even on Windows runners. GITHUB_WORKSPACE is
+          # D:\... there, and bsdtar treats "D:" in -f as a remote host.
+          ROOT="$(pwd)"
+          mkdir -p "$STAGE" "${ROOT}/dist"
           REL="target/${TRIPLE}/release"
           if [ "$PACK" = "zip" ]; then
             cp "${REL}/arita.exe" "$STAGE/arita.exe"
@@ -81,7 +84,7 @@ jobs:
           fi
           cp LICENSE NOTICE README.md README.es.md "$STAGE/"
           # Absolute -f so -C does not make the archive path relative to the stage dir.
-          OUT="${GITHUB_WORKSPACE}/dist/arita-${VERSION}-${TRIPLE}.${PACK}"
+          OUT="${ROOT}/dist/arita-${VERSION}-${TRIPLE}.${PACK}"
           if [ "$PACK" = "tar.gz" ]; then
             tar -C "$STAGE" -czf "$OUT" "$BINNAME" LICENSE NOTICE README.md README.es.md
             tar -tzf "$OUT"
