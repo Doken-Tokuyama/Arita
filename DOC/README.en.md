@@ -4,9 +4,9 @@
 
 ARITA is a general-purpose language **designed to be written by AIs** that **compiles to safe Rust**. This folder gathers the vision, architecture, semantics, guides, and design decisions.
 
-**Estado:** Core 0.9 cerrado (834/834 oráculos). Core 0.10 (ERRORES, fase 1) en curso: once etapas de la fase 1 están cerradas, todas las previstas para la versión 1 (barra actual 889/889); siguen las comprobaciones previas a la versión 1. Ver [`../ROADMAP.md`](../ROADMAP.md).
+**Status:** Core 0.9 closed (834/834 oracles). Core 0.10 (ERRORS, phase 1) in progress: eleven phase-1 stages are closed, all those planned for version 1 (current bar 889/889); the pre-version-1 checks remain. See [`../ROADMAP.md`](../ROADMAP.md).
 
-> **ADR translations in progress / Traducciones de ADR en curso:** subset (b) linked ADRs are being translated into sibling `.en.md` / `.es.md` files; until that work finishes, some ADR links still point at the normative original. Los ADR enlazados del subconjunto (b) se están traduciendo a hermanos `.en.md` / `.es.md`; hasta terminar, algunos enlaces de ADR siguen apuntando al original normativo.
+> **ADR translations / Traducciones de ADR:** each ADR has its translation as a sibling file (`.en.md` / `.es.md`); the original is normative. Cada ADR tiene su traducción como fichero hermano (`.en.md` / `.es.md`); el original es el normativo.
 
 ## Start here
 

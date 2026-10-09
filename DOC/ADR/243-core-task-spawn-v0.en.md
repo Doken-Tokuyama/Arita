@@ -3,7 +3,7 @@ Translation of `243-core-task-spawn-v0.md`; the original is normative. / Traducc
 # ADR-243 — Core 0.2 Task spawn/join v0
 
 - **Estado:** **CLOSED** Lex **607/607** (CUT `CORE-0.2-TASK-SPAWN-20260920`)
-- **Gate:** [`../GATE-CORE02-SPAWN-20260920.md`](../GATE-CORE02-SPAWN-20260920.md) · Measure TASK-SPAWN 2026-09-20
+- **Gate:** `../GATE-CORE02-SPAWN-20260920.md` (not in the public export / no incluido en el export público) · Measure TASK-SPAWN 2026-09-20
 - **Barra:** `arita measure` → **607/607 accepted** (exit 0); oracles `core02-spawn-join` + `neg-e0240-spawn-outside`
 - **CUT-ID:** `CORE-0.2-TASK-SPAWN-20260920`
 - **Fecha:** 2026-09-20

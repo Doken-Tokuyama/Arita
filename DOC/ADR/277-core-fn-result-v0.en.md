@@ -2,7 +2,7 @@ Translation of `277-core-fn-result-v0.md`; the original is normative. / Traducci
 
 # ADR-277 — Core 0.8 slice 1: FN-RESULT
 
-- **Estado:** **CLOSED** Lex **758/758** (2026-09-26) · gate [`DOC/GATE-CORE08-FN-RESULT-20260926.md`](../GATE-CORE08-FN-RESULT-20260926.md)
+- **Estado:** **CLOSED** Lex **758/758** (2026-09-26) · gate `DOC/GATE-CORE08-FN-RESULT-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.8-FN-RESULT-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (OK 2026-09-26) · Orquestador (asigna Codegen/Measure)
@@ -93,7 +93,7 @@ Green Lex §2; ADR-276 slice 1 tick; §4 HOLDs intact. Next: slice 2 QMARK ([ADR
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE08-FN-RESULT-20260926.md`](../GATE-CORE08-FN-RESULT-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE08-FN-RESULT-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **758/758** accepted → slice 1 **CLOSED** (evidence `DOC/reviews/MEASURE_ADR277_FN_RESULT_20260926.json`; exit 0)
 - `measure_pass:false` pre-CLOSED was “await Measure” metadata (not a material fail); flipped `true` on CLOSED
 - Clippy workspace OK; Veyra companion **REJECTED** exit 1 (`rustfmt-diff` + VT*) **non-blocking** · `.veyra/evidence/20260926T132822Z/`

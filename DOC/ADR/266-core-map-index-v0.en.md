@@ -2,7 +2,7 @@ Translation of `266-core-map-index-v0.md`; the original is normative. / Traducci
 
 # ADR-266 — Core 0.6 slice 2: MAP-INDEX
 
-- **Estado:** **CLOSED** Lex **715/715** (2026-09-26) — gate [`DOC/GATE-CORE06-MAP-INDEX-20260926.md`](../GATE-CORE06-MAP-INDEX-20260926.md)
+- **Estado:** **CLOSED** Lex **715/715** (2026-09-26) — gate `DOC/GATE-CORE06-MAP-INDEX-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.6-MAP-INDEX-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -65,7 +65,7 @@ Do not reopen E0272/E0285/E0225/E0291. H3 Result check-then-unwrap: if it appear
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE06-MAP-INDEX-20260926.md`](../GATE-CORE06-MAP-INDEX-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE06-MAP-INDEX-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **715/715** accepted (~03:00 CEST; prior 710/710 +5 map oracles)
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next: ADR-267 **GO IMPL** SCENARIO-GP (`CORE-0.6-SCENARIO-GP-20260926`)

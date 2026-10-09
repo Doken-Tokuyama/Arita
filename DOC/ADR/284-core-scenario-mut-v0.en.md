@@ -2,7 +2,7 @@ Translation of `284-core-scenario-mut-v0.md`; the original is normative. / Tradu
 
 # ADR-284 — Core 0.9 slice 3: SCENARIO-MUT
 
-- **Estado:** **CLOSED** Lex **825/825** (Ingeniero 2026-09-27 · measure + `cargo test -p arita-cli` exclusivos · Veyra ACCEPTED `20260927T051022Z`) → [`GATE-CORE09-SCENARIO-MUT-20260926.md`](../GATE-CORE09-SCENARIO-MUT-20260926.md) · antes: GO IMPL 2026-09-27 tras CLOSED ADR-283
+- **Estado:** **CLOSED** Lex **825/825** (Ingeniero 2026-09-27 · measure + `cargo test -p arita-cli` exclusivos · Veyra ACCEPTED `20260927T051022Z`) → `GATE-CORE09-SCENARIO-MUT-20260926.md` (not in the public export / no incluido en el export público) · antes: GO IMPL 2026-09-27 tras CLOSED ADR-283
 - **CUT-ID:** `CORE-0.9-SCENARIO-MUT-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (pins OK 2026-09-26 19:54)
@@ -109,4 +109,4 @@ Green Lex §2 with **exact N = 825** (816 prior + the 9 ids of §2; Engineer pin
 
 ## Close
 
-- **CLOSED** Lex 825/825 (Ingeniero 2026-09-27) · gate [`GATE-CORE09-SCENARIO-MUT-20260926.md`](../GATE-CORE09-SCENARIO-MUT-20260926.md) · siguiente: slice 4 REF-MUT GO IMPL · **sin** Core 0.9 CLOSED.
+- **CLOSED** Lex 825/825 (Ingeniero 2026-09-27) · gate `GATE-CORE09-SCENARIO-MUT-20260926.md` (not in the public export / no incluido en el export público) · siguiente: slice 4 REF-MUT GO IMPL · **sin** Core 0.9 CLOSED.

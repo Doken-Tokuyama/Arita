@@ -2,7 +2,7 @@ Translation of `275-core-ref-io-v0.md`; the original is normative. / Traducción
 
 # ADR-275 — Core 0.7 slice 4: REF-IO
 
-- **Estado:** **CLOSED** Lex **752/752** = Core **0.7 CLOSED** (2026-09-26) · gate [`DOC/GATE-CORE07-REF-IO-20260926.md`](../GATE-CORE07-REF-IO-20260926.md)
+- **Estado:** **CLOSED** Lex **752/752** = Core **0.7 CLOSED** (2026-09-26) · gate `DOC/GATE-CORE07-REF-IO-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.7-REF-IO-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -82,7 +82,7 @@ Next vertical: only with GO <person> + ADR with oracles. Candidates (HOLD until 
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE07-REF-IO-20260926.md`](../GATE-CORE07-REF-IO-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE07-REF-IO-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **752/752** accepted → **Core 0.7 CLOSED** (evidence `DOC/reviews/MEASURE_ADR275_REF_IO_20260926.json`)
 - Clippy workspace OK; Veyra companion REJECTED (`RUSTSEC-2026-0007` bytes + rustfmt-diff) **non-blocking**
 - HOLDs Mutex/IndexMut-assign/idle/TLS/WS/crates.io/repair/I/O-new/String.set/`?` **not** unparked

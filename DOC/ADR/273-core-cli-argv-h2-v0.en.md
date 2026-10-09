@@ -2,7 +2,7 @@ Translation of `273-core-cli-argv-h2-v0.md`; the original is normative. / Traduc
 
 # ADR-273 — Core 0.7 slice 2: CLI-ARGV-H2
 
-- **Estado:** **CLOSED** Lex **739/739** (2026-09-26 remasure) · gate [`DOC/GATE-CORE07-CLI-ARGV-H2-20260926.md`](../GATE-CORE07-CLI-ARGV-H2-20260926.md) · FIX E0341-CORE06
+- **Estado:** **CLOSED** Lex **739/739** (2026-09-26 remasure) · gate `DOC/GATE-CORE07-CLI-ARGV-H2-20260926.md` (not in the public export / no incluido en el export público) · FIX E0341-CORE06
 - **CUT-ID:** `CORE-0.7-CLI-ARGV-H2-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -85,7 +85,7 @@ Lex §2 green; tick ADR-271 slice 2; §4 HOLDs intact. Next: slice 3 SCENARIO-IO
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE07-CLI-ARGV-H2-20260926.md`](../GATE-CORE07-CLI-ARGV-H2-20260926.md) · remasure post FIX E0341-CORE06
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE07-CLI-ARGV-H2-20260926.md` (not in the public export / no incluido en el export público) · remasure post FIX E0341-CORE06
 - Lex measure **739/739** accepted
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next (historic): ADR-274 SCENARIO-IO — **CLOSED** Lex **744/744** (Core **0.7 CLOSED** vertical via 275 Lex **752/752**)

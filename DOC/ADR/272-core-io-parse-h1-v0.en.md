@@ -2,7 +2,7 @@ Translation of `272-core-io-parse-h1-v0.md`; the original is normative. / Traduc
 
 # ADR-272 — Core 0.7 slice 1: IO-PARSE-H1
 
-- **Estado:** **CLOSED** Lex **733/733** (2026-09-26) · gate [`DOC/GATE-CORE07-IO-PARSE-H1-20260926.md`](../GATE-CORE07-IO-PARSE-H1-20260926.md)
+- **Estado:** **CLOSED** Lex **733/733** (2026-09-26) · gate `DOC/GATE-CORE07-IO-PARSE-H1-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.7-IO-PARSE-H1-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -71,7 +71,7 @@ Lex §2 green; tick ADR-271 slice 1; HOLDs intact. Next: slice 2 CLI-ARGV-H2 ([A
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE07-IO-PARSE-H1-20260926.md`](../GATE-CORE07-IO-PARSE-H1-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE07-IO-PARSE-H1-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **733/733** accepted
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next (historic): ADR-273 CLI-ARGV-H2 — **CLOSED** Lex **739/739** (Core **0.7 CLOSED** vertical via 275 Lex **752/752**)

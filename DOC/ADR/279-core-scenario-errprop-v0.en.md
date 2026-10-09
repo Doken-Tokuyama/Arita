@@ -2,7 +2,7 @@ Translation of `279-core-scenario-errprop-v0.md`; the original is normative. / T
 
 # ADR-279 — Core 0.8 slice 3: SCENARIO-ERRPROP
 
-- **Estado:** **CLOSED** Lex **770/770** (Ingeniero; Measure accepted · Veyra ACCEPTED `.veyra/evidence/20260926T150744Z/` · [`GATE-CORE08-SCENARIO-ERRPROP-20260926.md`](../GATE-CORE08-SCENARIO-ERRPROP-20260926.md))
+- **Estado:** **CLOSED** Lex **770/770** (Ingeniero; Measure accepted · Veyra ACCEPTED `.veyra/evidence/20260926T150744Z/` · `GATE-CORE08-SCENARIO-ERRPROP-20260926.md` (not in the public export / no incluido en el export público))
 - **CUT-ID:** `CORE-0.8-SCENARIO-ERRPROP-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero · Orquestador (GO IMPL)
@@ -84,7 +84,7 @@ Green Lex §2; ADR-276 slice 3 tick; §3 HOLDs intact. Next: slice 4 REF-ERRPROP
 
 ## Close
 
-- **CLOSED** 2026-09-26 Lex Measure **770/770** · gate [`DOC/GATE-CORE08-SCENARIO-ERRPROP-20260926.md`](../GATE-CORE08-SCENARIO-ERRPROP-20260926.md) · Veyra **ACCEPTED** exit 0 · evidence `20260926T150744Z` (trail: `150320Z` rustfmt-diff → `cargo fmt --all` → ACCEPT)
+- **CLOSED** 2026-09-26 Lex Measure **770/770** · gate `DOC/GATE-CORE08-SCENARIO-ERRPROP-20260926.md` (not in the public export / no incluido en el export público) · Veyra **ACCEPTED** exit 0 · evidence `20260926T150744Z` (trail: `150320Z` rustfmt-diff → `cargo fmt --all` → ACCEPT)
 - Prereq: ADR-277 **CLOSED** **758/758** · ADR-278 **CLOSED** **764/764**
 - Host 238 + `?` in helper ≠ E0340 discard
 - Global HOLDs intact · Next **GO IMPL** ADR-280 REF-ERRPROP only · **no** Core 0.8 CLOSED · Vertical ≠ GP ceiling

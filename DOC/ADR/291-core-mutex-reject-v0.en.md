@@ -6,7 +6,7 @@ Translation of `291-core-mutex-reject-v0.md`; the original is normative. / Tradu
 - **CUT-ID:** `CORE-0.10-MUTEX-REJECT-20261003` (provisional; lo confirma el Orquestador)
 - **Fecha:** 2026-10-03
 - **Autores:** **ARITA Arquitecto**; alcance y orden pendientes de confirmación del Ingeniero
-- **Padre / contexto:** [ADR-229](229-lang-contract-mutex.md) (Mutex PARK/E0312), [ADR-286](286-core-0.10-errores-fase1.md) (B-286-7 y B-286-12), [ADR-039](039-e0242-borrow-across-await.md) (E0242), [ADR-290](290-core-index-mut-v0.md) (CLOSED), [ADR-293](293-core-undeclared-call-v0.md) (B-286-7 y la migración del neg `neg-core03-compose-mutex-hold`, E0347; va ANTES que este ADR), [Parser IMPL r2](../reviews/ADR-291-PARSER-IMPL-DRAFT-20261004-r2.md) (parche del Parser validado en copia; §2.5)
+- **Padre / contexto:** [ADR-229](229-lang-contract-mutex.md) (Mutex PARK/E0312), [ADR-286](286-core-0.10-errores-fase1.md) (B-286-7 y B-286-12), [ADR-039](039-e0242-borrow-across-await.md) (E0242), [ADR-290](290-core-index-mut-v0.md) (CLOSED), [ADR-293](293-core-undeclared-call-v0.md) (B-286-7 y la migración del neg `neg-core03-compose-mutex-hold`, E0347; va ANTES que este ADR), Parser IMPL r2 (not in the public export / no incluido en el export público) (parche del Parser validado en copia; §2.5)
 - **Cierra (al CLOSED):** el hueco de diagnóstico propio para la superficie Mutex-reject. **La migración del neg `neg-core03-compose-mutex-hold` pertenece a ADR-293 (E0347)**, no a este ADR.
 - **Código propuesto:** **E0346** — mensaje EN canónico: **`mutex concurrency is not available in this surface`**.
 - **No reabre:** E0242 `borrow held across await`, E0312 en su contrato histórico, E0340–E0345, ADR-229/286/290, ni el código de emisión. E0313 no se reutiliza.

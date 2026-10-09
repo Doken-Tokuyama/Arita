@@ -63,7 +63,7 @@ Lex §2 green; tick ADR-259 slice 3; HOLDs intact. Next: slice 4 REF-COLL (close
 
 ## Close
 
-- **GO Ingeniero** 2026-09-25 · gate [`DOC/GATE-CORE05-SCENARIO-COLL-20260925.md`](../GATE-CORE05-SCENARIO-COLL-20260925.md)
+- **GO Ingeniero** 2026-09-25 · gate `DOC/GATE-CORE05-SCENARIO-COLL-20260925.md` (not in the public export / no incluido en el export público)
 - Lex measure **705/705** accepted
 - Clippy workspace OK; Veyra companion REJECTED (bytes RUSTSEC + rustfmt) **non-blocking**
 - HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair intactos

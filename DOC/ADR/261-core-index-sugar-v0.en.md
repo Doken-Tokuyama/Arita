@@ -58,7 +58,7 @@ Lex §2 green; tick ADR-259 slice 2; ADR-227 Phase B marked; HOLDs IndexMut/Mute
 
 ## Close
 
-- **GO Ingeniero** 2026-09-25 · gate [`DOC/GATE-CORE05-INDEX-SUGAR-20260925.md`](../GATE-CORE05-INDEX-SUGAR-20260925.md)
+- **GO Ingeniero** 2026-09-25 · gate `DOC/GATE-CORE05-INDEX-SUGAR-20260925.md` (not in the public export / no incluido en el export público)
 - Lex measure **705/705** accepted
 - Clippy workspace OK; Veyra companion REJECTED (bytes RUSTSEC + rustfmt) **non-blocking**
 - HOLDs IndexMut/Mutex/idle/TLS/WS/crates.io/repair intact

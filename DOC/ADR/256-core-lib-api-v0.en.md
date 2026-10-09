@@ -3,7 +3,7 @@ Translation of `256-core-lib-api-v0.md`; the original is normative. / Traducció
 # ADR-256 — Core 0.4 slice 3: LIB-API
 
 - **Estado:** **CLOSED** Lex **673/673** (CUT `CORE-0.4-LIB-API-20260920`)
-- **Gate:** [`../GATE-CORE04-LIB-API-20260920.md`](../GATE-CORE04-LIB-API-20260920.md)
+- **Gate:** `../GATE-CORE04-LIB-API-20260920.md` (not in the public export / no incluido en el export público)
 - **Barra:** `arita measure` → **673/673 accepted**; lib-call-from-bin / pub-record / build + neg E0331 private
 - **CUT-ID:** `CORE-0.4-LIB-API-20260920`
 - **Fecha:** 2026-09-20

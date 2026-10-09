@@ -3,7 +3,7 @@ Translation of `257-core-scenario-pkg-v0.md`; the original is normative. / Tradu
 # ADR-257 — Core 0.4 slice 4: SCENARIO-PKG
 
 - **Estado:** **CLOSED** Lex **677/677** (CUT `CORE-0.4-SCENARIO-PKG-20260920`)
-- **Gate:** [`../GATE-CORE04-SCENARIO-PKG-20260920.md`](../GATE-CORE04-SCENARIO-PKG-20260920.md)
+- **Gate:** `../GATE-CORE04-SCENARIO-PKG-20260920.md` (not in the public export / no incluido en el export público)
 - **Barra:** `arita measure` → **677/677 accepted**; scen-pkg-happy / lib-fn / workspace-build + neg E0331
 - **CUT-ID:** `CORE-0.4-SCENARIO-PKG-20260920`
 - **Fecha:** 2026-09-20

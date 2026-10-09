@@ -2,7 +2,7 @@ Translation of `285-core-ref-mut-v0.md`; the original is normative. / Traducció
 
 # ADR-285 — Core 0.9 slice 4: REF-MUT
 
-- **Estado:** **CLOSED** Lex **834/834** (Ingeniero 2026-09-27 · [`GATE-CORE09-REF-MUT-20260926.md`](../GATE-CORE09-REF-MUT-20260926.md)) · **cierra Core 0.9** · GO IMPL Ingeniero 2026-09-27 · pins OK Ingeniero 2026-09-26
+- **Estado:** **CLOSED** Lex **834/834** (Ingeniero 2026-09-27 · `GATE-CORE09-REF-MUT-20260926.md` (not in the public export / no incluido en el export público)) · **cierra Core 0.9** · GO IMPL Ingeniero 2026-09-27 · pins OK Ingeniero 2026-09-26
 - **CUT-ID:** `CORE-0.9-REF-MUT-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (pins OK 2026-09-26 19:54)
@@ -105,4 +105,4 @@ Next vertical: only with GO <person> + ADR with oracles. HOLD candidates: String
 
 ## Close
 
-- **CLOSED** (Ingeniero 2026-09-27) · Lex **834/834** · [`MEASURE_ADR285_REF_MUT_20260927.json`](../reviews/MEASURE_ADR285_REF_MUT_20260927.json) md5 `a502f785…` · cargo test 154/0 · freeze 946/946 · Veyra `20260927T063410Z` ACCEPTED exit 0 · gate [`GATE-CORE09-REF-MUT-20260926.md`](../GATE-CORE09-REF-MUT-20260926.md) · **Core 0.9 CLOSED** · post-0.9 HOLD hasta GO <person> (§5).
+- **CLOSED** (Ingeniero 2026-09-27) · Lex **834/834** · `MEASURE_ADR285_REF_MUT_20260927.json` (not in the public export / no incluido en el export público) md5 `a502f785…` · cargo test 154/0 · freeze 946/946 · Veyra `20260927T063410Z` ACCEPTED exit 0 · gate `GATE-CORE09-REF-MUT-20260926.md` (not in the public export / no incluido en el export público) · **Core 0.9 CLOSED** · post-0.9 HOLD hasta GO <person> (§5).

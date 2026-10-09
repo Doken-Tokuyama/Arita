@@ -2,7 +2,7 @@ Translation of `283-core-vec-assign-v0.md`; the original is normative. / Traducc
 
 # ADR-283 — Core 0.9 slice 2: VEC-ASSIGN
 
-- **Estado:** **CLOSED** Lex **816/816** (Ingeniero 2026-09-27 · REMEASURE3 exclusivo · Veyra ACCEPTED `20260927T013200Z`) → [`GATE-CORE09-VEC-ASSIGN-20260926.md`](../GATE-CORE09-VEC-ASSIGN-20260926.md) · antes: GO IMPL 2026-09-26 tras CLOSED ADR-282
+- **Estado:** **CLOSED** Lex **816/816** (Ingeniero 2026-09-27 · REMEASURE3 exclusivo · Veyra ACCEPTED `20260927T013200Z`) → `GATE-CORE09-VEC-ASSIGN-20260926.md` (not in the public export / no incluido en el export público) · antes: GO IMPL 2026-09-26 tras CLOSED ADR-282
 - **CUT-ID:** `CORE-0.9-VEC-ASSIGN-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (pins OK 2026-09-26 19:54 · R1/R2)

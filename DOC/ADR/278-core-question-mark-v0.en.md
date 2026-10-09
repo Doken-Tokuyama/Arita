@@ -2,7 +2,7 @@ Translation of `278-core-question-mark-v0.md`; the original is normative. / Trad
 
 # ADR-278 — Core 0.8 slice 2: QUESTION-MARK (`?`)
 
-- **Estado:** **CLOSED** Lex **764/764** (2026-09-26) · gate [`DOC/GATE-CORE08-QMARK-20260926.md`](../GATE-CORE08-QMARK-20260926.md)
+- **Estado:** **CLOSED** Lex **764/764** (2026-09-26) · gate `DOC/GATE-CORE08-QMARK-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.8-QMARK-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (GO CLOSED 2026-09-26)
@@ -100,7 +100,7 @@ Green Lex §2; ADR-276 slice 2 tick; §4 HOLDs intact. Next: slice 3 SCENARIO-ER
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE08-QMARK-20260926.md`](../GATE-CORE08-QMARK-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE08-QMARK-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **764/764** accepted → slice 2 **CLOSED** (evidence `DOC/reviews/MEASURE_ADR278_QMARK_REMEASURE_20260926.json`)
 - Veyra quick **ACCEPTED** exit 0 · `.veyra/evidence/20260926T143843Z/` (VT008×12 info only)
 - `measure_pass:false` pre-CLOSED was “await Measure” metadata; flipped `true` on CLOSED

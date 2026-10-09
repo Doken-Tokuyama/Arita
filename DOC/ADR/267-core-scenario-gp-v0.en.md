@@ -85,7 +85,7 @@ Lex §2 green; tick ADR-264 slice 3; HOLDs §3 intactos. Next: slice 4 REF-GP (A
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE06-SCENARIO-GP-20260926.md`](../GATE-CORE06-SCENARIO-GP-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE06-SCENARIO-GP-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **720/720** accepted (~03:17 CEST; prior 715/715 +5 scenario oracles)
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next: ADR-268 **GO IMPL** REF-GP (`CORE-0.6-REF-GP-20260926`)

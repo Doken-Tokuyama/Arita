@@ -58,7 +58,7 @@ Lex §2 green; tick ADR-259 slice 1; HOLDs Mutex/`[]`-sugar intact. Next: slice 
 
 ## Close
 
-- **GO Ingeniero** 2026-09-20 · gate [`DOC/GATE-CORE05-INSERT-20260920.md`](../GATE-CORE05-INSERT-20260920.md)
+- **GO Ingeniero** 2026-09-20 · gate `DOC/GATE-CORE05-INSERT-20260920.md` (not in the public export / no incluido en el export público)
 - Lex measure **688/688** accepted (delta 683→688; +5 oracles insert)
 - Clippy workspace OK; Veyra companion REJECTED (bytes RUSTSEC) **non-blocking**
 - Next: ADR-259 GO slice 2 INDEX-SUGAR (`CORE-0.5-INDEX-SUGAR-20260920`)

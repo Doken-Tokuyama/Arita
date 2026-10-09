@@ -3,7 +3,7 @@ Translation of `244-core-timeout-cancel-v0.md`; the original is normative. / Tra
 # ADR-244 — Core 0.2 TIMEOUT-CANCEL (slice 3)
 
 - **Estado:** **CLOSED** Lex **611/611** (CUT `CORE-0.2-TIMEOUT-CANCEL-20260920`)
-- **Gate:** [`../GATE-CORE02-TIMEOUT-CANCEL-20260920.md`](../GATE-CORE02-TIMEOUT-CANCEL-20260920.md)
+- **Gate:** `../GATE-CORE02-TIMEOUT-CANCEL-20260920.md` (not in the public export / no incluido en el export público)
 - **Barra:** `arita measure` → **611/611 accepted** (exit 0); oracles timeout-ok / timeout-err / cancel-cooperative / `neg-hang-theater` (**E0320**)
 - **CUT-ID:** `CORE-0.2-TIMEOUT-CANCEL-20260920`
 - **Fecha:** 2026-09-20 (Europe/Madrid)

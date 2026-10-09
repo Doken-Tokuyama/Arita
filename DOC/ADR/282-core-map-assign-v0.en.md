@@ -2,7 +2,7 @@ Translation of `282-core-map-assign-v0.md`; the original is normative. / Traducc
 
 # ADR-282 — Core 0.9 slice 1: MAP-ASSIGN
 
-- **Estado:** **CLOSED** Lex **792/792** (Ingeniero 2026-09-26 · [`GATE-CORE09-MAP-ASSIGN-20260926.md`](../GATE-CORE09-MAP-ASSIGN-20260926.md) · Veyra Proof **ACCEPTED** `.veyra/evidence/20260926T193713Z/`) · CUT `CORE-0.9-MAP-ASSIGN-20260926` · pins OK Ingeniero (19:54 · 19:58 · A6) + Orquestador 19:59
+- **Estado:** **CLOSED** Lex **792/792** (Ingeniero 2026-09-26 · `GATE-CORE09-MAP-ASSIGN-20260926.md` (not in the public export / no incluido en el export público) · Veyra Proof **ACCEPTED** `.veyra/evidence/20260926T193713Z/`) · CUT `CORE-0.9-MAP-ASSIGN-20260926` · pins OK Ingeniero (19:54 · 19:58 · A6) + Orquestador 19:59
 - **CUT-ID:** `CORE-0.9-MAP-ASSIGN-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero (pins OK + GO IMPL 2026-09-26; decisiones 19:58 + corrección A6) · Orquestador (nodo `IndexAssign` / emit 19:59)

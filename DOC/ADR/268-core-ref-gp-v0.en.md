@@ -2,7 +2,7 @@ Translation of `268-core-ref-gp-v0.md`; the original is normative. / Traducción
 
 # ADR-268 — Core 0.6 slice 4: REF-GP
 
-- **Estado:** **CLOSED** Lex **728/728** = Core **0.6 CLOSED** (2026-09-26) · gate [`DOC/GATE-CORE06-REF-GP-20260926.md`](../GATE-CORE06-REF-GP-20260926.md)
+- **Estado:** **CLOSED** Lex **728/728** = Core **0.6 CLOSED** (2026-09-26) · gate `DOC/GATE-CORE06-REF-GP-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.6-REF-GP-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -81,11 +81,11 @@ Next vertical: only with GO <person> + ADR with oracles. Candidates (HOLD until 
 
 - [x] Pins ref `arita-ref-gp` + oracles/evidence + what NOT to touch (GO-ready)
 - [x] GO IMPL Orchestrator / Engineer (post-CLOSED 267)
-- [x] IMPL + Lex bar → **Core 0.6 CLOSED** Lex **728/728** ([GATE](../GATE-CORE06-REF-GP-20260926.md))
+- [x] IMPL + Lex bar → **Core 0.6 CLOSED** Lex **728/728** (GATE (not in the public export / no incluido en el export público))
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE06-REF-GP-20260926.md`](../GATE-CORE06-REF-GP-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE06-REF-GP-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **728/728** accepted → **Core 0.6 CLOSED** (evidence `DOC/reviews/MEASURE_ADR268_REF_GP_CLOSED_20260926.json`)
 - Clippy workspace OK; Veyra companion REJECTED (`RUSTSEC-2026-0007` bytes + rustfmt-diff + cargo-test mid-flip) **non-blocking**
 - HOLDs Mutex/IndexMut/idle/TLS/WS/crates.io/repair **no** unpark

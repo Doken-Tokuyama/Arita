@@ -2,7 +2,7 @@ Translation of `265-core-set-fallible-v0.md`; the original is normative. / Tradu
 
 # ADR-265 — Core 0.6 slice 1: SET-FALLIBLE
 
-- **Estado:** **CLOSED** Lex **710/710** (2026-09-26) — gate [`DOC/GATE-CORE06-SET-FALLIBLE-20260926.md`](../GATE-CORE06-SET-FALLIBLE-20260926.md)
+- **Estado:** **CLOSED** Lex **710/710** (2026-09-26) — gate `DOC/GATE-CORE06-SET-FALLIBLE-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.6-SET-FALLIBLE-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -71,7 +71,7 @@ Lex §2 green; tick ADR-264 slice 1; HOLDs Mutex/IndexMut-assign intact. Next: s
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE06-SET-FALLIBLE-20260926.md`](../GATE-CORE06-SET-FALLIBLE-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE06-SET-FALLIBLE-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **710/710** accepted
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next: ADR-266 GO IMPL MAP-INDEX (`CORE-0.6-MAP-INDEX-20260926`)

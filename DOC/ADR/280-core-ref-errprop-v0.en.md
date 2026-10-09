@@ -2,7 +2,7 @@ Translation of `280-core-ref-errprop-v0.md`; the original is normative. / Traduc
 
 # ADR-280 — Core 0.8 slice 4: REF-ERRPROP
 
-- **Estado:** **CLOSED** Lex **778/778** = Core **0.8 CLOSED** (2026-09-26) · gate [`DOC/GATE-CORE08-REF-ERRPROP-20260926.md`](../GATE-CORE08-REF-ERRPROP-20260926.md)
+- **Estado:** **CLOSED** Lex **778/778** = Core **0.8 CLOSED** (2026-09-26) · gate `DOC/GATE-CORE08-REF-ERRPROP-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.8-REF-ERRPROP-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero · Orquestador (GO IMPL)
@@ -80,11 +80,11 @@ Next vertical: only with GO <person> + ADR with oracles. HOLD candidates: Mutex 
 
 - [x] Ref pins `arita-ref-errprop` + oracles/evidence + what NOT to touch (DOC GO-ready)
 - [x] GO IMPL Orchestrator / Engineer (post-CLOSED 277–279 Lex **770/770**)
-- [x] IMPL + Lex **778/778** → **Core 0.8 CLOSED** ([GATE](../GATE-CORE08-REF-ERRPROP-20260926.md))
+- [x] IMPL + Lex **778/778** → **Core 0.8 CLOSED** (GATE (not in the public export / no incluido en el export público))
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE08-REF-ERRPROP-20260926.md`](../GATE-CORE08-REF-ERRPROP-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE08-REF-ERRPROP-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **778/778** accepted → **Core 0.8 CLOSED** (evidence `DOC/reviews/MEASURE_ADR280_REF_ERRPROP_CLOSED_20260926.json`; prior mid-slice `MEASURE_ADR280_REF_ERRPROP_20260926.json`)
 - Clippy workspace OK; Veyra companion **ACCEPTED** exit **0** · `.veyra/evidence/20260926T153538Z/` (trail `153102Z` rustfmt-diff → `cargo fmt` → `153538Z`; residual VT008×12 info)
 - HOLDs Mutex/IndexMut-assign/idle/TLS/WS/crates.io/repair/I/O-new/String.set/threads/unwrap-surface/Option?/`?-in-Io-main` **not** unparked

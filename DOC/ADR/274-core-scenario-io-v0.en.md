@@ -2,7 +2,7 @@ Translation of `274-core-scenario-io-v0.md`; the original is normative. / Traduc
 
 # ADR-274 — Core 0.7 slice 3: SCENARIO-IO
 
-- **Estado:** **CLOSED** Lex **744/744** (2026-09-26) · gate [`DOC/GATE-CORE07-SCENARIO-IO-20260926.md`](../GATE-CORE07-SCENARIO-IO-20260926.md)
+- **Estado:** **CLOSED** Lex **744/744** (2026-09-26) · gate `DOC/GATE-CORE07-SCENARIO-IO-20260926.md` (not in the public export / no incluido en el export público)
 - **CUT-ID:** `CORE-0.7-SCENARIO-IO-20260926`
 - **Fecha:** 2026-09-26
 - **Autores:** Arquitecto (pins) · Codegen · Measure · Ingeniero
@@ -75,7 +75,7 @@ Lex §2 green; tick ADR-271 slice 3; §3 HOLDs intact. Next: slice 4 REF-IO (ADR
 
 ## Close
 
-- **GO Ingeniero** 2026-09-26 · gate [`DOC/GATE-CORE07-SCENARIO-IO-20260926.md`](../GATE-CORE07-SCENARIO-IO-20260926.md)
+- **GO Ingeniero** 2026-09-26 · gate `DOC/GATE-CORE07-SCENARIO-IO-20260926.md` (not in the public export / no incluido en el export público)
 - Lex measure **744/744** accepted
 - Clippy workspace OK; Veyra companion REJECTED (RUSTSEC + rustfmt) **non-blocking**
 - Next (historic): ADR-275 REF-IO — **CLOSED** Lex **752/752** = **Core 0.7 CLOSED**
