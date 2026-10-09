@@ -1,12 +1,24 @@
 # Release builds of the arita CLI.
-# Tag push (v*): GitHub Release with prebuilt binaries + SHA256SUMS.txt.
+# Tag push (v*): GitHub Release with prebuilt binaries, Windows MSI installers + SHA256SUMS
+# (sha256sum format, standard name without extension; `sha256sum -c SHA256SUMS`).
 # workflow_dispatch: same builds uploaded as workflow artifacts only (no Release).
 #
+# Version (file names): tag name on tag push (must equal v<crates/arita-cli/Cargo.toml
+# version>; -dev tags are rejected). On workflow_dispatch: the `version` input or, when
+# empty, v<Cargo.toml version>, always ending in -dev (appended once if missing).
+# MSI ProductVersion is the numeric MAJOR.MINOR.PATCH core only (v0.1.2-dev -> 0.1.2).
+#
 # Runner labels (standard GitHub-hosted runners for public repositories, 2026):
-#   ubuntu-24.04, ubuntu-24.04-arm, windows-2022, windows-11-arm
+#   ubuntu-24.04, ubuntu-24.04-arm, windows-2022, windows-11-arm, macos-15 (arm64)
 #   https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job
+#   https://docs.github.com/en/actions/reference/runners/github-hosted-runners
 #   https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/
 #   https://github.com/actions/runner-images
+#
+# MSI: WiX Toolset .NET tool (https://www.nuget.org/packages/wix) on the .NET SDK
+# preinstalled in the Windows images; source in packaging/windows/arita.wxs.
+#   https://docs.firegiant.com/wix/tools/wixexe/
+#   https://www.nuget.org/packages/wix/5.0.2 (MS-RL)
 name: Release
 
 on:
@@ -14,17 +26,110 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Artifact version (vMAJOR.MINOR.PATCH[-pre]); -dev is appended if missing. Empty: v<crates/arita-cli/Cargo.toml version>-dev."
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
 
 jobs:
+  version:
+    name: version
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.resolve.outputs.version }}
+      msi_version: ${{ steps.resolve.outputs.msi_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Rust 1.97.1
+        uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067 # master @ 2026-10-01
+        with:
+          toolchain: 1.97.1
+
+      - name: Resolve version
+        id: resolve
+        shell: bash
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          # --no-deps reads the manifests only; --locked fails instead of touching Cargo.lock.
+          CARGO_VERSION="$(cargo metadata --no-deps --locked --format-version 1 \
+            | jq -r '.packages[] | select(.name == "arita-cli") | .version')"
+          if [ -z "$CARGO_VERSION" ] || [ "$CARGO_VERSION" = "null" ]; then
+            echo "could not read the arita-cli version from cargo metadata" >&2
+            exit 1
+          fi
+          case "${GITHUB_EVENT_NAME}" in
+            push)
+              VERSION="${GITHUB_REF_NAME}"
+              case "$VERSION" in
+                *-dev)
+                  echo "tag ${VERSION}: -dev versions are for workflow_dispatch only, not releases" >&2
+                  exit 1
+                  ;;
+              esac
+              if [ "$VERSION" != "v${CARGO_VERSION}" ]; then
+                echo "tag ${VERSION} does not match crates/arita-cli/Cargo.toml version ${CARGO_VERSION}" >&2
+                exit 1
+              fi
+              ;;
+            workflow_dispatch)
+              VERSION="${INPUT_VERSION:-v${CARGO_VERSION}}"
+              # Dispatch builds are never release builds: names always end in -dev, once.
+              case "$VERSION" in
+                *-dev) ;;
+                *) VERSION="${VERSION}-dev" ;;
+              esac
+              if [ "${VERSION%-dev}" != "v${CARGO_VERSION}" ]; then
+                echo "::warning::dispatch version ${VERSION} differs from crates/arita-cli/Cargo.toml version ${CARGO_VERSION}"
+              fi
+              ;;
+            *)
+              echo "unexpected event ${GITHUB_EVENT_NAME}" >&2
+              exit 1
+              ;;
+          esac
+          if ! printf '%s\n' "$VERSION" | grep -Eq '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$'; then
+            echo "version must look like vMAJOR.MINOR.PATCH[-pre], got ${VERSION}" >&2
+            exit 1
+          fi
+          # MSI ProductVersion is numeric only: major<=255, minor<=255, build<=65535.
+          MSI_VERSION="${VERSION#v}"
+          MSI_VERSION="${MSI_VERSION%%-*}"
+          if ! printf '%s\n' "$MSI_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "MSI ProductVersion must be numeric MAJOR.MINOR.PATCH, got ${MSI_VERSION}" >&2
+            exit 1
+          fi
+          IFS=. read -r MAJOR MINOR PATCH <<< "$MSI_VERSION"
+          if [ "$MAJOR" -gt 255 ] || [ "$MINOR" -gt 255 ] || [ "$PATCH" -gt 65535 ]; then
+            echo "version ${VERSION} does not fit an MSI ProductVersion" >&2
+            exit 1
+          fi
+          echo "version=${VERSION} msi_version=${MSI_VERSION} cargo=${CARGO_VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "msi_version=${MSI_VERSION}" >> "$GITHUB_OUTPUT"
+
   build:
     name: build (${{ matrix.triple }})
+    needs: version
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
       actions: write
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+      MSI_VERSION: ${{ needs.version.outputs.msi_version }}
+      # WiX 5.0.2: MS-RL, no OSMF EULA to accept (Engineer decision, r2).
+      WIX_VERSION: "5.0.2"
     strategy:
       fail-fast: false
       matrix:
@@ -35,12 +140,17 @@ jobs:
           - runner: ubuntu-24.04-arm
             triple: aarch64-unknown-linux-gnu
             pack: tar.gz
+          - runner: macos-15
+            triple: aarch64-apple-darwin
+            pack: tar.gz
           - runner: windows-2022
             triple: x86_64-pc-windows-msvc
             pack: zip
+            msi_arch: x64
           - runner: windows-11-arm
             triple: aarch64-pc-windows-msvc
             pack: zip
+            msi_arch: arm64
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -56,14 +166,10 @@ jobs:
           set -euo pipefail
           TRIPLE="${{ matrix.triple }}"
           PACK="${{ matrix.pack }}"
-          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            VERSION="v0.1.1"
-          else
-            VERSION="${GITHUB_REF_NAME}"
-          fi
+          # Resolved and validated by the version job.
           case "$VERSION" in
             v*) ;;
-            *) echo "ref name must look like v*, got ${VERSION}" >&2; exit 1 ;;
+            *) echo "version must look like v*, got ${VERSION}" >&2; exit 1 ;;
           esac
           rustup target add "$TRIPLE"
           cargo build --release --locked -p arita-cli --target "$TRIPLE"
@@ -92,20 +198,89 @@ jobs:
             tar -C "$STAGE" -a -cf "$OUT" "$BINNAME" LICENSE NOTICE README.md README.es.md
             tar -tf "$OUT"
           fi
-          # upload-artifact on Windows does not accept a Git-bash /d/ path.
-          echo "ASSET_PATH=dist/arita-${VERSION}-${TRIPLE}.${PACK}" >> "$GITHUB_ENV"
+
+      - name: Install WiX
+        if: matrix.msi_arch != ''
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          dotnet --version
+          dotnet tool install --global wix --version $env:WIX_VERSION
+          $tools = Join-Path $env:USERPROFILE '.dotnet\tools'
+          # wix --version prints e.g. 5.0.2+aa65968c; the last line must start with WIX_VERSION.
+          $installed = (& (Join-Path $tools 'wix.exe') --version | Select-Object -Last 1).Trim()
+          if ($installed -notmatch ('^' + [regex]::Escape($env:WIX_VERSION) + '(\+|$)')) {
+            throw "wix --version is '$installed', expected $($env:WIX_VERSION)"
+          }
+          Write-Output "wix $installed"
+          Add-Content -Path $env:GITHUB_PATH -Value $tools
+
+      - name: Build MSI
+        if: matrix.msi_arch != ''
+        shell: pwsh
+        env:
+          TRIPLE: ${{ matrix.triple }}
+          MSI_ARCH: ${{ matrix.msi_arch }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          # Same stage dir as "Build and package": arita.exe, LICENSE, NOTICE, README*.md.
+          $stage = Join-Path $env:RUNNER_TEMP 'arita-stage'
+          # File name carries VERSION (e.g. v0.1.2-dev); ProductVersion gets the numeric MSI_VERSION (0.1.2).
+          $out = "dist/arita-$($env:VERSION)-$($env:TRIPLE).msi"
+          if ($env:MSI_VERSION -notmatch '^\d+\.\d+\.\d+$') { throw "MSI ProductVersion must be numeric X.Y.Z, got '$($env:MSI_VERSION)'" }
+          # -pdbtype none: no .wixpdb next to the MSI, so dist/ holds release assets only.
+          wix build -arch $env:MSI_ARCH `
+            -d "ProductVersion=$($env:MSI_VERSION)" `
+            -d "Platform=$($env:MSI_ARCH)" `
+            -bindpath $stage `
+            -pdbtype none `
+            -out $out `
+            packaging/windows/arita.wxs
+          Get-Item $out | Format-List Name, Length
+
+      - name: Smoke-test MSI
+        if: matrix.msi_arch != ''
+        shell: pwsh
+        env:
+          TRIPLE: ${{ matrix.triple }}
+          MSI_ARCH: ${{ matrix.msi_arch }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $msi = (Resolve-Path "dist/arita-$($env:VERSION)-$($env:TRIPLE).msi").Path
+          $log = Join-Path $env:RUNNER_TEMP 'arita-msi.log'
+          # Install folder per architecture, as in packaging/windows/arita.wxs.
+          $folder = if ($env:MSI_ARCH -eq 'arm64') { 'Arita (ARM64)' } else { 'Arita' }
+          $dir = Join-Path $env:ProgramFiles $folder
+          $p = Start-Process msiexec.exe -Wait -PassThru -ArgumentList @('/i', "`"$msi`"", '/qn', '/norestart', '/l*v', "`"$log`"")
+          if ($p.ExitCode -ne 0) { Get-Content $log -Tail 80; throw "msiexec /i exit $($p.ExitCode)" }
+          $exe = Join-Path $dir 'arita.exe'
+          if (-not (Test-Path $exe)) { throw "missing $exe" }
+          $machinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+          if (-not ($machinePath -split ';' | Where-Object { $_.TrimEnd('\') -ieq $dir })) { throw "$dir not in machine PATH" }
+          & $exe version
+          if ($LASTEXITCODE -ne 0) { throw "arita.exe version exit $LASTEXITCODE" }
+          $p = Start-Process msiexec.exe -Wait -PassThru -ArgumentList @('/x', "`"$msi`"", '/qn', '/norestart')
+          if ($p.ExitCode -ne 0) { throw "msiexec /x exit $($p.ExitCode)" }
+          if (Test-Path $exe) { throw "$exe still present after uninstall" }
+          $machinePath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+          if ($machinePath -split ';' | Where-Object { $_.TrimEnd('\') -ieq $dir }) { throw "$dir still in machine PATH after uninstall" }
+          Write-Output "MSI install/uninstall OK: $msi"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: arita-${{ matrix.triple }}
-          path: ${{ env.ASSET_PATH }}
+          # Relative path: upload-artifact on Windows does not accept a Git-bash /d/ path.
+          # Matches the archive and, on Windows, the .msi.
+          path: dist/arita-${{ needs.version.outputs.version }}-${{ matrix.triple }}.*
           if-no-files-found: error
           compression-level: 0
 
   checksums:
     name: SHA256SUMS
-    needs: build
+    needs: [version, build]
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -118,19 +293,32 @@ jobs:
           path: artifacts
           merge-multiple: true
 
-      - name: Write SHA256SUMS.txt
+      - name: Write SHA256SUMS
         shell: bash
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
         run: |
           set -euo pipefail
           cd artifacts
-          # Only the release archives; this file is not hashed into itself.
-          sha256sum arita-* | tee SHA256SUMS.txt
-          test -s SHA256SUMS.txt
+          # Every release asset must be present before hashing.
+          for f in \
+            "arita-${VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            "arita-${VERSION}-aarch64-unknown-linux-gnu.tar.gz" \
+            "arita-${VERSION}-aarch64-apple-darwin.tar.gz" \
+            "arita-${VERSION}-x86_64-pc-windows-msvc.zip" \
+            "arita-${VERSION}-x86_64-pc-windows-msvc.msi" \
+            "arita-${VERSION}-aarch64-pc-windows-msvc.zip" \
+            "arita-${VERSION}-aarch64-pc-windows-msvc.msi"; do
+            test -s "$f" || { echo "missing release asset: $f" >&2; exit 1; }
+          done
+          # Only the release archives and installers; this file is not hashed into itself.
+          sha256sum arita-* | tee SHA256SUMS
+          test "$(wc -l < SHA256SUMS)" -eq 7
 
-      - name: Upload SHA256SUMS.txt
+      - name: Upload SHA256SUMS
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          path: artifacts/SHA256SUMS.txt
+          path: artifacts/SHA256SUMS
           if-no-files-found: error
           archive: false
           compression-level: 0
@@ -165,12 +353,18 @@ jobs:
             echo "missing release notes: ${NOTES}" >&2
             exit 1
           fi
+          # The checksums file is SHA256SUMS since v0.1.2; notes must not cite the old name.
+          if grep -q 'SHA256SUMS\.txt' "$NOTES"; then
+            echo "release notes ${NOTES} still mention SHA256SUMS.txt; the asset is SHA256SUMS" >&2
+            exit 1
+          fi
           cd dist
-          sha256sum -c SHA256SUMS.txt
+          test "$(wc -l < SHA256SUMS)" -eq 7
+          sha256sum -c SHA256SUMS
           cd ..
-          # Not a draft and not a prerelease.
+          # Not a draft and not a prerelease. dist/arita-* includes the .msi installers.
           gh release create "$TAG" \
             --title "ARITA ${TAG}" \
             --notes-file "$NOTES" \
             dist/arita-* \
-            dist/SHA256SUMS.txt
+            dist/SHA256SUMS

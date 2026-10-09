@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ARITA CLI installer (WiX Toolset v4+ schema; built with WiX 5.0.2).
+
+  Built by .github/workflows/release.yml on windows-2022 (x64) and
+  windows-11-arm (arm64):
+
+    wix build -arch x64|arm64
+      -d ProductVersion=<major.minor.patch>
+      -d Platform=x64|arm64
+      -bindpath <stage dir holding arita.exe, LICENSE, NOTICE, README.md, README.es.md>
+      -out dist/arita-v<version>-<triple>.msi
+      packaging/windows/arita.wxs
+
+  One product per architecture, each with its own fixed UpgradeCode and folder:
+    x64   UpgradeCode 6F507F44-EF3E-4276-A30F-854C553B824D  [ProgramFiles64Folder]Arita
+    arm64 UpgradeCode 2453DF1F-917D-4BA7-9A25-967B5267AC13  [ProgramFiles64Folder]Arita (ARM64)
+  Never change either code: MSI major upgrades only find older installs that
+  carry the same UpgradeCode. The x64 and arm64 packages are mutually
+  exclusive: each one detects the other and refuses to install while it is
+  present, so the system PATH never holds two arita.exe folders.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?if $(var.Platform) = "x64" ?>
+  <?define AritaUpgradeCode = "6F507F44-EF3E-4276-A30F-854C553B824D" ?>
+  <?define AritaOtherArchUpgradeCode = "2453DF1F-917D-4BA7-9A25-967B5267AC13" ?>
+  <?define AritaFolderName = "Arita" ?>
+  <?define AritaOtherArchName = "ARITA (ARM64)" ?>
+  <?elseif $(var.Platform) = "arm64" ?>
+  <?define AritaUpgradeCode = "2453DF1F-917D-4BA7-9A25-967B5267AC13" ?>
+  <?define AritaOtherArchUpgradeCode = "6F507F44-EF3E-4276-A30F-854C553B824D" ?>
+  <?define AritaFolderName = "Arita (ARM64)" ?>
+  <?define AritaOtherArchName = "ARITA (x64)" ?>
+  <?else?>
+  <?error Platform must be x64 or arm64 ?>
+  <?endif?>
+
+  <Package
+      Name="ARITA"
+      Manufacturer="ARITA Project"
+      Version="$(var.ProductVersion)"
+      UpgradeCode="$(var.AritaUpgradeCode)"
+      Language="1033"
+      Scope="perMachine"
+      Compressed="yes">
+
+    <SummaryInformation Description="ARITA command-line tool $(var.ProductVersion) ($(var.Platform))" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed. Uninstall it first to install this version." />
+
+    <!-- Detect (never remove) the other architecture's product. -->
+    <Upgrade Id="$(var.AritaOtherArchUpgradeCode)">
+      <UpgradeVersion Property="ARITA_OTHER_ARCH_FOUND" OnlyDetect="yes" Minimum="0.0.0" IncludeMinimum="yes" />
+    </Upgrade>
+    <Launch
+        Condition="Installed OR NOT ARITA_OTHER_ARCH_FOUND"
+        Message="$(var.AritaOtherArchName) is already installed. Uninstall it first: only one ARITA architecture can be installed at a time." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/Doken-Tokuyama/Arita" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="$(var.AritaFolderName)">
+        <Component Id="AritaExe">
+          <File Id="AritaExeFile" Source="arita.exe" KeyPath="yes" />
+          <Environment
+              Id="AritaPath"
+              Name="PATH"
+              Value="[INSTALLFOLDER]"
+              Part="last"
+              Action="set"
+              System="yes"
+              Permanent="no" />
+        </Component>
+        <Component Id="AritaLicense">
+          <File Id="LicenseFile" Source="LICENSE" KeyPath="yes" />
+        </Component>
+        <Component Id="AritaNotice">
+          <File Id="NoticeFile" Source="NOTICE" KeyPath="yes" />
+        </Component>
+        <Component Id="AritaReadme">
+          <File Id="ReadmeFile" Source="README.md" KeyPath="yes" />
+        </Component>
+        <Component Id="AritaReadmeEs">
+          <File Id="ReadmeEsFile" Source="README.es.md" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <Feature Id="Main" Title="ARITA" Level="1">
+      <ComponentRef Id="AritaExe" />
+      <ComponentRef Id="AritaLicense" />
+      <ComponentRef Id="AritaNotice" />
+      <ComponentRef Id="AritaReadme" />
+      <ComponentRef Id="AritaReadmeEs" />
+    </Feature>
+  </Package>
+</Wix>
