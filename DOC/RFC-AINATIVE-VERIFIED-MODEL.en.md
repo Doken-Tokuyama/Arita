@@ -101,8 +101,8 @@ Modules · record/enum/match · simple generics · Text/Bytes/checked numbers ·
 - [x] Aviso/GO <person> reinicio (R4 → Core 0.1)  
 - [x] Repair oracle DOC (REPAIR-ORACLE.md + ADR-231 propuesta)
 - [x] Pins Core 0.1 → ADR-232
-- [x] R4 CLOSED Lex **583/583**
-- [x] Core 0.1 CLOSED Lex **603/603**
+- [x] R4 CLOSED local gate **583/583**
+- [x] Core 0.1 CLOSED local gate **603/603**
 
 ## 10. Repair oracle (delta <person> 2026-09-19)
 
@@ -121,4 +121,4 @@ Normative: [`REPAIR-ORACLE.md`](REPAIR-ORACLE.en.md) · ADR-231.
 Pins: [ADR-233](ADR/233-core-0.2-pins.md). Prereq Core 0.1 CLOSED. Vertical = HTTP daemon + explicit async.
 
 - [x] Pins Core 0.2 → ADR-233
-- [ ] Core 0.2 CLOSED Lex
+- [ ] Core 0.2 CLOSED local gate

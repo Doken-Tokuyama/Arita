@@ -83,7 +83,7 @@ const client = new LanguageClient("arita", "ARITA LSP", serverOptions, clientOpt
 await client.start();
 ```
 
-**Cursor:** misma API VS Code; apunta `command` al `arita` de Lex (`<repo>/target/release/arita`) o a un install en `PATH`.
+**Cursor:** misma API VS Code; apunta `command` al `arita` del gate local (`<repo>/target/release/arita`) o a un install en `PATH`.
 
 Settings-only (si usas una extensión “generic LSP” que lea JSON):
 
@@ -152,7 +152,7 @@ Unitarios del módulo: `cargo test -p arita-cli lsp::` (diagnose fixture + offse
 
 ## Measure (no tocar)
 
-Barra actual (Lex, post ADR-033b/034): **76 accepted** + **2 gated inconclusive** (targets cross) → línea `arita measure accepted: 78`. Ver `STABLE_VERIFY.md`.
+Barra actual (en el gate local, post ADR-033b/034): **76 accepted** + **2 gated inconclusive** (targets cross) → línea `arita measure accepted: 78`. Ver `STABLE_VERIFY.md`.
 
 Histórico al landear LSP: measure **75/75** preservado (LSP fuera de measure). Narrativa 75→76→78 = host-border + targets gated; **este DOC no muta measure ni crates**.
 

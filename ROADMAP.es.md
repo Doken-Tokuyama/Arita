@@ -69,9 +69,16 @@ Bajo la corrección guiada por el compilador:
 
 - También en 0.1.2: la protección mínima de escritura de `arita fix --write` (hash de contenido, re-comprobación en memoria, guarda de carrera).
 
+
+Bajo las integraciones con agentes de IA (visto bueno del autor del proyecto, 2026-10-09 19:30):
+
+- Paquete de instrucciones para agentes: un `AGENTS.md` canónico, un `CLAUDE.md` breve que apunta a él, ejemplos few-shot `.arita` con salida de `arita check --json`, y la tabla de códigos E0xxx (causa y corrección típica). Pensado para herramientas que ya cargan `AGENTS.md` (entre otras Cursor, OpenCode, Devin Desktop/CLI, GitHub Copilot, OpenAI Codex, Zed, Verdent, Antigravity, Freebuff/Codebuff y DeepSeek Harness); Claude Code usa `CLAUDE.md`.
+- Plantillas de hook post-edición que ejecutan `arita check --json` tras editar `.arita` (adaptadores a los formatos de hook de esas herramientas).
+- `arita-mcp` por stdio con las herramientas `check`, `build`, `fix`, `explain` y `contract`.
+
 **Criterio de release:** en cada etapa, todos los oráculos deben pasar sin pruebas omitidas, y la evidencia debe superar una verificación independiente. La versión 0.1.2 sale solo cuando todas las etapas estén cerradas.
 
-## Versión 0.1.3
+## Versión 0.1.3 (extensiones)
 
 ### Lenguaje
 
@@ -85,6 +92,7 @@ Bajo la corrección guiada por el compilador:
 
 - **propuesto:** `arita build --diagnostics json` (diagnósticos de rustc en JSON).
 - **propuesto:** La CI no debe cachear `target/` si Miri guarda ahí datos de entorno.
+- **propuesto:** Gramática TextMate y extensión de VS Code publicada en Open VSX y en el Marketplace de VS Code.
 
 ### Repair y distribución
 
@@ -118,6 +126,8 @@ Bajo la corrección guiada por el compilador:
 ### Tooling
 
 - **propuesto:** UI del manifiesto de evidencia.
+- **propuesto:** Servidor de lenguaje sobre `arita check --json` (diagnósticos y code actions orientadas a `fix`).
+- **propuesto:** Extensión de Zed con gramática tree-sitter para `.arita`.
 
 ## Sin programar (en espera)
 
@@ -155,12 +165,12 @@ Bajo la corrección guiada por el compilador:
 ### Tooling
 
 - **en espera:** Dependencias y publicación abiertas en crates.io (salvo `cargo publish --dry-run`).
-- **en espera:** Servidor MCP / conector ACP para tooling de editor y agentes.
-- **en espera:** LSP/IDE más completo (completion, hover, rename, ir a definición, formateo, code actions, pull diagnostics).
+- **en espera:** Conector ACP para tooling de editor y agentes.
 
 ### Repair y distribución
 
 - **en espera:** Packaging como distribución (binarios precompilados, instaladores).
+
 ## Escalera de versiones del núcleo ("Core")
 
 Cada versión del núcleo añade una capacidad vertical y se da por cerrada solo cuando todos sus oráculos pasan.

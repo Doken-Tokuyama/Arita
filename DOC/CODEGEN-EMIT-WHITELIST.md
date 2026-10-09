@@ -2,7 +2,7 @@
 
 - **Estado:** **REVIEW / HOLD IMPL** (2026-09-18) — docs-only; **no** land crates sin GO.
 - **Autores:** ARITA Codegen (audit) · <person> + Ingeniero (request HOLD).
-- **SoT código (box `/workspace/ARITA`; Lex `<repo>`):**
+- **SoT código (box `/workspace/ARITA`; el gate local `<repo>`):**
   - Emit: `crates/arita-codegen/src/lib.rs` → `emit_method_call` **L634–737**
   - HIR gate: `crates/arita-hir/src/lib.rs` → `type_of_method_call` **L760–1257**; loans **L472–473**
 - **ADRs:** 026 (std minima), 045 (overflow / checked OUT v0), 046 (traps arith), 049 (clear), 050 (Option), 052 (pop; `get`/`remove` OUT DOC).

@@ -17,7 +17,7 @@ Ventajas: targets Linux/Windows/macOS × x64/ARM ya existen; LTO, cross via `car
 | Windows | aarch64 | post-Fase 4 |
 | macOS | x86_64 | post-Fase 4 |
 
-**Estado spike (ADR-003):** emit-Rust verificado en Linux x86_64; macOS aarch64 hello pendiente (Lex Shell `zsh ENOENT`, no diseño). Freeze emit AST: CUT-ID `F1-AST-RICH-20260913` (Module/Function/Call/LitStr).
+**Estado spike (ADR-003):** emit-Rust verificado en Linux x86_64; macOS aarch64 hello pendiente (el gate local Shell `zsh ENOENT`, no diseño). Freeze emit AST: CUT-ID `F1-AST-RICH-20260913` (Module/Function/Call/LitStr).
 
 ## rustc target triples (prep multi-OS)
 
@@ -53,7 +53,7 @@ Sin target/linker: measure oráculos `target-win-gnu` / `target-linux-arm64` →
 
 ### Mapeo CLI (IMPL — ADR-034)
 
-**Estado IMPL:** landed Lex — suite **accepted** **89/89** (`TARGETS-CROSS-LEX-20260915`). Host linkers in `.cargo/config.toml`: `aarch64-linux-gnu-gcc` + `x86_64-w64-mingw32-gcc` (mingw-w64). Without linkers, gated oracles stay **inconclusive** (never fake PASS).
+**Estado IMPL:** landed en el gate local — suite **accepted** **89/89** (`TARGETS-CROSS-LEX-20260915`). Host linkers in `.cargo/config.toml`: `aarch64-linux-gnu-gcc` + `x86_64-w64-mingw32-gcc` (mingw-w64). Without linkers, gated oracles stay **inconclusive** (never fake PASS).
 
 ```
 arita build [--profile debug|release] [--target <triple>] <file.arita>

@@ -69,9 +69,16 @@ Under compiler-guided repair:
 
 - Also in 0.1.2: the minimum write-protection for `arita fix --write` (content hash, in-memory re-check, race guard).
 
+
+Under AI agent integrations (go-ahead from the project author, 2026-10-09 19:30):
+
+- Agent instruction pack: a canonical `AGENTS.md`, a short `CLAUDE.md` that points to it, few-shot `.arita` examples with `arita check --json` output, and the E0xxx code table (cause and typical fix). Aimed at tools that already load `AGENTS.md` (among others Cursor, OpenCode, Devin Desktop/CLI, GitHub Copilot, OpenAI Codex, Zed, Verdent, Antigravity, Freebuff/Codebuff and DeepSeek Harness); Claude Code uses `CLAUDE.md`.
+- Post-edit hook templates that run `arita check --json` on `.arita` edits (adapters for the hook formats of those tools).
+- `arita-mcp` over stdio with the tools `check`, `build`, `fix`, `explain` and `contract`.
+
 **Release criteria:** in every stage, all oracles must pass with no skipped tests, and the evidence must pass an independent verification. Version 0.1.2 is released only when every stage is closed.
 
-## Version 0.1.3
+## Version 0.1.3 (extensions)
 
 ### Language
 
@@ -85,6 +92,7 @@ Under compiler-guided repair:
 
 - **proposed:** `arita build --diagnostics json` (rustc diagnostics in JSON).
 - **proposed:** CI must not cache `target/` when Miri stores environment data there.
+- **proposed:** TextMate grammar and a VS Code extension published on Open VSX and the VS Code Marketplace.
 
 ### Repair and distribution
 
@@ -118,6 +126,8 @@ Under compiler-guided repair:
 ### Tooling
 
 - **proposed:** UI for the evidence manifest.
+- **proposed:** Language server over `arita check --json` (diagnostics and fix-oriented code actions).
+- **proposed:** Zed extension with a tree-sitter grammar for `.arita`.
 
 ## Not scheduled (on hold)
 
@@ -155,12 +165,12 @@ Under compiler-guided repair:
 ### Tooling
 
 - **on hold:** Open crates.io dependencies and publishing (except `cargo publish --dry-run`).
-- **on hold:** MCP server / ACP connector for editor and agent tooling.
-- **on hold:** Richer LSP/IDE support (completion, hover, rename, go-to-definition, formatting, code actions, pull diagnostics).
+- **on hold:** ACP connector for editor and agent tooling.
 
 ### Repair and distribution
 
 - **on hold:** Packaging as distribution (prebuilt binaries, installers).
+
 ## Core version ladder ("Core")
 
 Each core version adds a vertical capability and is only considered closed when all of its oracles pass.

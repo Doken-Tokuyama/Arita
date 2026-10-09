@@ -19,7 +19,7 @@ Advantages: Linux/Windows/macOS × x64/ARM targets already exist; LTO, cross via
 | Windows | aarch64 | post-Fase 4 |
 | macOS | x86_64 | post-Fase 4 |
 
-**Spike status (ADR-003):** emit-Rust verified on Linux x86_64; macOS aarch64 hello pending (Lex Shell `zsh ENOENT`, not design). Emit AST freeze: CUT-ID `F1-AST-RICH-20260913` (Module/Function/Call/LitStr).
+**Spike status (ADR-003):** emit-Rust verified on Linux x86_64; macOS aarch64 hello pending (local-gate Shell `zsh ENOENT`, not design). Emit AST freeze: CUT-ID `F1-AST-RICH-20260913` (Module/Function/Call/LitStr).
 
 ## rustc target triples (multi-OS prep)
 
@@ -29,7 +29,7 @@ Advantages: Linux/Windows/macOS × x64/ARM targets already exist; LTO, cross via
 |----|------|-------------------------|--------|
 | Linux | x86_64 | `x86_64-unknown-linux-gnu` | MVP F1; verificado en spike |
 | Linux | aarch64 | `aarch64-unknown-linux-gnu` | Fase 4; glibc. Musl: `aarch64-unknown-linux-musl` (opc.) |
-| macOS | aarch64 | `aarch64-apple-darwin` | MVP F1; hold until Lex Shell |
+| macOS | aarch64 | `aarch64-apple-darwin` | MVP F1; hold until local-gate Shell |
 | macOS | x86_64 | `x86_64-apple-darwin` | post-Fase 4 |
 | Windows | x86_64 | `x86_64-pc-windows-gnu` | Fase 4 / ADR-034 **v0 default**. `x86_64-pc-windows-msvc` = **OUT v0** |
 | Windows | aarch64 | `aarch64-pc-windows-msvc` | post-Fase 4 |
@@ -55,7 +55,7 @@ Without target/linker: measure oracles `target-win-gnu` / `target-linux-arm64` �
 
 ### CLI mapping (IMPL — ADR-034)
 
-**Estado IMPL:** landed Lex — suite **accepted** **89/89** (`TARGETS-CROSS-LEX-20260915`). Host linkers in `.cargo/config.toml`: `aarch64-linux-gnu-gcc` + `x86_64-w64-mingw32-gcc` (mingw-w64). Without linkers, gated oracles stay **inconclusive** (never fake PASS).
+**Estado IMPL:** landed local gate — suite **accepted** **89/89** (`TARGETS-CROSS-LEX-20260915`). Host linkers in `.cargo/config.toml`: `aarch64-linux-gnu-gcc` + `x86_64-w64-mingw32-gcc` (mingw-w64). Without linkers, gated oracles stay **inconclusive** (never fake PASS).
 
 ```
 arita build [--profile debug|release] [--target <triple>] <file.arita>
