@@ -22,7 +22,7 @@ Scenarios/acceptance on a **lib+bin workspace** (255/256): the bin exercises the
 |-----|----------|
 | **Harness** | `arita.toml` package + `pub` lib + CLI bin (or bin test harness) |
 | **Scenarios** | language-level `scenario`/`acceptance` (reuse 0.1/247 style) |
-| **Mínimo** | ≥1 scenario calls lib API via bin **or** in-process scenario if emit allows — **preferred pin:** CLI bin + stdout oracle |
+| **Minimum** | ≥1 scenario calls lib API via bin **or** in-process scenario if emit allows — **preferred pin:** CLI bin + stdout oracle |
 | **OUT** | net/HTTP scenarios · crates.io · parallel Mutex |
 
 ## 1. Surface

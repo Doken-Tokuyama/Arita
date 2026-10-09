@@ -12,6 +12,6 @@ The `fact` / `rule` / `query` of the F3 logic island are **relational** (symbols
 
 ## Checklist review
 
-- [x] `crates/arita-logic`: sin `i64` / wrapping / saturating / overflow paths
-- [x] ADR-012 / PACK-F3: sin claim de Int overflow en Logic (nada stale que desmarcar salvo este pin explícito)
-- [x] ADR-045 / ADR-090 / ADR-091: Imperativo only — no reabrir desde Logic
+- [x] `crates/arita-logic`: no `i64` / wrapping / saturating / overflow paths
+- [x] ADR-012 / PACK-F3: no Int-overflow claim in Logic (nothing stale to uncheck except this explicit pin)
+- [x] ADR-045 / ADR-090 / ADR-091: Imperative only — do not reopen from Logic

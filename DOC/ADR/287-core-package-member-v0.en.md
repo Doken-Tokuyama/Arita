@@ -106,7 +106,7 @@ Read-only scan, report in `DOC/reviews/PREP_ADR287_PKG_MEMBER_SCAN_<fecha>.md` w
 
 ## 8. Slice, order and GO
 
-- **Slice único** `PKG-MEMBER` (size S). Order decided by the Engineer: S1b → **this** → unused_parens/B-282 → IndexMut → Mutex.
+- **Single slice** `PKG-MEMBER` (size S). Order decided by the Engineer: S1b → **this** → unused_parens/B-282 → IndexMut → Mutex.
 - Sequence: DOC (this ADR) → Measure PREP (§6) → Engineer verification → Engineer **GO IMPL** → implementation (Orchestrator/Codegen) → Lex → CLOSED with real evidence. Inventing PASS / N/N / CLOSED is forbidden.
 - At CLOSED: ADR-286 close edit (B-286-10 row → CLOSED by ADR-287) and E0332 registration in catalogs, both by Architect/Docs.
 
@@ -123,15 +123,15 @@ Datos tomados de `DOC/GATE-CORE10-PKG-MEMBER-20261002.md` (sha256 `d617170232db8
 
 - **Veredicto:** GO CLOSED (Ingeniero Rust, 2026-10-02).
 - **E0332** `input is not a workspace member`: `arita build <input>` in a package only accepts workspace members; a non-member yields E0332 (exit 1, empty stdout, without mutating the tree). A nonexistent entry remains an I/O error (PM-6), not E0332.
-- **Oráculos** (k = 7, N = 851): PM-1 `core10-pkg-member-bin-ok` · PM-2 `neg-core10-pkg-member-other` · PM-3 `core10-pkg-member-dotdot` (includes the simple relative path) · PM-4 `neg-core10-pkg-member-other-record` · PM-5 `neg-core10-pkg-member-other-edge` · PM-6 `neg-core10-pkg-member-missing-input` · PM-7 `core10-pkg-member-lib`.
+- **Oracles** (k = 7, N = 851): PM-1 `core10-pkg-member-bin-ok` · PM-2 `neg-core10-pkg-member-other` · PM-3 `core10-pkg-member-dotdot` (includes the simple relative path) · PM-4 `neg-core10-pkg-member-other-record` · PM-5 `neg-core10-pkg-member-other-edge` · PM-6 `neg-core10-pkg-member-missing-input` · PM-7 `core10-pkg-member-lib`.
 - **Evidencia** (exclusive Lex run, 2026-10-02 19:26–20:55 CEST): `cargo fmt --all -- --check` 0; `cargo clippy --workspace --all-targets -- -D warnings` 0; `cargo build --release -p arita-cli` 0; `cargo test` 498 passed / 0 failed; `arita measure` **851/851 accepted** with no skips; miri-workspace 0 failures.
 - **Veyra Proof** (quick): #1 `20261002T185553Z` **REJECTED** (VT006 ×3 in `tests/pkg_member.rs`, remediated in test code only, no waiver); #2 `20261002T193930Z` **ACCEPTED**.
-- **Artefacto de medición:** `DOC/reviews/MEASURE_ADR287_PKG_MEMBER_EXCLUSIVE_20261002.json` (sha256 `3a031a66…`, md5 `9afbc616…`). Freeze: `DOC/reviews/MEASURE-ADR287-PKG-MEMBER-FREEZE-20261002.sha`.
+- **Measurement artifact:** `DOC/reviews/MEASURE_ADR287_PKG_MEMBER_EXCLUSIVE_20261002.json` (sha256 `3a031a66…`, md5 `9afbc616…`). Freeze: `DOC/reviews/MEASURE-ADR287-PKG-MEMBER-FREEZE-20261002.sha`.
 - **Shas al cierre:** `main.rs` `ed0820b4…`, `package.rs` `5fee2beb…`, `measure.rs` `10443913…`, `tests/pkg_member.rs` `9172a51e…`, `tests/measure_stdout.rs` `8bc7ba81…`.
-- **B-measure-stdout cerrado aquí:** `arita measure` stdout is pure JSON (test `tests/measure_stdout.rs`).
+- **B-measure-stdout closed here:** `arita measure` stdout is pure JSON (test `tests/measure_stdout.rs`).
 - **Consecuencia:** historic core04 non-members (`lib-api/bin/main-record.arita`, `ref-pkg-lib/bin/edge.arita`) and the 3 non-members of the new fixture now get E0332 instead of silently building another member’s bin.
-- **Limitación conocida:** the verification script’s `contract` comparison exercises nothing; effective coverage is PM-1..PM-7.
+- **Known limitation:** the verification script’s `contract` comparison exercises nothing; effective coverage is PM-1..PM-7.
 - **Backlog:** B-287-1/2/3 (P3) stay open (§7).
 - **Registro de E0332:** there is no dedicated E-code catalog; canonical definitions are this ADR, `package.rs`, `measure.rs` and `tests/pkg_member.rs`.
-- **Orden siguiente:** ADR-288 → ADR-289 → ADR-290 (IndexMut).
+- **Next in order:** ADR-288 → ADR-289 → ADR-290 (IndexMut).
 - Note: ADR sha after this close: recorded by the Engineer addendum.

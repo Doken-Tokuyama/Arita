@@ -1,9 +1,9 @@
 # ARITA Repair Oracle — compiler-guided autonomous correction
 
-- **Estado:** **propuesta** (rev. 1.2 — memoria + presupuestos + envelope + estancamiento)
+- **Estado:** **v0.1.2 punto 6: diagnósticos estructurados, sugerencias deterministas y `arita fix`** (rev. 1.2 — memoria + presupuestos + envelope + estancamiento)
 - **Producto:** el compilador es un **oráculo estructurado**, no un mensaje de error pegado al LLM
 - **Relacionados:** RFC rev. 3 · PRODUCT-VISION · evidencia/scenarios · ADR-231
-- **HOLD IMPL** `arita repair` / CUT hasta GO reinicio <person>
+- **HOLD levantado** (GO <person> 2026-10-09 18:26, vía Ingeniero); v0.1.2 punto 6: diagnósticos estructurados, sugerencias deterministas y `arita fix` (antes: **HOLD IMPL** `arita repair` / CUT hasta GO reinicio <person>)
 
 ## 0. Tesis
 

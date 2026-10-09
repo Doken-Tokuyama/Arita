@@ -25,11 +25,11 @@ Advantages: Linux/Windows/macOS × x64/ARM targets already exist; LTO, cross via
 
 **Host/default** triples that `arita build` will use via `rustc` / `cargo` later. Not an emit change; inventory only.
 
-| OS | Arch | Triple rustc (canónico) | Notas |
+| OS | Arch | canonical rustc triple | Notes |
 |----|------|-------------------------|--------|
 | Linux | x86_64 | `x86_64-unknown-linux-gnu` | MVP F1; verificado en spike |
 | Linux | aarch64 | `aarch64-unknown-linux-gnu` | Fase 4; glibc. Musl: `aarch64-unknown-linux-musl` (opc.) |
-| macOS | aarch64 | `aarch64-apple-darwin` | MVP F1; hold hasta Shell lex |
+| macOS | aarch64 | `aarch64-apple-darwin` | MVP F1; hold until Lex Shell |
 | macOS | x86_64 | `x86_64-apple-darwin` | post-Fase 4 |
 | Windows | x86_64 | `x86_64-pc-windows-gnu` | Fase 4 / ADR-034 **v0 default**. `x86_64-pc-windows-msvc` = **OUT v0** |
 | Windows | aarch64 | `aarch64-pc-windows-msvc` | post-Fase 4 |
@@ -43,7 +43,7 @@ Before cross oracles or `arita build --target <triple>`, install the target:
 rustup target add x86_64-pc-windows-gnu
 rustup target add aarch64-unknown-linux-gnu
 
-# Host / otros (según máquina)
+# Host / others (per machine)
 rustup target add aarch64-apple-darwin
 rustup target add x86_64-unknown-linux-gnu
 rustup target add x86_64-apple-darwin

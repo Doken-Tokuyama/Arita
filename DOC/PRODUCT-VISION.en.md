@@ -38,9 +38,9 @@ JSON manifest keyed by source hash. Confidence levels from “analyzed” to “
 
 ## Estado
 
-- **Core 0.9: CERRADO — 834/834.** Escritura en colecciones por índice (`m[k] = v`, `v[i] = x`) sin pánico.
-- **Core 0.10 (ERRORES, fase 1): en curso.** Once etapas de la fase 1 están cerradas, todas las previstas para la versión 1; siguen las comprobaciones previas a la versión 1 y la declaración de la versión 1. La barra vigente está en la [hoja de ruta](../ROADMAP.md).
-- Núcleo 0.1 a 0.8: cerrados. Ver la escalera completa en [`../ROADMAP.md`](../ROADMAP.md).
+- **Core 0.9: CLOSED — 834/834.** Index writes into collections (`m[k] = v`, `v[i] = x`) without panic.
+- **Core 0.10 (ERRORS, phase 1): in progress.** Eleven phase-1 stages are closed, all those planned for version 1; the pre-version-1 checks remain, and the version-1 declaration. The current bar is in the [roadmap](../ROADMAP.md).
+- Core 0.1 through 0.8: closed. See the full ladder in [`../ROADMAP.md`](../ROADMAP.md).
 
 ## Compiler-guided repair
 

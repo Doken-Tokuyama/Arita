@@ -4,7 +4,7 @@
 
 - **Estado:** **REVIEW / HOLD IMPL** (2026-09-18) — docs-only; **do not** land crates without GO.
 - **Autores:** ARITA Codegen (audit) · <person> + Ingeniero (request HOLD).
-- **SoT código (box `/workspace/ARITA`; Lex `<repo>`):**
+- **Code SoT (box `<scratch>/ARITA`; Lex `<repo>`):**
   - Emit: `crates/arita-codegen/src/lib.rs` → `emit_method_call` **L634–737**
   - HIR gate: `crates/arita-hir/src/lib.rs` → `type_of_method_call` **L760–1257**; loans **L472–473**
 - **ADRs:** 026 (std minima), 045 (overflow / checked OUT v0), 046 (traps arith), 049 (clear), 050 (Option), 052 (pop; `get`/`remove` OUT DOC).
@@ -119,12 +119,12 @@ ends_with   | String      | 1 | Bool         | shared    | lit / &{a}
 len         | String|Vec  | 0 | Int          | shared    | ({recv}.len() as i64)
 is_empty    | String|Vec  | 0 | Bool         | shared    | {recv}.is_empty()
 
-# HOLD — HIR yes / emit None (no land sin GO)
+# HOLD — HIR yes / emit None (do not land without GO)
 unwrap_or   | Option|Result | 1 | inner/Ok   | shared    | {recv}.unwrap_or({arg})
 is_some     | Option      | 0 | Bool         | shared    | {recv}.is_some()
 is_none     | Option      | 0 | Bool         | shared    | {recv}.is_none()
 checked_add | Int         | 1 | Option<Int>  | shared    | {recv}.checked_add({arg})
-# … resto familia §2
+# … rest of family §2
 ```
 
 ---
@@ -150,7 +150,7 @@ checked_add | Int         | 1 | Option<Int>  | shared    | {recv}.checked_add({a
 ## 6. Checklist review (HOLD)
 
 - [x] Audit `emit_method_call` L634–737 citado
-- [x] Tabla arith completa (todas **not present in emit yet**)
+- [x] Full arith table (all **not present in emit yet**)
 - [x] Plantilla AI + Vec/String + Option helpers
 - [x] Flags get/remove vs thin + ADR-052
 - [ ] Engineer GO for emit arith / Option methods CUT (crates) — **not** this DOC

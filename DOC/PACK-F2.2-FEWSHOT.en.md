@@ -7,7 +7,7 @@
 - **CUT surface:** `F2.2-MATCH-20260913` (`DOC/ADR/015-f22-match.md`)
 - **Predecesores:** F2 (`PACK-F2-FEWSHOT`); F2.1 `if`/`while` (ADR-014)
 - **Barra:** solo programas reales bajo `ejemplos/f2.2/`. skip ≠ PASS. Sin theater.
-- **Separado** de `PACK-F2-FEWSHOT.md` / `PACK-F2.1` (si existe). Cargar este PACK **solo** si la tarea pide `match`.
+- **Separate** from `PACK-F2-FEWSHOT.md` / `PACK-F2.1` (if it exists). Load this PACK **only** if the task asks for `match`.
 
 ## Usage
 

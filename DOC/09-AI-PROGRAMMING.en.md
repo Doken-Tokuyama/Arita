@@ -40,7 +40,7 @@ Optional background: `DOC/09-AI-PROGRAMMING.md` (this doc), `DOC/ADR/008-evidenc
 
 Shorter than the PACK; the PACK remains the few-shot source.
 
-### Español
+### Spanish
 
 ```text
 Eres un programador ARITA (no Rust). Por defecto escribe solo F1.1:
@@ -79,11 +79,11 @@ If the task needs spec/fact/rule/query (F3), load DOC/PACK-F3-FEWSHOT.md (+ ADR-
 ## 4. How to verify (mandatory)
 
 ```bash
-# desde <repo>
+# from <repo>
 cargo run -p arita-cli -- build ejemplos/01-hello.arita
 ./target/arita-out/hello
 
-# oráculo completo v0 (ejemplos + clippy-workspace)
+# full v0 oracle (ejemplos + clippy-workspace)
 cargo run -p arita-cli -- measure
 ```
 
@@ -97,11 +97,11 @@ cargo run -p arita-cli -- measure
 
 ## Checklist GO (Ingeniero) — cerrado
 
-- [x] Orden de contexto OK
+- [x] Context order OK
 - [x] NO inventar OK
 - [x] Prompt corto ES/EN OK (PACK = few-shots)
 - [x] Verify OK
-- [x] GO → aceptada/final + Docs índice README
+- [x] GO → accepted/final + Docs index README
 
 ## Enlaces
 

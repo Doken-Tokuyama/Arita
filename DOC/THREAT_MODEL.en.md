@@ -5,7 +5,7 @@
 - **CUT-ID:** `EVIDENCE-CHAIN-20260913`
 - **Estado:** **aceptada** (GO Ingeniero Rust, CUT `EVIDENCE-CHAIN-20260913`)
 - **Fecha:** 2026-09-13
-- **Fuente:** brief de amigo de <person> (visión “cadena de evidencia”); nombre del lenguaje = **ARITA** (no Veyra)
+- **Source:** brief from a friend of <person> (“evidence chain” vision); language name = **ARITA** (not Veyra)
 - **Relacionados:** `DOC/ADR/008-evidence-architecture.md`, ADR-002, ADR-005, ADR-006, barra E2E en `ROADMAP.md`
 
 Product (rev. 3): AI-native language → real Rust — see `RFC-AINATIVE-VERIFIED-MODEL.md`. Evidence JSON/manifest first; UI later.
@@ -68,7 +68,7 @@ Does not erase F1/F2/measure: anti-fake of the **language** (executable scenario
 - [x] Tabla theater OK
 - [x] Estados + regla no `inconclusive`→`accepted` OK
 - [x] Mapeo v0 OK
-- [x] GO `EVIDENCE-CHAIN-20260913` → aceptada + Docs índice
+- [x] GO `EVIDENCE-CHAIN-20260913` → accepted + Docs index
 
 ### Vacuous len trap (2026-09-14)
 

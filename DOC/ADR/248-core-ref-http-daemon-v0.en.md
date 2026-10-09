@@ -56,7 +56,7 @@ skip ≠ PASS. Aggregated Lex suite signs the agreed bar (Engineer sets N/N).
 - Lex measure green bar (§2 table)
 - Evidence artifact in tree/local CI
 - ADR-233 / ROADMAP: Core 0.2 **CLOSED**
-- **Sin** unpark global HOLDs
+- **No** global HOLD unpark
 
 ## 5. Post-0.2 (not this CUT)
 

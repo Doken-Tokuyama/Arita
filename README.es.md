@@ -28,12 +28,12 @@ Las versiones anteriores del núcleo (0.1 a 0.8) están cerradas; la escalera co
 
 Huecos de diagnóstico conocidos de esta versión:
 
-- **B-286-3** (P0 de v1.1): en el brazo `Err(e)` de un `match` sobre una lectura del host (`host.read_text`), pasar el payload del error a una variable que no se usa (`let _c: Int = e`) no produce diagnóstico y el programa se acepta. La misma forma sobre una función propia que devuelve `Result` sí da E0272.
-- **B-286-4** (P0 de v1.1): ese mismo binding muerto del payload `Err` dentro de `if let Err(e) = …` o de `while let Err(e) = …` tampoco se diagnostica.
-- **B-286-6** (P0 de v1.1): un `await h()` suelto (en el Rust generado, `h().await;`), cuando `h` devuelve `Result`, descarta el resultado sin diagnóstico.
-- **B-286-6a** (P0 de v1.1): `arita build` no muestra los avisos de rustc sobre el Rust generado; por ejemplo, el `unused_must_use` del caso anterior.
-- **B-286-6b** (P0 de v1.1): el `Result` de un `async fn` propio todavía no se puede consumir: `let r = await h()` da E0203 y `match await h()` no se analiza.
-- **B-297-1** (P1 de v1.1): una palabra clave usada como valor (p. ej. `let x: Int = return`) no se diagnostica: el programa compila y termina antes de tiempo. En otros casos de identificadores no ligados el error lo da rustc en vez de ARITA.
+- **B-286-3** (v0.1.2, fase 2): en el brazo `Err(e)` de un `match` sobre una lectura del host (`host.read_text`), pasar el payload del error a una variable que no se usa (`let _c: Int = e`) no produce diagnóstico y el programa se acepta. La misma forma sobre una función propia que devuelve `Result` sí da E0272.
+- **B-286-4** (v0.1.2, fase 2): ese mismo binding muerto del payload `Err` dentro de `if let Err(e) = …` o de `while let Err(e) = …` tampoco se diagnostica.
+- **B-286-6** (v0.1.2, fase 1): un `await h()` suelto (en el Rust generado, `h().await;`), cuando `h` devuelve `Result`, descarta el resultado sin diagnóstico.
+- **B-286-6a** (v0.1.2, fase 2): `arita build` no muestra los avisos de rustc sobre el Rust generado; por ejemplo, el `unused_must_use` del caso anterior.
+- **B-286-6b** (v0.1.2, fase 1): el `Result` de un `async fn` propio todavía no se puede consumir: `let r = await h()` da E0203 y `match await h()` no se analiza.
+- **B-297-1** (v0.1.2, fase 1): una palabra clave usada como valor (p. ej. `let x: Int = return`) no se diagnostica: el programa compila y termina antes de tiempo. En otros casos de identificadores no ligados el error lo da rustc en vez de ARITA.
 
 En B-286-3, B-286-4 y B-286-6 el programa se acepta y el Rust generado es seguro y hace lo que dice el código, pero el error se pierde sin aviso.
 

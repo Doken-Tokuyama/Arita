@@ -4,7 +4,7 @@
 
 - **Estado:** **propuesta** (rev. 3 — tesis <person> 2026-09-19: *lenguaje real*, no plataforma)
 - **ID:** `RFC-AINATIVE-LANGUAGE-20260919`
-- **Supersede:** rev. 2 (perfiles/proporcional) en *énfasis de producto*; perfiles y ownership siguen vigentes como tooling
+- **Supersede:** rev. 2 (profiles/proportional) in *product emphasis*; profiles and ownership remain in force as tooling
 - **HOLD:** reinicio de CUT/measure **solo tras aviso a <person> y su GO**
 
 ## 0. Canonical formulation
@@ -97,7 +97,7 @@ Modules · record/enum/match · simple generics · Text/Bytes/checked numbers ·
 
 - [x] Tesis lenguaje-first documentada (rev. 3)  
 - [x] Arquitecto alinea ROADMAP + faces (2026-09-19)
-- [ ] Docs firma índice/THREAT_MODEL  
+- [ ] Docs signs index/THREAT_MODEL  
 - [x] Aviso/GO <person> reinicio (R4 → Core 0.1)  
 - [x] Repair oracle DOC (REPAIR-ORACLE.md + ADR-231 propuesta)
 - [x] Pins Core 0.1 → ADR-232

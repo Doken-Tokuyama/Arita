@@ -29,7 +29,7 @@ cargo run -p arita-cli -- parse ejemplos/async/neg/e0240-await-outside.arita
 cargo run -p arita-cli -- parse ejemplos/async/neg/e0241-async-illegal.arita
 # → E0240: await outside async function
 
-# opcional deps bridge (ADR-029; no requerido para emit async hoy)
+# optional bridge deps (ADR-029; not required for async emit today)
 cargo run -p arita-cli -- build ejemplos/deps/01-tokio-bridge.arita
 # stdout: hi / deps-ok  (requiere ejemplos/deps/arita.toml)
 ```
@@ -245,7 +245,7 @@ Whitelist v0 = **tokio-only**. No new surface APIs. Async programs work without 
 - [x] E0240/E0241 + optional E0260/E0261 table OK
 - [x] Counter-examples / no fake PASS OK
 - [x] Separation: load **only** if the task asks for async OK
-- [x] GO → estado **final** + Docs índice + ROADMAP
+- [x] GO → status **final** + Docs index + ROADMAP
 
 ## Links
 

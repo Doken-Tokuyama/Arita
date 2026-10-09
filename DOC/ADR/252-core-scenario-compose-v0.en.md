@@ -20,7 +20,7 @@ Stable **multi-hop** scenarios/acceptance: gateway + upstream(s) on ephemeral po
 |-----|----------|
 | **Harness** | 2 binds (`gateway` port 0 + `upstream` port 0) **or** 1 dual-listen process — Measure chooses; DOC in oracle |
 | **Client** | only `HttpClient` 247 (get/post_text) |
-| **Coverage mínima** | happy compose · fail-A · fail-B · (optional) 4xx forward |
+| **Minimum coverage** | happy compose · fail-A · fail-B · (optional) 4xx forward |
 | **Lifecycle** | start both → scenarios → shutdown both (no hang) |
 | **OUT** | browser · TLS · chaos mesh · >2 hops |
 

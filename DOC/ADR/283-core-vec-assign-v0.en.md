@@ -79,7 +79,7 @@ fn main() -> Io<()> {
 ### 1.1 Reference emit (Codegen chooses A or B; both without panic)
 
 ```text
-// A — get_mut + usize::try_from (R1: no `as usize`; R2: temporales antes del &mut)
+// A — get_mut + usize::try_from (R1: no `as usize`; R2: temporaries before the &mut)
 { let __i: i64 = <i>; let __x = <x>;
   let __slot = match usize::try_from(__i) { Ok(__u) => <v>.get_mut(__u), Err(_) => None };
   match __slot {
@@ -87,7 +87,7 @@ fn main() -> Io<()> {
     None => return Err(0),
   } }
 
-// B — helper ADR-265 + early-return (≡ desugar `?`); R2: temporales antes del &mut
+// B — helper ADR-265 + early-return (≡ desugar `?`); R2: temporaries before the &mut
 { let __i: i64 = <i>; let __x = <x>; __arita_vec_set(&mut <v>, __i, __x)?; }
 ```
 
@@ -162,8 +162,8 @@ The design is accepted (HIR decides E0344/E0314 or returns the deferred E0001/E0
 
 **E0344** `index assign outside result fn` — statement `v[i] = x` on `Vec`/`List` outside the body of a synchronous function whose return type is `Result<_,_>` (e.g. `fn main() -> Io<()>`, non-Result fn, `async fn`, `test`).
 
-- **Emisión:** canonical message `index assign outside result fn` + statement span `@a..b`, **no hint**. Missing hint **does not block CLOSED**; the fix-hint moves to Backlog (Engineer 2026-09-26 22:20, backlog accepted).
-- **Dueño:** this ADR (283).
+- **Emission:** canonical message `index assign outside result fn` + statement span `@a..b`, **no hint**. Missing hint **does not block CLOSED**; the fix-hint moves to Backlog (Engineer 2026-09-26 22:20, backlog accepted).
+- **Owner:** this ADR (283).
 - **No** reassign E0343 / E0342 / E0319 / E0314 / E0272 / E0340 / E0341 / E0291.
 - Note: E0344 today appears only in a negative HIR test assertion (Option? → E0203, `!starts_with("E0344")`); no prior meaning.
 

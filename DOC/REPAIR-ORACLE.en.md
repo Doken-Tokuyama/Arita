@@ -1,11 +1,13 @@
 [Español](REPAIR-ORACLE.md) | English
 
+Translation of `REPAIR-ORACLE.md`; the original is normative. / Traducción de `REPAIR-ORACLE.md`; el original es el normativo.
+
 # ARITA Repair Oracle — compiler-guided autonomous correction
 
-- **Estado:** **propuesta** (rev. 1.2 — memoria + presupuestos + envelope + estancamiento)
-- **Producto:** el compilador es un **oráculo estructurado**, no un mensaje de error pegado al LLM
-- **Relacionados:** RFC rev. 3 · PRODUCT-VISION · evidencia/scenarios · ADR-231
-- **HOLD IMPL** `arita repair` / CUT hasta GO reinicio <person>
+- **Status:** **v0.1.2 point 6: structured diagnostics, deterministic suggestions and `arita fix`** (rev. 1.2 — memory + budgets + envelope + stagnation)
+- **Product:** the compiler is a **structured oracle**, not an error message pasted into the LLM
+- **Related:** RFC rev. 3 · PRODUCT-VISION · evidence/scenarios · ADR-231
+- **HOLD lifted** (GO <person> 2026-10-09 18:26, via the engineer); v0.1.2 point 6: structured diagnostics, deterministic suggestions and `arita fix` (previously: **HOLD IMPL** `arita repair` / CUT until restart GO from <person>)
 
 ## 0. Thesis
 
@@ -21,18 +23,18 @@ The agent proposes a **minimal change**; the compiler and validators produce **f
 
 
 
-## 0.1 Self-improvement (what yes / what no)
+## 0.1 Self-improvement (what it is / what it is not)
 
 There are two “self-improvements”; ARITA starts with the **first**:
 
 1. **External repair memory** — auditable, reversible; does not modify model weights.
-2. **LLM finetuning** — expensive; only with thousands of golden pairs. Earlier it amplifies noise.
+2. **LLM finetuning** — expensive; only with thousands of golden pairs. Before that, it amplifies noise.
 
 The system mainly improves the **compiler, the rules, and the Repair Controller**, not the opaque model.
 
 ## 0.2 Failure memory (immutable log)
 
-Each failure/repair is stored structured (not free-form “prompt→response”):
+Each failure/repair is stored in structured form (not as free-form “prompt→response”):
 
 \[
 \text{diagnosis} + \text{semantic context} +
@@ -78,7 +80,7 @@ diagnostic_code + semantic_rule + HIR node kind
 | `ARI-ERR-005` | Ignored `Result` | `?` / `match` / typed recover |
 | `ARI-TOT-003` | Partial operation | `get()?` / refined index |
 | `ARI-OWN-002` | borrow conflict | shorten scope / owned local / reorder / tx |
-| `ARI-ASY-011` | guard × await | cerrar scope / actor / canal |
+| `ARI-ASY-011` | guard × await | close scope / actor / channel |
 | `ARI-EFF-004` | Missing capability | effect-free API / request permission / redesign |
 | `ARI-POL-001` | unsafe/panic escape | **reject**; safe API or block |
 
@@ -97,27 +99,27 @@ Each `golden` → ARITA regression test + tighter rule/diagnostic + doc + determ
 ## 1. Anti-loop (forbidden)
 
 ```text
-IA genera → cargo check falla → IA prueba cambios aleatorios hasta que “desaparezca”
+AI generates → cargo check fails → AI tries random changes until it “goes away”
 ```
 
 ## 2. Correct loop
 
 ```text
-Objetivo verificable
+Verifiable goal
    ↓
-Plan y cambio mínimo
+Plan and minimal change
    ↓
-Parse / typecheck ARITA
+ARITA parse / typecheck
    ↓
-Emisión Rust determinista
+Deterministic Rust emission
    ↓
-Compilador, lints, tests y verificadores
+Compiler, lints, tests and verifiers
    ↓
-Clasificación del fallo (causa raíz)
+Failure classification (root cause)
    ↓
-Reparación acotada o rollback
+Bounded repair or rollback
    ↓
-Nueva evidencia sobre revisión inmutable
+New evidence on an immutable revision
 ```
 
 Each attempt **must** attach:
@@ -175,7 +177,7 @@ Do not send only the `rustc` text. Normalize to ARITA:
       "end_line": 47,
       "end_column": 31
     },
-    "message": "No puedes mutar `routes` mientras existe un préstamo de lectura activo.",
+    "message": "You cannot mutate `routes` while an active read borrow exists.",
     "cause": {
       "kind": "shared_borrow",
       "origin_span": {
@@ -201,13 +203,13 @@ Do not send only the `rustc` text. Normalize to ARITA:
 }
 ```
 
-The agent gets: **violated rule · allowed transforms · forbidden · locus · evidence** — not “make it compile”.
+The agent gets: **violated rule · allowed transforms · forbidden ones · location · evidence** — not “make it compile”.
 
 
 
 ## 4.1 Diagnostic envelope (agent channel)
 
-Two channels: (1) short human with snippets; (2) **typed JSON/CBOR** — the agent does **not** parse terminal ANSI.
+Two channels: (1) a short, human-readable one with snippets; (2) **typed JSON/CBOR** — the agent does **not** parse terminal ANSI.
 
 ### Envelope
 
@@ -221,9 +223,9 @@ Cascades: `cascade_errors_suppressed` avoids spending attempts on symptoms.
 
 ### Evidence with authorized claims
 
-`schema_version: arita.evidence.v1` · checks con status/duration/bounds ·  
-`claims_permitted` (p.ej. `compiled`, `tested`, `bounded_verified_parser`) ·  
-`claims_forbidden` (p.ej. `fully_verified`) — el agente **sólo** puede afirmar claims permitidos.
+`schema_version: arita.evidence.v1` · checks with status/duration/bounds ·  
+`claims_permitted` (e.g. `compiled`, `tested`, `bounded_verified_parser`) ·  
+`claims_forbidden` (e.g. `fully_verified`) — the agent may **only** assert permitted claims.
 
 ## 5. Repair taxonomy (closed set)
 
@@ -263,12 +265,12 @@ Do not lump 100 errors. Typical cascades: parse blocks resolve; symbols block ty
 ```json
 {
   "diagnostic": "ARI-OWN-002",
-  "hypothesis": "El borrow compartido de `routes` sobrevive más de lo necesario; sólo hace falta `route_id`.",
-  "proposed_change": "Extraer `route_id` owned y terminar el borrow antes de `routes.insert`.",
-  "expected_effect": "Eliminar conflicto mutable/compartido sin clonar la colección.",
+  "hypothesis": "The shared borrow of `routes` lives longer than needed; only `route_id` is required.",
+  "proposed_change": "Extract an owned `route_id` and end the borrow before `routes.insert`.",
+  "expected_effect": "Remove the mutable/shared conflict without cloning the collection.",
   "affected_invariants": [
-    "route_id identifica la ruta",
-    "insert conserva unicidad de ID"
+    "route_id identifies the route",
+    "insert preserves ID uniqueness"
   ],
   "verification_plan": [
     "arita check routes.arita",
@@ -287,9 +289,9 @@ Limits:
 
 - 1–3 production files / attempt
 - One semantic module
-- **No** cambiar a la vez producción y criterios de aceptación bloqueados
-- **No** policy / dependencia / capability sin aprobación
-- **No** borrar tests / reducir cobertura para “arreglar”
+- **Do not** change production code and locked acceptance criteria at the same time
+- **No** policy / dependency / capability changes without approval
+- **Do not** delete tests / reduce coverage to “fix” things
 - Reject escapes: `unsafe`, `unwrap`, `expect`, `todo!`, `unimplemented!`, `#[allow]`, `cfg` that hides paths
 
 ### 6.5 Revalidate from the bottom
@@ -297,7 +299,7 @@ Limits:
 ```text
 ARITA parse → resolve → type → ownership/effects
   → emit Rust → cargo check → target tests
-  (+ property / Kani si aplica)
+  (+ property / Kani if applicable)
 ```
 
 Results linked to the **post-patch hash**.
@@ -342,11 +344,11 @@ Knowledge base per code:
 
 ```text
 diagnostic code
-  → regla semántica violada
-  → formas válidas de programa
-  → ejemplos mínimos
-  → restricciones de policy
-  → tests/gates obligatorios
+  → violated semantic rule
+  → valid program shapes
+  → minimal examples
+  → policy constraints
+  → mandatory tests/gates
 ```
 
 Example `ARI-ERR-005` (unconsumed `Result`): valid shapes `?` / `match` / `recover`; invalid `unwrap` / `default` / `let _ =`; requires an error case in tests.
@@ -362,7 +364,7 @@ Example `ARI-ERR-005` (unconsumed `Result`): valid shapes `?` / `match` / `recov
 ## 11. Repair Controller architecture
 
 ```text
-        Tarea + especificación
+        Task + specification
                   │
                   ▼
            Planner LLM
@@ -397,9 +399,9 @@ Example `ARI-ERR-005` (unconsumed `Result`): valid shapes `?` / `match` / `recov
 ## 11.1 Extended architecture (rev. 1.2)
 
 ```text
-Tarea / SPEC / aceptación
+Task / SPEC / acceptance
         ↓
-Planificador LLM → patch candidato
+LLM planner → candidate patch
         ↓
 ┌─────────────────────────────────────────────┐
 │ Repair Controller                            │
@@ -472,8 +474,8 @@ Residual: URL parser fuzzed 5m; no formal proof of normalization.
 
 ```text
 Status: BLOCKED
-Reason: el requisito no especifica si http:// es válido o debe exigirse HTTPS.
-No se aplicó ningún cambio irreversible.
+Reason: the requirement does not specify whether http:// is valid or HTTPS must be required.
+No irreversible change was applied.
 ```
 
 ## 13. Golden rule

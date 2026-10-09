@@ -48,7 +48,7 @@ With the `IndexAssign` node, the Map vs non-Map decision is taken in HIR after t
 ## 1. Surface example
 
 ```text
-// POS — insert / overwrite (cualquier contexto); RHS expr v0
+// POS — insert / overwrite (any context); RHS expr v0
 fn main() -> Io<()> {
   let mut m: Map<Text, Int> = Map::new()
   m["a"] = 7                 // insert

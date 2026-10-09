@@ -23,7 +23,7 @@ Modules · canonical types · Option/Result · simple ownership · bounded I/O �
 
 ## Estado
 
-Propuesta rev. 3 (2026-09-19). **HOLD** reinicio de CUT/measure hasta aviso a <person> y su GO.
+Proposal rev. 3 (2026-09-19). **HOLD** CUT/measure restart until notice to <person> and their GO.
 
 ## Also
 

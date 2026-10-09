@@ -28,7 +28,7 @@ Unsupported requests → `MethodNotFound` (`unsupported in arita lsp v0: …`).
 From the workspace (bin on `PATH` or via `cargo`):
 
 ```bash
-# release (recomendado para editores)
+# release (recommended for editors)
 cargo build -p arita-cli --release
 ./target/release/arita lsp
 

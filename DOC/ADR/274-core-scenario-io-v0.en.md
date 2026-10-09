@@ -21,7 +21,7 @@ Scenarios/acceptance that exercise **H1+H2 together** on host 238 (happy read+ar
 |-----|----------|
 | **Harness** | language-level `scenario`/`acceptance` (reuse 0.1 / 267 / 262 style) |
 | **Entrada** | file path + **required** args/JSON via host 238 only |
-| **Mínimo** | ≥3 scenarios: happy IO+CLI/JSON · read Err and/or required miss fail · ≥1 neg (E0340 **or** E0341) |
+| **Minimum** | ≥3 scenarios: happy IO+CLI/JSON · read Err and/or required miss fail · ≥1 neg (E0340 **or** E0341) |
 | **Preferido** | CLI bin + stdout oracle **or** in-process scenario if emit allows |
 | **OUT** | new host APIs · Mutex · net/HTTP · IndexMut · crates.io |
 

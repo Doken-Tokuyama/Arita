@@ -35,24 +35,24 @@ Translation of `294-core-known-int-scope-v0.md`; the original is normative. / Tr
 - **Mecanismo** (PREP §3, verified by reading `crates/arita-hir/src/lib.rs`, sha256 `d0571e12419dae491ec7ce5dcfba99ad247c045793fc3c1f6c53abf1ee575807`, 9630 lines, unchanged since PREP): `bindings` is a single flat per-function `HashMap`; `check_body` (L4141–L4146) is `for s in body { check_stmt(s)? }` with no scope open/close; `If` (L3696–L3711) checks `then` and `else` on the **same** map; loops are checked **once**, in source order; an inner `let` does `bindings.insert` and is **not** removed on block exit; only `if let`/`while let`/`match` pattern bindings are restored (L3739–L3750, L3802–L3812, `match` arms). Straight **assignment** is correct (`Assign`, L3838–L3855: literal ⇒ `Some(n)`, other RHS ⇒ `None`). The defect is in **path merge**, **loop**, and **scope**.
 - **Falso positivo MEDIDO** (PREP §4.1; `arita parse` with the already-built `target/debug/arita` binary, not rebuilt, not verified by source hash): fp1, fp2, fp3, fp4 ⇒ `E0217: integer overflow`; fp7 ⇒ `E0216: integer division by zero`; all five are valid programs with no execution path that overflows or divides by 0. Also fpw5 and fpw6 ⇒ `E0217` (**path-dependent**: with `n = 3` fpw5 overflows at runtime; fpw6 overflows after two iterations; see §4 and Q2).
 - **Falsos negativos medidos** (PREP §4.2): fn1–fn4 yield `ok` from `arita parse` and overflow at runtime (panic 101 [L] per ADR-292).
-- **Controles** (PREP §4.3): c1–c4 `ok` today; c5 and c6 `E0217` today. The 17 files under `/tmp/arita_b292/cases/` are **identical, block for block**, to the PREP sources (checked today).
+- **Controls** (PREP §4.3): c1–c4 `ok` today; c5 and c6 `E0217` today. The 17 files under `<scratch>/arita_b292/cases/` are **identical, block for block**, to the PREP sources (checked today).
 - **Corpus** (PREP §5, lexical, not run today): 867 `.arita`, 16 `ident = …` assignments in 9 files, **0** with integer-literal RHS; 0 nested `let x: Int = <lit>` shadows over an outer `x`; **0 affected positives, 0 false positives in the corpus**. v1 risk per PREP: **MEDIUM** (probability 0/867; severity: valid program rejected with no escape short of rewrite).
 - **Todos los consumidores de `fold_i64`** are polluted by the same defect: 39 lines / 42 occurrences of `self.fold_i64` (re-verified today), including E0217 `+ - *` (L724–L739), E0217 MIN÷−1 (L3315, L3339) and E0216 (e.g. L2832). So the fix is in `known_int`, not in E0217.
-- **Referencias de código verificadas por lectura:** `BindingState` L375–L380 (`known_int` L380); `fold_i64` L455–L463; E0217 L724–L739; `Let` L3594, `known_int` compute L3652–L3655 and `bindings.insert` L3666–L3680; `Expr` L3683; `If` L3696–L3711; `IfLet` L3713–L3757; `WhileLet` L3759–L3818; `While` L3820–L3830; `Assign` L3838–L3855; `Match` L3876–L4137; `check_body` L4141–L4146; `stmt_uses_ident` L4363; `body_uses_ident` L4419; inserts with `known_int: None` at L3739, L3802, L3912, L3993 and L5078. Call sites of `check_body`/`check_stmt` inside control arms: L3707, L3709, L3748, L3755, L3811, L3828, L3925, L4006, L4084 and L4127 (the enum `match` arm checks per statement with `check_stmt`).
+- **Code references verified by reading:** `BindingState` L375–L380 (`known_int` L380); `fold_i64` L455–L463; E0217 L724–L739; `Let` L3594, `known_int` compute L3652–L3655 and `bindings.insert` L3666–L3680; `Expr` L3683; `If` L3696–L3711; `IfLet` L3713–L3757; `WhileLet` L3759–L3818; `While` L3820–L3830; `Assign` L3838–L3855; `Match` L3876–L4137; `check_body` L4141–L4146; `stmt_uses_ident` L4363; `body_uses_ident` L4419; inserts with `known_int: None` at L3739, L3802, L3912, L3993 and L5078. Call sites of `check_body`/`check_stmt` inside control arms: L3707, L3709, L3748, L3755, L3811, L3828, L3925, L4006, L4084 and L4127 (the enum `match` arm checks per statement with `check_stmt`).
 
 ## 3. Planned minimal change (to verify in IMPL)
 
 - **`arita-hir`, `check_stmt`:** the D2 helper and its use in the `If`, `IfLet`, `While`, `WhileLet`, `Match` arms (the three `Match` scrutinee kinds: Result/Option, Bool/Int and enum). **PREP estimate, not measured:** +45–60 production lines.
-- **Tests HIR (unit, fuera de los oráculos de Measure):** ~10 `adr294_*` tests (PREP called them `adr292b_*`; **(corrected)** to this ADR’s id), ~150 LOC per PREP, with sources in `const` **outside** `#[test]` (B-286-5):
+- **HIR unit tests (outside Measure oracles):** ~10 `adr294_*` tests (PREP called them `adr292b_*`; **(corrected)** to this ADR’s id), ~150 LOC per PREP, with sources in `const` **outside** `#[test]` (B-286-5):
   - fp1, fp2, fp3, fp4, fp7, fpw5, fpw6 ⇒ `Ok` (fpw5 and fpw6 are **unit-only**, not corpus: Q2);
   - c1–c6 as controls (c1–c4 `Ok`, **unit-only**, not promoted to oracles: Q3; c5 and c6 `E0217`);
   - fn1–fn4 ⇒ “stays Ok” (controls for the known false negative);
   - **at least one** `adr294_match_pattern_binding_*` (Q4): `match` with pattern binding (Result/Option/enum) and enum arm with `check_stmt` per statement, checking that an `Assign` in one arm neither contaminates a sibling nor survives after the `match`.
   
-  The exact split across test functions (17 sources, ~10 tests) is decided by IMPL. **0 existing tests modified** (PREP §7: the E0217 HIR tests `e0217_*` L6121–L6236 are straight-line; no HIR test builds `HirStmt::Assign`; `adr283_eq_set_negative_lit_and_known_int_e0319` L8579 is straight-line).
+  The exact split across test functions (17 sources, ~10 tests) is decided by IMPL. **0 existing tests modified** (PREP §7: the E0217 HIR tests `e0217_*` L6121–L6236 are straight-line; not HIR test builds `HirStmt::Assign`; `adr283_eq_set_negative_lit_and_known_int_e0319` L8579 is straight-line).
 - **Measure:** register the 7 §4 oracles: fp1, fp2, fp3, fp4 and fp7 (new fixtures under `ejemplos/core10/known-int/`), c6 (**new** fixture under `ejemplos/core10/known-int/neg/`) and c5, which **REUSES** the existing fixture `ejemplos/f2/neg/e0217-runtime-max-plus.arita` without modifying or duplicating it (only wired in measure, same E0217 contract, exit 1); Measure/Engineer does it.
-- **Sin cambios:** `arita-syntax`, Codegen, `arita-cli` (except oracle registration), `package.rs`.
-- **Validación tras el gate (PREP §9.4, no ejecutada):** `cargo test -p arita-hir adr294`, `cargo test -p arita-hir`, `cargo clippy -p arita-hir --all-targets -- -D warnings`, `cargo fmt --check`, and `arita parse` of the cases expecting Ok on fp1–fp4, fp7, fpw5, fpw6, c1–c4 and `E0217` on c5 and c6.
+- **No changes:** `arita-syntax`, Codegen, `arita-cli` (except oracle registration), `package.rs`.
+- **Post-gate validation (PREP §9.4, not executed):** `cargo test -p arita-hir adr294`, `cargo test -p arita-hir`, `cargo clippy -p arita-hir --all-targets -- -D warnings`, `cargo fmt --check`, and `arita parse` of the cases expecting Ok on fp1–fp4, fp7, fpw5, fpw6, c1–c4 and `E0217` on c5 and c6.
 
 ## 4. Oracles (k = 7)
 
@@ -78,7 +78,7 @@ Translation of `294-core-known-int-scope-v0.md`; the original is normative. / Tr
 - **B-292-2 (P2 → P1):** closes at this ADR’s CLOSED (documentary close with addendum on ADR-292 by the Engineer).
 - **B-294-1 (P2, propuesta):** inherited `ty`/`mutable`/`moved` shadow via an inner `let`. Option A fixes `known_int` but an inner `let` still permanently replaces the outer’s whole `BindingState` (PREP §3.5 and §7). `moved` is a **read suspicion, not measured** [H].
 - **B-294-2 (P3, propuesta):** fn1–fn4 — flow-sensitive E0217 (option B) to catch path-reachable overflow at compile time; today ADR-292’s panic 101 covers it.
-- **B-292-1 y demás backlog de ADR-292:** unchanged.
+- **B-292-1 and the rest of the backlog of ADR-292:** unchanged.
 
 ## 6. Risks
 
@@ -101,7 +101,7 @@ Translation of `294-core-known-int-scope-v0.md`; the original is normative. / Tr
 - **Q1 — RESUELTA:** ids and paths accepted: positives `core10-known-int-fp1-else-bleed`, `-fp2-match-arm`, `-fp3-loop-carried`, `-fp4-shadow-leak` and `-fp7-e0216-else` under `ejemplos/core10/known-int/`; negs c5 and c6. **c5 REUSES** the existing fixture `ejemplos/f2/neg/e0217-runtime-max-plus.arita` without modifying or duplicating it (only wired in measure; same E0217 contract, exit 1; its sha is recorded in the freeze); **c6 NEW fixture** under `ejemplos/core10/known-int/neg/` (§4).
 - **Q2 — RESUELTA:** fpw5 y fpw6 son **tests unitarios**, no corpus.
 - **Q3 — RESUELTA:** c1–c4 are **NOT** promoted: unit tests.
-- **Q4 — RESUELTA (SÍ):** the helper covers `match` with pattern binding (Result/Option/enum) and the enum arm that calls `check_stmt` per statement (HIR ~L4127); at least one unit test `adr294_match_pattern_binding_*` (D2.5, §3).
+- **Q4 — RESOLVED (YES):** the helper covers `match` with pattern binding (Result/Option/enum) and the enum arm that calls `check_stmt` per statement (HIR ~L4127); at least one unit test `adr294_match_pattern_binding_*` (D2.5, §3).
 - **Q5 — RESUELTA:** no closures/`spawn` with a body today; risk note left for the ADR that introduces them (§6.7).
 - No open questions.
 

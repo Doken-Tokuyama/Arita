@@ -8,7 +8,7 @@
 - **Engine:** `LOGIC-ENGINE-V0` / `crates/arita-logic` (**landed**)
 - **Barra:** solo programas reales bajo `ejemplos/f3/`. skip ≠ PASS. Sin theater. **Cero IDNI**.
 - **ADR-099:** `f3-11`/`f3-12` anti partial-PASS **verified** Logic `f3_` **12/12** (E0301; evidencia `F3_UNSAT_FAIL_NEXT_EVIDENCE.md`).
-- **Separado** de `PACK-F1.1-FEWSHOT.md` y `PACK-F2-FEWSHOT.md`. Default IA = F1.1/F2; cargar este PACK **solo** si la tarea pide lógica F3.
+- **Separate** from `PACK-F1.1-FEWSHOT.md` and `PACK-F2-FEWSHOT.md`. Default AI = F1.1/F2; load this PACK **only** if the task asks for F3 logic.
 
 ## Usage
 

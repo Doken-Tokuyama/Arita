@@ -112,7 +112,7 @@ Path: `ejemplos/02-hello-lines.arita`. Stdout oracle: `line one` / `line two` / 
 **Assistant:**
 
 ```arita
-// F1.1 — módulo con nombre distinto
+// F1.1 — module with a different name
 module greet
 
 fn main() -> Io<()> {

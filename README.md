@@ -28,12 +28,12 @@ Earlier core versions (0.1 to 0.8) are closed; the full ladder is in the [roadma
 
 Known diagnostic gaps in this version:
 
-- **B-286-3** (v1.1 P0): in the `Err(e)` arm of a `match` on a host read (`host.read_text`), passing the error payload to a variable that is never used (`let _c: Int = e`) produces no diagnostic and the program is accepted. The same form on a user function that returns `Result` does give E0272.
-- **B-286-4** (v1.1 P0): that same dead binding of the `Err` payload inside `if let Err(e) = …` or `while let Err(e) = …` is not diagnosed either.
-- **B-286-6** (v1.1 P0): a bare `await h()` (in the generated Rust, `h().await;`), when `h` returns `Result`, discards the result without a diagnostic.
-- **B-286-6a** (v1.1 P0): `arita build` does not show rustc warnings about the generated Rust; for example, the `unused_must_use` of the previous case.
-- **B-286-6b** (v1.1 P0): the `Result` of a user `async fn` cannot be consumed yet: `let r = await h()` gives E0203 and `match await h()` is not parsed.
-- **B-297-1** (v1.1 P1): a keyword used as a value (e.g. `let x: Int = return`) is not diagnosed: the program compiles and exits early. In other cases of unbound identifiers the error comes from rustc instead of ARITA.
+- **B-286-3** (v0.1.2, phase 2): in the `Err(e)` arm of a `match` on a host read (`host.read_text`), passing the error payload to a variable that is never used (`let _c: Int = e`) produces no diagnostic and the program is accepted. The same form on a user function that returns `Result` does give E0272.
+- **B-286-4** (v0.1.2, phase 2): that same dead binding of the `Err` payload inside `if let Err(e) = …` or `while let Err(e) = …` is not diagnosed either.
+- **B-286-6** (v0.1.2, phase 1): a bare `await h()` (in the generated Rust, `h().await;`), when `h` returns `Result`, discards the result without a diagnostic.
+- **B-286-6a** (v0.1.2, phase 2): `arita build` does not show rustc warnings about the generated Rust; for example, the `unused_must_use` of the previous case.
+- **B-286-6b** (v0.1.2, phase 1): the `Result` of a user `async fn` cannot be consumed yet: `let r = await h()` gives E0203 and `match await h()` is not parsed.
+- **B-297-1** (v0.1.2, phase 1): a keyword used as a value (e.g. `let x: Int = return`) is not diagnosed: the program compiles and exits early. In other cases of unbound identifiers the error comes from rustc instead of ARITA.
 
 In B-286-3, B-286-4 and B-286-6 the program is accepted and the generated Rust is safe and does what the code says, but the error is lost without warning.
 
